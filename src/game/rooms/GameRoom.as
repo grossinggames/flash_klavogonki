@@ -3,10 +3,10 @@ package game.rooms
 	import flash.display.Bitmap;
 	import flash.events.Event;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.events.MouseEvent;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
-	import flash.text.TextFormat;
 	import common.room.Room;
 	import common.Common;
 	
