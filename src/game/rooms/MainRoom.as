@@ -1,7 +1,6 @@
 package game.rooms
 {
-	import flash.display.*;	
-	import flash.display.Bitmap;
+	import flash.display.*;	import flash.display.Bitmap;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.events.Event;
@@ -13,10 +12,17 @@ package game.rooms
 	import common.room.Room;
 	import flash.display.Sprite;
 	import common.Common;
-
+	import game.rooms.mainroom.Race;
+    import flash.utils.Timer;
+    import flash.events.TimerEvent;
 	
 	public class MainRoom extends Room
 	{	
+		
+		// Массив игр
+		private var raceList:Array = [];
+		private var raceStepY:Number = 70;
+		
 		public function MainRoom()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
@@ -130,7 +136,90 @@ package game.rooms
 			addChild(btnMainRoom);
 			*/
 			
+			/* Контейнер списока игр */
+			var gameListHub:Sprite = new Sprite;
+			gameListHub.x = 50;
+			gameListHub.y = 300;
+			addChild(gameListHub);
+
+			// Метод добавления заезда
+			function addRace():void {
+				raceList.push( new Race() );
+			    
+				var raceIndex:Number = raceList.length - 1;
+				raceList[raceIndex].y = raceIndex * raceStepY;
+				gameListHub.addChild( raceList[raceIndex] );
+			}
+
+			// Метод удаления заезда
+			function removeRace():void {
+				if (raceList.length) {
+					var raceIndex:Number = getRaceRandom();
+					gameListHub.removeChild( raceList[raceIndex] );
+					trace('Remove index ', raceIndex);
+					raceList.splice(raceIndex, 1);
+				}
+			}
+			
+			// Получить случайный индекс в массиве
+			function getRaceRandom():Number {
+				var raceIndex:Number = 0;
+				var raceTotal:Number = raceList.length - 1;
+				raceIndex = randomInt(raceIndex, raceTotal);
+				return raceIndex;
+			}
+			
+			// Рендомное число типа int
+			function randomInt(min:Number, max:Number):Number {
+			    var rand:Number = min + Math.random() * (max + 1 - min);
+			    rand = Math.floor(rand);
+			    return rand;
+			}
+			
+			//  Таймер для добавления и удаления заезда
+			var raceTimer:Timer = new Timer(2000);
+            raceTimer.addEventListener("timer", raceTimerHandler);
+            raceTimer.start();
+			
+			function raceTimerHandler(event:TimerEvent):void {
+				trace("timerHandler");
+				var raceTotal:Number = 7;
+				var isAddRace:Number = randomInt(0, 1);
+				
+				if (!raceList.length) {
+					isAddRace = 1;
+				}
+				
+				if ( isAddRace && (raceList.length < raceTotal) ) {
+					addRace();
+					trace('Add');
+				} else if (raceList.length) {
+					removeRace();
+					trace('Remove');
+				}
+				
+			}
+			
+			addRace();
+			addRace();
+			addRace();
+			addRace();
+			addRace();
+			addRace();
+			addRace();
+			
+			
+			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			
 		}
+		
+        public function enterFrameHandler(event:Event):void {
+			// Расстановка заездов по строкам
+			for (var raceIndex:int = 0, raceTotal:int = raceList.length; raceIndex < raceTotal; raceIndex++) {
+                var newPosY:Number = ( (raceIndex * raceStepY) - raceList[raceIndex].y ) * 0.1;
+				raceList[raceIndex].y += newPosY;
+			}
+        }
 		
 		public function mouseDown(event:MouseEvent):void {
 			//Common.p2pConnect();
