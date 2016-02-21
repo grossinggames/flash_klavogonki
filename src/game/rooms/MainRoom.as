@@ -1,6 +1,7 @@
 package game.rooms
 {
-	import flash.display.*;	import flash.display.Bitmap;
+	import flash.display.*;	
+	import flash.display.Bitmap;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.events.Event;
@@ -144,7 +145,8 @@ package game.rooms
 
 			// Метод добавления заезда
 			function addRace():void {
-				raceList.push( new Race() );
+				var newRace:Race = new Race;
+				raceList.push(newRace);
 			    
 				var raceIndex:Number = raceList.length - 1;
 				raceList[raceIndex].y = raceIndex * raceStepY;
@@ -181,21 +183,26 @@ package game.rooms
             raceTimer.addEventListener("timer", raceTimerHandler);
             raceTimer.start();
 			
+			// Обработчик на таймер
 			function raceTimerHandler(event:TimerEvent):void {
 				trace("timerHandler");
 				var raceTotal:Number = 7;
 				var isAddRace:Number = randomInt(0, 1);
 				
-				if (!raceList.length) {
+				// Если количество заездов меньше 4, принудительно создаем заезд
+				if (raceList.length < 4) {
 					isAddRace = 1;
 				}
 				
+				// Если добавл
 				if ( isAddRace && (raceList.length < raceTotal) ) {
 					addRace();
 					trace('Add');
-				} else if (raceList.length) {
+				} else if (raceList.length > 0) {
 					removeRace();
-					trace('Remove');
+   			        trace('Remove');
+				} else {
+					trace('Ошибка! Не создаем и не удаляем заезды!');
 				}
 				
 			}
@@ -205,9 +212,6 @@ package game.rooms
 			addRace();
 			addRace();
 			addRace();
-			addRace();
-			addRace();
-			
 			
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			
