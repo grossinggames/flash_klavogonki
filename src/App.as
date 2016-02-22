@@ -20,7 +20,7 @@ package
 			Common.createRoom(new GameRoom, 'GameRoom');
 
 			Common.switchRoom('MainRoom');
-			Common.switchRoom('GameRoom');
+			//Common.switchRoom('GameRoom');
 		}
 
 	}

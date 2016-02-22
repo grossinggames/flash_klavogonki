@@ -16,6 +16,7 @@ package game.rooms
 	import game.rooms.mainroom.Race;
     import flash.utils.Timer;
     import flash.events.TimerEvent;
+	import game.rooms.mainroom.WaitPlayer;
 	
 	public class MainRoom extends Room
 	{	
@@ -23,18 +24,28 @@ package game.rooms
 		// Массив игр
 		private var raceList:Array = [];
 		private var raceStepY:Number = 70;
-		private var raceTotal:Number = 7;		
+		private var raceTotal:Number = 7;	
 		
+		// Формат текста для надписи готовы
+		private var formatReadyText:TextFormat = new TextFormat();
+		
+		//  Таймер для добавления поиска нового клиента для заезда
+		private var addNewPlayeTimer:Timer = new Timer(2500);
+
 		public function MainRoom()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 
-			// Формат текста
+			// Формат текста для меню
 			var formatText:TextFormat = new TextFormat();
 			formatText.font = 'Arial';
 			formatText.size = 18;
 			
-			
+			// Формат текста для надписи готовы
+			formatReadyText.font = 'Arial';
+			formatReadyText.size = 16;
+			formatReadyText.color = 0xFFFFFF;
+
 			/* Быстрый страт */
 			// Колесо
 			[Embed(source = "../../../lib/images/wheel.gif")] 
@@ -68,7 +79,8 @@ package game.rooms
 				Mouse.cursor = MouseCursor.AUTO;
 			}
 			function mouseDown(event:MouseEvent):void {
-				Common.switchRoom("GameRoom");
+                waitPlayers();
+				//Common.switchRoom("GameRoom");
 			}
 			
 
@@ -274,9 +286,122 @@ package game.rooms
 			}
 			
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-			
 		}
 
+		// Анимация ожидания игроков
+        private function waitPlayers():void {
+			// Контейнер ожидания
+			var wait:Sprite = new Sprite();
+			addChild(wait);
+			
+			// Задний фон
+			var bg:Sprite = new Sprite();
+			bg.graphics.beginFill(0);
+			bg.graphics.drawRect(0, 0, 800, 850);
+			bg.graphics.endFill();
+			bg.alpha = 0.2;
+			wait.addChild(bg);
+			
+			// Спрайт карты
+			[Embed(source = "../../../lib/images/map.jpg")] 
+			var mapClass:Class;
+			var map:Sprite = Common.createSpr( new mapClass() );
+			map.x = 100;
+			map.y = 265;
+            wait.addChild(map);
+			
+			// Спрайт на ожидание игроков
+			var player1:WaitPlayer =  new WaitPlayer;
+			player1.x = 305;
+			player1.y = 400;
+			player1.off();
+            wait.addChild(player1);
+			
+			var player2:WaitPlayer =  new WaitPlayer;
+			player2.x = 340;
+			player2.y = 400;
+			player2.off();
+            wait.addChild(player2);
+			
+			var player3:WaitPlayer =  new WaitPlayer;
+			player3.x = 375;
+			player3.y = 400;
+			player3.off();
+            wait.addChild(player3);
+			
+			var player4:WaitPlayer =  new WaitPlayer;
+			player4.x = 410;
+			player4.y = 400;
+			player4.off();
+            wait.addChild(player4);
+			
+			var player5:WaitPlayer =  new WaitPlayer;
+			player5.x = 445;
+			player5.y = 400;
+			player5.off();
+            wait.addChild(player5);
+			
+			var player6:WaitPlayer =  new WaitPlayer;
+			player6.x = 480;
+			player6.y = 400;
+			player6.off();
+            wait.addChild(player6);
+
+			// Надпись готовы
+			var readyText:TextField = new TextField();
+			readyText.text = 'Готовы: 4/6';
+			readyText.setTextFormat(formatReadyText);
+			readyText.width = 150;
+			readyText.height = 30;
+            readyText.x = 360;
+			readyText.y = 430;
+			wait.addChild(readyText);
+			
+			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
+			
+			var findPlayerCurr:int = 1;
+			
+			function addNewPlayerHandler():void {
+				switch (findPlayerCurr) { 
+					case 1: 
+						player1.on();
+						break; 
+					case 2: 
+						player2.on();
+						break; 
+					case 3: 
+						player3.on();
+						break; 
+					case 4: 
+						player4.on();
+						break; 
+					case 5: 
+						player5.on();
+						break; 
+					case 6: 
+						player6.on();
+						break; 
+					case 7: 
+						addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
+						addNewPlayeTimer.stop();
+						waitPlayersHide();
+						break; 
+					default : 
+						trace("switch default"); 
+				}
+				findPlayerCurr++;
+
+			}
+			
+			// Скрыть анимацию ожидания игроков
+			function waitPlayersHide():void {
+				//Common.switchRoom("GameRoom");
+				removeChild(wait);
+			}
+			
+			addNewPlayeTimer.start();
+        }
+		
         public function enterFrameHandler(event:Event):void {
 			// Расстановка заездов по строкам
 			for (var raceIndex:int = 0, raceTotal:int = raceList.length; raceIndex < raceTotal; raceIndex++) {

@@ -44,7 +44,7 @@ package game.rooms.mainroom
 			lineRace.x = 85;
 			lineRace.y = 60;
 			lineRace.scaleX = 650;
-            addChild(lineRace);			
+            addChild(lineRace);
 			
 			addCar();
 		}
