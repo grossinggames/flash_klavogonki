@@ -139,24 +139,34 @@ package game.rooms
 			
 			/* Контейнер списока игр */
 			var gameListHub:Sprite = new Sprite;
-			gameListHub.x = 50;
-			gameListHub.y = 300;
+			gameListHub.x = 25;
+			gameListHub.y = 250;
 			addChild(gameListHub);
 
 			// Метод добавления заезда
+			// Первым делом нужно брать из кучи удаленных заездов что бы не создавать новые заезды а брать старые
 			function addRace():void {
-				var newRace:Race = new Race;
-				raceList.push(newRace);
-			    
-				var raceIndex:Number = raceList.length - 1;
-				raceList[raceIndex].y = raceIndex * raceStepY;
-				gameListHub.addChild( raceList[raceIndex] );
+				var isAddRace:int = randomInt(0, 1);
+				
+				if (isAddRace) {
+					var newRace:Race = new Race;
+					raceList.push(newRace);
+					
+					var raceIndex:Number = raceList.length - 1;
+					raceList[raceIndex].y = 0;
+					//raceList[raceIndex].y = raceStepY;
+					gameListHub.addChild( raceList[raceIndex] );
+				}
 			}
 
 			// Метод удаления заезда
-			function removeRace():void {
+			// Первым делом необходимо добавить занесение удаленных игр в общую кучу для того что бы потом брать из нее при создании нового заезда
+			function removeRace(numRace:Number):void {
 				if (raceList.length) {
-					var raceIndex:Number = getRaceRandom();
+					// Рендомно выбираем заезд для удаления
+					//var raceIndex:Number = getRaceRandom();
+					
+					var raceIndex:Number = numRace;
 					gameListHub.removeChild( raceList[raceIndex] );
 					trace('Remove index ', raceIndex);
 					raceList.splice(raceIndex, 1);
@@ -178,8 +188,32 @@ package game.rooms
 			    return rand;
 			}
 			
+			//  Таймер для добавления машины в заезд
+			var addCarTimer:Timer = new Timer(1000);
+            addCarTimer.addEventListener("timer", addCarTimerHandler);
+            addCarTimer.start();
+			
+			function addCarTimerHandler(event:TimerEvent):void {
+				if (raceList.length) {
+					var isAdd:int = randomInt(0, 1);
+					
+					if (isAdd) {
+						var randomRace:int = randomInt(0, (raceList.length - 1) );
+						trace('randomRace = ', randomRace);
+						
+						if (raceList[randomRace]) {
+							var raceCountCar:int = raceList[randomRace].addCar();
+							
+							if (raceCountCar >= 7) {
+								removeRace(randomRace);
+							}
+						}
+					}
+				}
+			}
+			
 			//  Таймер для добавления и удаления заезда
-			var raceTimer:Timer = new Timer(2000);
+			var raceTimer:Timer = new Timer(3000);
             raceTimer.addEventListener("timer", raceTimerHandler);
             raceTimer.start();
 			
@@ -187,43 +221,64 @@ package game.rooms
 			function raceTimerHandler(event:TimerEvent):void {
 				trace("timerHandler");
 				var raceTotal:Number = 7;
-				var isAddRace:Number = randomInt(0, 1);
+				var isAddRace:Number = 1;
+				
+				// Только добавляем заезды
+				//var isAddRace:Number = randomInt(0, 1);
 				
 				// Если количество заездов меньше 4, принудительно создаем заезд
 				if (raceList.length < 4) {
 					isAddRace = 1;
 				}
 				
+				if ( isAddRace && (raceList.length < raceTotal) ) {
+					addRace();
+					trace('Add');
+				}
+				
+				/*
 				// Если добавл
 				if ( isAddRace && (raceList.length < raceTotal) ) {
 					addRace();
 					trace('Add');
-				} else if (raceList.length > 0) {
+				} else if (raceList.length > 1) {
 					removeRace();
    			        trace('Remove');
-				} else {
-					trace('Ошибка! Не создаем и не удаляем заезды!');
 				}
+				*/
 				
 			}
 			
-			addRace();
-			addRace();
-			addRace();
-			addRace();
-			addRace();
+			// Создаем заезды по умолчанию
+			var countCrateRace:int = randomInt(3, 15);
+			trace('countCrateRace = ', countCrateRace);
+			if (countCrateRace) {
+				for (var raceIndex:int = 0; raceIndex < countCrateRace; raceIndex++) {
+					addRace();
+				}
+			}
 			
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			
 		}
-		
+
         public function enterFrameHandler(event:Event):void {
 			// Расстановка заездов по строкам
 			for (var raceIndex:int = 0, raceTotal:int = raceList.length; raceIndex < raceTotal; raceIndex++) {
-                var newPosY:Number = ( (raceIndex * raceStepY) - raceList[raceIndex].y ) * 0.1;
+                var newPosY:Number = ( ( (raceTotal - raceIndex) * raceStepY) - raceList[raceIndex].y ) * 0.1;
 				raceList[raceIndex].y += newPosY;
 			}
         }
+		
+		/* Обратный цикл
+        public function enterFrameHandler(event:Event):void {
+			// Расстановка заездов по строкам. Цикл от количества заездов до 0
+			for (var raceIndex:int = raceList.length - 1; raceIndex > -1; raceIndex--) {
+                var newPosY:Number = ( ( (raceList.length - 1 - raceIndex) * raceStepY) - raceList[raceIndex].y ) * 0.1;
+				raceList[raceIndex].y += newPosY;
+			}
+        }
+		*/
 		
 		public function mouseDown(event:MouseEvent):void {
 			//Common.p2pConnect();
