@@ -23,6 +23,7 @@ package game.rooms
 		// Массив игр
 		private var raceList:Array = [];
 		private var raceStepY:Number = 70;
+		private var raceTotal:Number = 7;		
 		
 		public function MainRoom()
 		{
@@ -44,7 +45,8 @@ package game.rooms
 			addChild(wheel);
 			wheel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
 			wheel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
-
+			wheel.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			
 			// Быстрый старт
 			var wheelText:TextField = new TextField();
 			wheelText.text = 'Быстрый старт';
@@ -55,7 +57,8 @@ package game.rooms
 			wheelText.y = 220;
 			addChild(wheelText);
 			wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
+			wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
+			wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 			function onMouseOverWheelText(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;
@@ -64,6 +67,11 @@ package game.rooms
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
+			function mouseDown(event:MouseEvent):void {
+				Common.switchRoom("GameRoom");
+			}
+			
+
 
 			
 			/* Список игр */
@@ -139,16 +147,17 @@ package game.rooms
 			
 			/* Контейнер списока игр */
 			var gameListHub:Sprite = new Sprite;
-			gameListHub.x = 25;
+			gameListHub.x = 30;
 			gameListHub.y = 250;
 			addChild(gameListHub);
 
 			// Метод добавления заезда
 			// Первым делом нужно брать из кучи удаленных заездов что бы не создавать новые заезды а брать старые
 			function addRace():void {
-				var isAddRace:int = randomInt(0, 1);
+				//var isAddRace:int = randomInt(0, 1);
+				var isAddRace:int = 1;
 				
-				if (isAddRace) {
+				if ( isAddRace && (raceList.length < raceTotal) ) {
 					var newRace:Race = new Race;
 					raceList.push(newRace);
 					
@@ -204,7 +213,7 @@ package game.rooms
 						if (raceList[randomRace]) {
 							var raceCountCar:int = raceList[randomRace].addCar();
 							
-							if (raceCountCar >= 7) {
+							if ( raceCountCar >= 6 || (randomInt(0, 100) < 10 ) ) {
 								removeRace(randomRace);
 							}
 						}
@@ -220,32 +229,38 @@ package game.rooms
 			// Обработчик на таймер
 			function raceTimerHandler(event:TimerEvent):void {
 				trace("timerHandler");
-				var raceTotal:Number = 7;
-				var isAddRace:Number = 1;
+				//var isAddRace:Number = 1;
 				
 				// Только добавляем заезды
-				//var isAddRace:Number = randomInt(0, 1);
+				var isAddRace:Number = randomInt(1, 30);
+				
+				if ( (isAddRace > 9 && isAddRace < 11) || (raceList.length > 6) ) {
+					isAddRace = 0;
+				}
 				
 				// Если количество заездов меньше 4, принудительно создаем заезд
 				if (raceList.length < 4) {
 					isAddRace = 1;
 				}
 				
-				if ( isAddRace && (raceList.length < raceTotal) ) {
-					addRace();
-					trace('Add');
-				}
-				
 				/*
-				// Если добавл
 				if ( isAddRace && (raceList.length < raceTotal) ) {
 					addRace();
 					trace('Add');
-				} else if (raceList.length > 1) {
-					removeRace();
-   			        trace('Remove');
 				}
 				*/
+				
+				
+				// Если добавляем
+				if ( isAddRace && (raceList.length < raceTotal) ) {
+					addRace();
+					trace('Add');
+				} else if (raceList.length > 1 && isAddRace == 0) {
+					var randomRace:int = randomInt( 0, (raceList.length - 1) );
+					removeRace(randomRace);
+   			        trace('Remove');
+				}
+				
 				
 			}
 			
@@ -278,13 +293,13 @@ package game.rooms
 				raceList[raceIndex].y += newPosY;
 			}
         }
-		*/
+
 		
 		public function mouseDown(event:MouseEvent):void {
 			//Common.p2pConnect();
 			Common.switchRoom("GameRoom");
 		}
-		
+		*/		
 		private function init(e:Event):void
 		{
 			trace('Class MainRoom init');

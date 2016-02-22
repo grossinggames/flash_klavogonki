@@ -10,7 +10,7 @@ package game.rooms.mainroom
 	import flash.events.MouseEvent;
 	import flash.ui.*;
 	
-	public class Race  extends Sprite
+	public class Race extends Sprite
 	{
 		private var enterOver:Sprite;
 		private var carList:Array = [];
@@ -18,7 +18,6 @@ package game.rooms.mainroom
 		public function Race() 
 		{
 
-			/* Заезд */
 			// Спрайт войти
 			[Embed(source = "../../../../lib/images/enter.png")] 
 			var enterClass:Class;
@@ -32,6 +31,20 @@ package game.rooms.mainroom
 			enter.addChild(enterOver);
 			enter.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverEnter);
 			enter.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutEnter);
+			enter.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			
+			function mouseDown(event:MouseEvent):void {
+				Common.switchRoom("GameRoom");
+			}
+			
+			// Линия снизу заезда
+			[Embed(source = "../../../../lib/images/line_race.png")] 
+			var lineRaceClass:Class;
+			var lineRace:Sprite = Common.createSpr( new lineRaceClass() );
+			lineRace.x = 85;
+			lineRace.y = 60;
+			lineRace.scaleX = 650;
+            addChild(lineRace);			
 			
 			addCar();
 		}
@@ -52,11 +65,20 @@ package game.rooms.mainroom
 
 		// Добавить машину в заезд
 		public function addCar():int {
+			/*
 			[Embed(source = "../../../../lib/images/car1.png")] 
 			var carClass:Class;
 			var car:Sprite = Common.createSpr( new carClass() );
 			car.y = 0;
 			car.x = (carList.length * 100) + 75;
+			this.addChild(car);            
+			carList.push(car);
+			trace('carList.length = ', carList.length);
+			return carList.length;
+			*/
+			
+			var car:Car = new Car();
+			car.x = (carList.length * 115) + 80;
 			this.addChild(car);            
 			carList.push(car);
 			trace('carList.length = ', carList.length);
