@@ -202,13 +202,6 @@ package game.rooms
 				return raceIndex;
 			}
 			
-			// Рендомное число типа int
-			function randomInt(min:Number, max:Number):Number {
-			    var rand:Number = min + Math.random() * (max + 1 - min);
-			    rand = Math.floor(rand);
-			    return rand;
-			}
-			
 			//  Таймер для добавления машины в заезд
 			var addCarTimer:Timer = new Timer(1000);
             addCarTimer.addEventListener("timer", addCarTimerHandler);
@@ -288,6 +281,13 @@ package game.rooms
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 
+		// Рендомное число типа int
+		private function randomInt(min:Number, max:Number):Number {
+			var rand:Number = min + Math.random() * (max + 1 - min);
+			rand = Math.floor(rand);
+			return rand;
+		}
+		
 		// Анимация ожидания игроков
         private function waitPlayers():void {
 			// Контейнер ожидания
@@ -314,7 +314,7 @@ package game.rooms
 			var player1:WaitPlayer =  new WaitPlayer;
 			player1.x = 305;
 			player1.y = 400;
-			player1.off();
+			player1.on();
             wait.addChild(player1);
 			
 			var player2:WaitPlayer =  new WaitPlayer;
@@ -347,19 +347,19 @@ package game.rooms
 			player6.off();
             wait.addChild(player6);
 
+			var findPlayerCurr:int = 1;			
+			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
+			
 			// Надпись готовы
 			var readyText:TextField = new TextField();
-			readyText.text = 'Готовы: 4/6';
+			readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
 			readyText.setTextFormat(formatReadyText);
 			readyText.width = 150;
 			readyText.height = 30;
             readyText.x = 360;
 			readyText.y = 430;
 			wait.addChild(readyText);
-			
-			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
-			
-			var findPlayerCurr:int = 1;
+
 			
 			function addNewPlayerHandler():void {
 				switch (findPlayerCurr) { 
@@ -380,6 +380,7 @@ package game.rooms
 						break; 
 					case 6: 
 						player6.on();
+						addNewPlayeTimer.delay = 500;
 						break; 
 					case 7: 
 						addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
@@ -389,6 +390,12 @@ package game.rooms
 					default : 
 						trace("switch default"); 
 				}
+				
+				var delay:int = randomInt(500, 3000);
+				addNewPlayeTimer.delay = delay;
+				
+				readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
+				readyText.setTextFormat(formatReadyText);
 				findPlayerCurr++;
 
 			}
