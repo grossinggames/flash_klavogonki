@@ -404,6 +404,70 @@ package game.rooms
 			waitText.y = 270;
 			wait.addChild(waitText);
 			
+			// Добавление изображения нового пользователя на карте
+			[Embed(source = "../../../lib/images/player_on.png")] 
+			var playerClass:Class;
+			// Добавление изображения нового пользователя на карте
+			var playerMap2:Sprite = Common.createSpr( new playerClass() );
+			playerMap2.scaleX = 0.5;
+			playerMap2.scaleY = 0.5;
+			playerMap2.x = 100;
+			playerMap2.y = 265;
+			playerMap2.alpha = 0;
+			wait.addChild(playerMap2);
+			
+			// Добавление изображения нового пользователя на карте
+			var playerMap3:Sprite = Common.createSpr( new playerClass() );
+			playerMap3.scaleX = 0.5;
+			playerMap3.scaleY = 0.5;
+			playerMap3.x = 100;
+			playerMap3.y = 265;
+			playerMap3.alpha = 0;
+			wait.addChild(playerMap3);
+			
+			// Добавление изображения нового пользователя на карте
+			var playerMap4:Sprite = Common.createSpr( new playerClass() );
+			playerMap4.scaleX = 0.5;
+			playerMap4.scaleY = 0.5;
+			playerMap4.x = 100;
+			playerMap4.y = 265;
+			playerMap4.alpha = 0;
+			wait.addChild(playerMap4);
+			
+			// Добавление изображения нового пользователя на карте
+			var playerMap5:Sprite = Common.createSpr( new playerClass() );
+			playerMap5.scaleX = 0.5;
+			playerMap5.scaleY = 0.5;
+			playerMap5.x = 100;
+			playerMap5.y = 265;
+			playerMap5.alpha = 0;
+			wait.addChild(playerMap5);
+			
+			// Добавление изображения нового пользователя на карте
+			var playerMap6:Sprite = Common.createSpr( new playerClass() );
+			playerMap6.scaleX = 0.5;
+			playerMap6.scaleY = 0.5;
+			playerMap6.x = 100;
+			playerMap6.y = 265;
+			playerMap6.alpha = 0;
+			wait.addChild(playerMap6);
+
+			/*
+			var playerMap7:Sprite = Common.createSpr( new playerClass() );
+			playerMap7.scaleX = 0.5;
+			playerMap7.scaleY = 0.5;
+			playerMap7.x = 400;
+			playerMap7.y = 315;
+			wait.addChild(playerMap7);
+
+			var playerMap8:Sprite = Common.createSpr( new playerClass() );
+			playerMap8.scaleX = 0.5;
+			playerMap8.scaleY = 0.5;
+			playerMap8.x = 560;
+			playerMap8.y = 390;
+			wait.addChild(playerMap8);
+			*/
+			
 			function addNewPlayerHandler():void {
 				switch (findPlayerCurr) { 
 					case 1: 
@@ -411,18 +475,33 @@ package game.rooms
 						break; 
 					case 2: 
 						player2.on();
+						playerMap2.x = randomInt(400, 560);
+						playerMap2.y = randomInt(315, 390);
+						playerMap2.alpha = 1;
 						break; 
 					case 3: 
 						player3.on();
+						playerMap3.x = randomInt(400, 560);
+						playerMap3.y = randomInt(315, 390);
+						playerMap3.alpha = 1;
 						break; 
 					case 4: 
 						player4.on();
+						playerMap4.x = randomInt(400, 560);
+						playerMap4.y = randomInt(315, 390);
+						playerMap4.alpha = 1;
 						break; 
 					case 5: 
 						player5.on();
+						playerMap5.x = randomInt(400, 560);
+						playerMap5.y = randomInt(315, 390);
+						playerMap5.alpha = 1;
 						break; 
 					case 6: 
 						player6.on();
+						playerMap6.x = randomInt(400, 560);
+						playerMap6.y = randomInt(315, 390);
+						playerMap6.alpha = 1;
 						addNewPlayeTimer.delay = 500;
 						break; 
 					case 7: 
