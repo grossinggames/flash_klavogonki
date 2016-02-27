@@ -25,6 +25,7 @@ package game.rooms
 		private var raceList:Array = [];
 		private var raceStepY:Number = 70;
 		private var raceTotal:Number = 7;	
+		private var loadingHub:Sprite;
 		
 		// Формат текста для надписи готовы
 		private var formatReadyText:TextFormat = new TextFormat();
@@ -82,10 +83,7 @@ package game.rooms
                 waitPlayers();
 				//Common.switchRoom("GameRoom");
 			}
-			
 
-
-			
 			/* Список игр */
 			[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
 			var gamelistClass:Class;
@@ -310,6 +308,42 @@ package game.rooms
 			map.y = 265;
             wait.addChild(map);
 			
+			// Анимация ожидания
+			loadingHub = new Sprite;
+			loadingHub.x = 320;
+			loadingHub.y = 280;
+            wait.addChild(loadingHub);
+			[Embed(source = "../../../lib/images/350.png")] 
+			var loadingClass:Class;
+			var loading:Sprite = Common.createSpr( new loadingClass() );
+			loading.x = -10;
+			loading.y = -10;
+            loadingHub.addChild(loading);
+			
+			// Отмена ожидания
+			[Embed(source = "../../../lib/images/cancel.png")] 
+			var cancalRaceClass:Class;
+			var cancalRace:Sprite = Common.createSpr( new cancalRaceClass() );
+			cancalRace.x = 680;
+			cancalRace.y = 240;
+			cancalRace.addEventListener(MouseEvent.MOUSE_DOWN, onCancelRace);
+			cancalRace.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverCancalRace);
+			cancalRace.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutCancalRace);
+			wait.addChild(cancalRace);
+			function onMouseOverCancalRace(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
+			}
+			function onMouseOutCancalRace(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.AUTO;
+			}
+			function onCancelRace():void {
+				addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
+				addNewPlayeTimer.stop();
+				removeChild(wait);
+			}
+			
 			// Спрайт на ожидание игроков
 			var player1:WaitPlayer =  new WaitPlayer;
 			player1.x = 305;
@@ -360,6 +394,15 @@ package game.rooms
 			readyText.y = 430;
 			wait.addChild(readyText);
 
+			// Надпись ожидание
+			var waitText:TextField = new TextField();
+			waitText.text = 'Ожидание игроков';
+			waitText.setTextFormat(formatReadyText);
+			waitText.width = 200;
+			waitText.height = 30;
+            waitText.x = 339;
+			waitText.y = 270;
+			wait.addChild(waitText);
 			
 			function addNewPlayerHandler():void {
 				switch (findPlayerCurr) { 
@@ -391,8 +434,10 @@ package game.rooms
 						trace("switch default"); 
 				}
 				
-				var delay:int = randomInt(500, 3000);
-				addNewPlayeTimer.delay = delay;
+				if (findPlayerCurr < 6) {
+					var delay:int = randomInt(500, 3000);
+					addNewPlayeTimer.delay = delay;
+				}
 				
 				readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
 				readyText.setTextFormat(formatReadyText);
@@ -402,8 +447,8 @@ package game.rooms
 			
 			// Скрыть анимацию ожидания игроков
 			function waitPlayersHide():void {
-				//Common.switchRoom("GameRoom");
 				removeChild(wait);
+				Common.switchRoom("GameRoom");
 			}
 			
 			addNewPlayeTimer.start();
@@ -415,23 +460,16 @@ package game.rooms
                 var newPosY:Number = ( ( (raceTotal - raceIndex) * raceStepY) - raceList[raceIndex].y ) * 0.1;
 				raceList[raceIndex].y += newPosY;
 			}
-        }
-		
-		/* Обратный цикл
-        public function enterFrameHandler(event:Event):void {
-			// Расстановка заездов по строкам. Цикл от количества заездов до 0
-			for (var raceIndex:int = raceList.length - 1; raceIndex > -1; raceIndex--) {
-                var newPosY:Number = ( ( (raceList.length - 1 - raceIndex) * raceStepY) - raceList[raceIndex].y ) * 0.1;
-				raceList[raceIndex].y += newPosY;
+			
+			if (loadingHub) {
+				loadingHub.rotation += 15;
+				
+				if (loadingHub.rotation > 360) {
+					loadingHub.rotation -= 360;
+				}
 			}
         }
 
-		
-		public function mouseDown(event:MouseEvent):void {
-			//Common.p2pConnect();
-			Common.switchRoom("GameRoom");
-		}
-		*/		
 		private function init(e:Event):void
 		{
 			trace('Class MainRoom init');
