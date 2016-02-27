@@ -161,6 +161,14 @@ package game.rooms
 			gameListHub.y = 250;
 			addChild(gameListHub);
 
+			function enterRace(event:MouseEvent):void {
+				// Послать список машин
+                waitPlayers();
+				
+				// послать номер заезда что бы удалить его из списка
+				removeRace(0);
+			}
+			
 			// Метод добавления заезда
 			// Первым делом нужно брать из кучи удаленных заездов что бы не создавать новые заезды а брать старые
 			function addRace():void {
@@ -173,11 +181,16 @@ package game.rooms
 					
 					var raceIndex:Number = raceList.length - 1;
 					raceList[raceIndex].y = 0;
+					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_DOWN, enterRace);
+					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
+					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameCreateText);
 					//raceList[raceIndex].y = raceStepY;
 					gameListHub.addChild( raceList[raceIndex] );
 				}
 			}
 
+
+			
 			// Метод удаления заезда
 			// Первым делом необходимо добавить занесение удаленных игр в общую кучу для того что бы потом брать из нее при создании нового заезда
 			function removeRace(numRace:Number):void {

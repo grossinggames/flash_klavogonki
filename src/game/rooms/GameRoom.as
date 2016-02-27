@@ -9,6 +9,9 @@ package game.rooms
 	import flash.events.KeyboardEvent;
 	import common.room.Room;
 	import common.Common;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.ui.*;
 	
 	public class GameRoom extends Room
 	{	
@@ -17,56 +20,127 @@ package game.rooms
 		private var currentX:int = 0;
 		private var currentY:int = 0;
 		
+		// Формат текста для надписи готовы
+		private var formatReadyText:TextFormat = new TextFormat();
+		
 		public function GameRoom()
 		{
+			
 			addEventListener(Event.ADDED_TO_STAGE, init);
+
+			// Формат текста для меню
+			var formatText:TextFormat = new TextFormat();
+			formatText.font = 'Arial';
+			formatText.size = 18;
 			
-			[Embed(source = "../../../lib/images/back2.jpg")]
-			var back:Class;
-			var mainBack:Bitmap = new back();
-			addChild(mainBack);
+			// Формат текста для надписи готовы
+			formatReadyText.font = 'Arial';
+			formatReadyText.size = 16;
+			formatReadyText.color = 0xFFFFFF;
+
+			/* Быстрый страт */
+			// Колесо
+			[Embed(source = "../../../lib/images/wheel.gif")] 
+			var wheelClass:Class;
+			var wheel:Sprite = Common.createSpr( new wheelClass() );
+			wheel.x = 10;
+			wheel.y = 10;
+			addChild(wheel);
+			wheel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
+			wheel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
+			wheel.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 			
-			[Embed(source = "../../../lib/images/exit.png")] 
-			var sprite1:Class;
-			var btnMainRoom:Sprite = Common.createSpr( new sprite1() );
-			btnMainRoom.x = 500;
-			btnMainRoom.y = 150;
-			btnMainRoom.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			addChild(btnMainRoom);
-			/*
-			//Кнопка Передачи хода
-			[Embed(source = "../../../lib/images/allow_walk.png")] 
-			var sprite2:Class;
-			var btnSendAllowWalk:Sprite = Common.createSpr( new sprite2() );
-			btnSendAllowWalk.x = 500;
-			btnSendAllowWalk.y = 200;
-			btnSendAllowWalk.addEventListener(MouseEvent.CLICK, Common.p2pSendAllowWalkMessage);
-			addChild(btnSendAllowWalk);
+			// Быстрый старт
+			var wheelText:TextField = new TextField();
+			wheelText.text = 'Быстрый старт';
+			wheelText.setTextFormat(formatText);
+			wheelText.width = 150;
+			wheelText.height = 30;
+            wheelText.x = 60;
+			wheelText.y = 220;
+			addChild(wheelText);
+			wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
+			wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
+			wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			function onMouseOverWheelText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
+			}
+			function onMouseOutWheelText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.AUTO;
+			}
+			function mouseDown(event:MouseEvent):void {
+			}
+
+			/* Список игр */
+			[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
+			var gamelistClass:Class;
+			var gamelist:Sprite = Common.createSpr( new gamelistClass() );
+			gamelist.x = 310;
+			gamelist.y = 10;
+			addChild(gamelist);
+			gamelist.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
+			gamelist.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameListText);
+			gamelist.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameListText);
+					
+			// Выбрать заезд
+			var gamelistText:TextField = new TextField();
+			gamelistText.text = 'Выбрать заезд';
+			gamelistText.setTextFormat(formatText);
+			gamelistText.width = 150;
+			gamelistText.height = 30;
+            gamelistText.x = 350;
+			gamelistText.y = 220;
+			addChild(gamelistText);
+			gamelistText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
+			gamelistText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameListText);
+			gamelistText.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameListText);
+			function onMouseOverGameListText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
+			}
+			function onMouseOutGameListText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.AUTO;
+			}
+			function onMouseDownGameListText(event:MouseEvent):void
+			{
+				Common.switchRoom("MainRoom");
+			}
 			
-			//Кнопка Выйти из p2p комнаты
-			[Embed(source = "../../../lib/images/disconnect.png")] 
-			var sprite3:Class;
-			var btnDisconnect:Sprite = Common.createSpr( new sprite3() );
-			btnDisconnect.x = 500;
-			btnDisconnect.y = 250;
-			btnDisconnect.addEventListener(MouseEvent.CLICK, Common.p2pDisconnect);
-			addChild(btnDisconnect);
+			/* Создать игру */
+			[Embed(source = "../../../lib/images/icon-create.gif")] 
+			var gamecreateClass:Class;
+			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
+			gamecreate.x = 570;
+			gamecreate.y = 10;
+			addChild(gamecreate);
+			gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
+			gamecreate.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
 			
-			//Кнопка Отменить поиск
-			[Embed(source = "../../../lib/images/cancel.png")] 
-			var sprite4:Class;
-			var btnCancel:Sprite = Common.createSpr( new sprite4() );
-			btnCancel.x = 500;
-			btnCancel.y = 300;
-			btnCancel.addEventListener(MouseEvent.CLICK, Common.p2pCancel);
-			addChild(btnCancel);
-			*/
+			// Своя игра
+			var gamecreateText:TextField = new TextField();
+			gamecreateText.text = 'Своя игра';
+			gamecreateText.setTextFormat(formatText);
+			gamecreateText.width = 150;
+			gamecreateText.height = 30;
+            gamecreateText.x = 645;
+			gamecreateText.y = 220;
+			addChild(gamecreateText);
+			gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
+			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
+			function onMouseOverGameCreateText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
+			}
+			function onMouseOutGameCreateText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.AUTO;
+			}
+
 		}
 		
-		public function mouseDown(event:MouseEvent):void {
-			Common.switchRoom("MainRoom");
-		}
-
 		private function init(e:Event):void
 		{
 			trace('Class GameRoom init');

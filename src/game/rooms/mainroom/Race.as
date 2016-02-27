@@ -34,7 +34,7 @@ package game.rooms.mainroom
 			enter.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 			
 			function mouseDown(event:MouseEvent):void {
-				Common.switchRoom("GameRoom");
+				//Common.switchRoom("GameRoom");
 			}
 			
 			// Линия снизу заезда
