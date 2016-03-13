@@ -571,5 +571,9 @@ package game.rooms
 		{
 			trace('Class MainRoom onMouseClick');
 		}
+		
+		override public function open():void {
+			trace('Class MainRoom Open');
+		}
 	}
 }

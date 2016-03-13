@@ -36,5 +36,10 @@ package common.room
 		{
 			trace('Class Room keyCode = ' + event.keyCode);
 		}
+		
+		public function open():void
+		{
+			trace('Class Room open');
+		}
 	}
 }
