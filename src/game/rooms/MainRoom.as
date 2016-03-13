@@ -80,8 +80,7 @@ package game.rooms
 				Mouse.cursor = MouseCursor.AUTO;
 			}
 			function mouseDown(event:MouseEvent):void {
-                waitPlayers();
-				//Common.switchRoom("GameRoom");
+                waitPlayers(1);
 			}
 
 			/* Список игр */
@@ -145,16 +144,6 @@ package game.rooms
 				Mouse.cursor = MouseCursor.AUTO;
 			}
 			
-			/*
-			[Embed(source = "../../../lib/images/play.png")] 
-			var sprite1:Class;
-			var btnMainRoom:Sprite = Common.createSpr( new sprite1() );
-			btnMainRoom.x = 500;
-			btnMainRoom.y = 150;
-			btnMainRoom.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			addChild(btnMainRoom);
-			*/
-			
 			/* Контейнер списока игр */
 			var gameListHub:Sprite = new Sprite;
 			gameListHub.x = 30;
@@ -162,11 +151,15 @@ package game.rooms
 			addChild(gameListHub);
 
 			function enterRace(event:MouseEvent):void {
-				// Послать список машин
-                waitPlayers();
-				
-				// послать номер заезда что бы удалить его из списка
-				removeRace(0);
+				for (var i:int = 0; i < raceList.length; i++) {
+					if (event.currentTarget == raceList[i]) {
+						/* Послать количество машин */
+						var countCarsInRace:int = raceList[i].carList.length;
+                        waitPlayers(countCarsInRace);
+						removeRace(i);
+						break;
+					}
+				}
 			}
 			
 			// Метод добавления заезда
@@ -200,7 +193,7 @@ package game.rooms
 					
 					var raceIndex:Number = numRace;
 					gameListHub.removeChild( raceList[raceIndex] );
-					trace('Remove index ', raceIndex);
+					//trace('Remove index ', raceIndex);
 					raceList.splice(raceIndex, 1);
 				}
 			}
@@ -224,7 +217,7 @@ package game.rooms
 					
 					if (isAdd) {
 						var randomRace:int = randomInt(0, (raceList.length - 1) );
-						trace('randomRace = ', randomRace);
+						//trace('randomRace = ', randomRace);
 						
 						if (raceList[randomRace]) {
 							var raceCountCar:int = raceList[randomRace].addCar();
@@ -237,14 +230,14 @@ package game.rooms
 				}
 			}
 			
-			//  Таймер для добавления и удаления заезда
+			// Таймер для добавления и удаления заезда
 			var raceTimer:Timer = new Timer(3000);
             raceTimer.addEventListener("timer", raceTimerHandler);
             raceTimer.start();
 			
 			// Обработчик на таймер
 			function raceTimerHandler(event:TimerEvent):void {
-				trace("timerHandler");
+				//trace("timerHandler");
 				//var isAddRace:Number = 1;
 				
 				// Только добавляем заезды
@@ -270,19 +263,18 @@ package game.rooms
 				// Если добавляем
 				if ( isAddRace && (raceList.length < raceTotal) ) {
 					addRace();
-					trace('Add');
+					//trace('Add');
 				} else if (raceList.length > 1 && isAddRace == 0) {
 					var randomRace:int = randomInt( 0, (raceList.length - 1) );
 					removeRace(randomRace);
-   			        trace('Remove');
+   			        //trace('Remove');
 				}
-				
 				
 			}
 			
 			// Создаем заезды по умолчанию
 			var countCrateRace:int = randomInt(3, 15);
-			trace('countCrateRace = ', countCrateRace);
+			//trace('countCrateRace = ', countCrateRace);
 			if (countCrateRace) {
 				for (var raceIndex:int = 0; raceIndex < countCrateRace; raceIndex++) {
 					addRace();
@@ -300,7 +292,7 @@ package game.rooms
 		}
 		
 		// Анимация ожидания игроков
-        private function waitPlayers():void {
+        private function waitPlayers(countCars:Number):void {
 			// Контейнер ожидания
 			var wait:Sprite = new Sprite();
 			addChild(wait);
@@ -394,8 +386,31 @@ package game.rooms
 			player6.off();
             wait.addChild(player6);
 
-			var findPlayerCurr:int = 1;			
+			var findPlayerCurr:int = countCars;			
 			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
+			
+			for (var i:int = 1; i <= findPlayerCurr; i++) {
+				switch (i) { 
+					case 1: 
+						player1.on();
+						break; 
+					case 2: 
+						player2.on();
+						break;
+					case 3: 
+						player3.on();
+						break;
+					case 4: 
+						player4.on();
+						break;
+					case 5: 
+						player5.on();
+						break;
+					case 6: 
+						player6.on();
+						break;
+				}
+			}
 			
 			// Надпись готовы
 			var readyText:TextField = new TextField();
@@ -464,24 +479,9 @@ package game.rooms
 			playerMap6.y = 265;
 			playerMap6.alpha = 0;
 			wait.addChild(playerMap6);
-
-			/*
-			var playerMap7:Sprite = Common.createSpr( new playerClass() );
-			playerMap7.scaleX = 0.5;
-			playerMap7.scaleY = 0.5;
-			playerMap7.x = 400;
-			playerMap7.y = 315;
-			wait.addChild(playerMap7);
-
-			var playerMap8:Sprite = Common.createSpr( new playerClass() );
-			playerMap8.scaleX = 0.5;
-			playerMap8.scaleY = 0.5;
-			playerMap8.x = 560;
-			playerMap8.y = 390;
-			wait.addChild(playerMap8);
-			*/
 			
 			function addNewPlayerHandler():void {
+                findPlayerCurr++;
 				switch (findPlayerCurr) { 
 					case 1: 
 						player1.on();
@@ -523,7 +523,7 @@ package game.rooms
 						waitPlayersHide();
 						break; 
 					default : 
-						trace("switch default"); 
+						//trace("switch default"); 
 				}
 				
 				if (findPlayerCurr < 6) {
@@ -533,7 +533,7 @@ package game.rooms
 				
 				readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
 				readyText.setTextFormat(formatReadyText);
-				findPlayerCurr++;
+
 
 			}
 			
@@ -564,16 +564,11 @@ package game.rooms
 
 		private function init(e:Event):void
 		{
-			trace('Class MainRoom init');
+			//trace('Class MainRoom init');
 		}
 
-		private function onMouseClick(e:Event):void
-		{
-			trace('Class MainRoom onMouseClick');
-		}
-		
 		override public function open():void {
-			trace('Class MainRoom Open');
+			//trace('Class MainRoom Open');
 		}
 	}
 }

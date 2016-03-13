@@ -13,7 +13,7 @@ package game.rooms.mainroom
 	public class Race extends Sprite
 	{
 		private var enterOver:Sprite;
-		private var carList:Array = [];
+		public var carList:Array = [];
 		
 		public function Race() 
 		{
@@ -53,35 +53,23 @@ package game.rooms.mainroom
 		private function onMouseOverEnter(event:MouseEvent):void {
 			Mouse.cursor = MouseCursor.BUTTON;
 			enterOver.alpha = 1;
-			trace('onMouseOverEnter');
+			//trace('onMouseOverEnter');
 		}
 		
 		// Убрать курсор с кнопки войти
 		private function onMouseOutEnter(event:MouseEvent):void {
 			Mouse.cursor = MouseCursor.AUTO;
 			enterOver.alpha = 0;
-			trace('onMouseOutEnter');
+			//trace('onMouseOutEnter');
 		}
 
 		// Добавить машину в заезд
 		public function addCar():int {
-			/*
-			[Embed(source = "../../../../lib/images/car1.png")] 
-			var carClass:Class;
-			var car:Sprite = Common.createSpr( new carClass() );
-			car.y = 0;
-			car.x = (carList.length * 100) + 75;
-			this.addChild(car);            
-			carList.push(car);
-			trace('carList.length = ', carList.length);
-			return carList.length;
-			*/
-			
 			var car:Car = new Car();
 			car.x = (carList.length * 115) + 80;
-			this.addChild(car);            
+			this.addChild(car);
 			carList.push(car);
-			trace('carList.length = ', carList.length);
+			//trace('carList.length = ', carList.length);
 			return carList.length;
 		}
 		
