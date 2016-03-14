@@ -10,6 +10,7 @@ package game.rooms.mainroom
 	
 	public class Car extends Sprite
 	{
+		public var type:int;
 		
 		public function Car() 
 		{
@@ -84,6 +85,7 @@ package game.rooms.mainroom
 			addChild(car10);
 			
 			var showCar:int = randomInt(1, 10);
+			type = showCar;
 			
 			switch (showCar) { 
 				case 1: 

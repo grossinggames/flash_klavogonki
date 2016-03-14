@@ -27,6 +27,9 @@ package common
 		// controllerRoom
 		private static var controllerRoom:ControllerRoom = new ControllerRoom;
 		
+		// Список машин
+		public static var cars:Array = [];
+		
 		public static function createRoom(room:Room, name:String):void
 		{
 			//trace('Common createRoom');
@@ -138,6 +141,12 @@ package common
 		{
 			//trace('Common p2pUsers' );
 			return p2p.users;
+		}
+
+		public static function get carList():Object
+		{
+			//trace('Common carList' );
+			return cars;
 		}
 	}
 }

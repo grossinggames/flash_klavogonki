@@ -159,6 +159,12 @@ package game.rooms
 					if (event.currentTarget == raceList[i]) {
 						/* Послать количество машин */
 						var countCarsInRace:int = raceList[i].carList.length;
+						Common.cars = [1];
+						
+						for (var j:int = 0; j < countCarsInRace; j++) {
+							Common.cars[j + 1] = raceList[i].carList[j].type;
+						}
+
                         waitPlayers(countCarsInRace);
 						removeRace(i);
 						break;
