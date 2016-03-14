@@ -80,7 +80,9 @@ package game.rooms
 				Mouse.cursor = MouseCursor.AUTO;
 			}
 			function mouseDown(event:MouseEvent):void {
-                waitPlayers(1);
+				/* Послать количество машин */
+				Common.cars = [1];
+                waitPlayers(Common.cars.length);
 			}
 
 			/* Список игр */
@@ -147,7 +149,7 @@ package game.rooms
 				Mouse.cursor = MouseCursor.AUTO;
 			}
 			
-			
+
 			/* Контейнер списока игр */
 			var gameListHub:Sprite = new Sprite;
 			gameListHub.x = 30;
@@ -164,8 +166,8 @@ package game.rooms
 						for (var j:int = 0; j < countCarsInRace; j++) {
 							Common.cars[j + 1] = raceList[i].carList[j].type;
 						}
-
-                        waitPlayers(countCarsInRace);
+						
+                        waitPlayers(countCarsInRace + 1);
 						removeRace(i);
 						break;
 					}
@@ -303,6 +305,7 @@ package game.rooms
 		
 		// Анимация ожидания игроков
         private function waitPlayers(countCars:Number):void {
+			
 			// Контейнер ожидания
 			var wait:Sprite = new Sprite();
 			addChild(wait);
@@ -489,8 +492,12 @@ package game.rooms
 			playerMap6.y = 265;
 			playerMap6.alpha = 0;
 			wait.addChild(playerMap6);
-			
+	
 			function addNewPlayerHandler():void {
+				if (findPlayerCurr < 6) {
+					Common.cars[findPlayerCurr] = randomInt(1, 10);
+				}
+				
                 findPlayerCurr++;
 				switch (findPlayerCurr) { 
 					case 1: 
@@ -531,20 +538,24 @@ package game.rooms
 						addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
 						addNewPlayeTimer.stop();
 						waitPlayersHide();
+						trace(Common.cars);
 						break; 
 					default : 
 						//trace("switch default"); 
 				}
 				
-				if (findPlayerCurr < 6) {
-					var delay:int = randomInt(500, 3000);
-					addNewPlayeTimer.delay = delay;
-				}
-				
 				readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
 				readyText.setTextFormat(formatReadyText);
-
-
+					
+				if ( (findPlayerCurr > 1) && randomInt(0, 8) < 3 ) {
+					addNewPlayeTimer.delay = 1000;
+					findPlayerCurr = 6;
+				} else {
+					if (findPlayerCurr < 6) {
+						var delay:int = randomInt(500, 3000);
+						addNewPlayeTimer.delay = delay;
+					}
+				}
 			}
 			
 			// Скрыть анимацию ожидания игроков
