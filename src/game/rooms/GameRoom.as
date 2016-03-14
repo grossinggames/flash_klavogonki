@@ -73,7 +73,9 @@ package game.rooms
 			function mouseDown(event:MouseEvent):void {
 			}
 
+			
 			/* Список игр */
+			/*
 			[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
 			var gamelistClass:Class;
 			var gamelist:Sprite = Common.createSpr( new gamelistClass() );
@@ -108,8 +110,10 @@ package game.rooms
 			{
 				Common.switchRoom("MainRoom");
 			}
+			*/			
 			
 			/* Создать игру */
+			/*
 			[Embed(source = "../../../lib/images/icon-create.gif")] 
 			var gamecreateClass:Class;
 			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
@@ -130,6 +134,7 @@ package game.rooms
 			addChild(gamecreateText);
 			gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
 			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
+			*/
 			function onMouseOverGameCreateText(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;

@@ -84,6 +84,7 @@ package game.rooms
 			}
 
 			/* Список игр */
+			/*
 			[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
 			var gamelistClass:Class;
 			var gamelist:Sprite = Common.createSpr( new gamelistClass() );
@@ -112,9 +113,10 @@ package game.rooms
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
-			
+			*/
 			
 			/* Создать игру */
+			/*
 			[Embed(source = "../../../lib/images/icon-create.gif")] 
 			var gamecreateClass:Class;
 			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
@@ -135,6 +137,7 @@ package game.rooms
 			addChild(gamecreateText);
 			gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
 			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
+			*/
 			function onMouseOverGameCreateText(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;
@@ -143,6 +146,7 @@ package game.rooms
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
+			
 			
 			/* Контейнер списока игр */
 			var gameListHub:Sprite = new Sprite;
