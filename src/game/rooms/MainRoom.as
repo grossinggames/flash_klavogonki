@@ -568,6 +568,7 @@ package game.rooms
 			// Скрыть анимацию ожидания игроков
 			function waitPlayersHide():void {
 				removeChild(wait);
+				Common.soundStopAll();
 				Common.switchRoom("GameRoom");
 			}
 			
