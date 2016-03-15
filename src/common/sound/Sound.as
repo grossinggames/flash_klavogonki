@@ -122,7 +122,7 @@ package common.sound
 		private function playEnv(sound:String):void
 		{
 			trace('playEnv');
-			chanel[ENV][sound] = sounds[ENV][sound].play();
+			chanel[ENV][sound] = sounds[ENV][sound].play(0, 10);
 		}
 		
 		private function playMus(sound:String):void

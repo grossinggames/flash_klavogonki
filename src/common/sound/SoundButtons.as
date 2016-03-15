@@ -79,6 +79,7 @@ package common.sound
 			} else {
 				Common.soundOnEnv();
 				buttonEnv.alpha = 1;
+				playEnv();
 			}
 			trace("env: " + Common.envOn);
 		}
@@ -93,6 +94,14 @@ package common.sound
 			}
 			trace("sfx: " + Common.sfxOn);
 		}
+
+		private function playEnv():void {
+			if (Common.currentRoom == "MainRoom") {
+				//Common.soundPlay("env_example");
+			} else if (Common.currentRoom == "GameRoom") {
+				//Common.soundPlay("env_example");
+			}
+		}
 		
 		public function update():void {
 			
@@ -104,6 +113,7 @@ package common.sound
 			
 			if (Common.envOn) {
 				buttonEnv.alpha = 1;
+				playEnv();
 			} else {
 				buttonEnv.alpha = 0;
 			}

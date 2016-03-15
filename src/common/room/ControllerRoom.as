@@ -37,8 +37,8 @@ package common.room
 					roomStorage.addChild(rooms[curRoom]);
 				}
 				curRoom = room;
-				rooms[room].open();
 				roomHub.addChild(rooms[room]);
+				rooms[room].open();
 			}
 		}
 
