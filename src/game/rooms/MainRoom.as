@@ -17,6 +17,7 @@ package game.rooms
     import flash.utils.Timer;
     import flash.events.TimerEvent;
 	import game.rooms.mainroom.WaitPlayer;
+	import common.sound.SoundButtons;
 	
 	public class MainRoom extends Room
 	{	
@@ -26,6 +27,7 @@ package game.rooms
 		private var raceStepY:Number = 70;
 		private var raceTotal:Number = 7;	
 		private var loadingHub:Sprite;
+		private var soundButtons:SoundButtons;
 		
 		// Формат текста для надписи готовы
 		private var formatReadyText:TextFormat = new TextFormat();
@@ -35,6 +37,11 @@ package game.rooms
 
 		public function MainRoom()
 		{
+			soundButtons = new SoundButtons();
+			soundButtons.x = 300;
+			soundButtons.y = 50;
+			addChild(soundButtons);
+			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 
 			// Формат текста для меню
@@ -590,6 +597,7 @@ package game.rooms
 
 		override public function open():void {
 			//trace('Class MainRoom Open');
+			soundButtons.update();
 		}
 	}
 }

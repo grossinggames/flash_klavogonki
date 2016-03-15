@@ -1,5 +1,6 @@
 package common.sound
 {
+	import common.Common;
 	/**
 	 * ...
 	 * @author baton
@@ -88,19 +89,27 @@ package common.sound
 			
 			if ( sound.search(SFX + "_") + 1 ) 
 			{
-				playSfx(sound);
+				if (Common.sfxOn) {
+					playSfx(sound);
+				}
 			} 
 			else if ( sound.search(ENV + "_") + 1 ) 
 			{
-				playEnv(sound);
+				if (Common.envOn) {
+					playEnv(sound);
+				}
 			} 
 			else if ( sound.search(MUS + "_") + 1 ) 
 			{
-				playMus(sound);
+				if (Common.sfxOn) {
+					playMus(sound);
+				}
 			} 
 			else if ( sound.search(VOC + "_") + 1 ) 
 			{
-				playVoc(sound);
+				if (Common.sfxOn) {
+					playVoc(sound);
+				}
 			}
 		}
 		
@@ -151,6 +160,32 @@ package common.sound
 			}
 		}
 		
+		public function stopSfxs():void 
+		{
+			for (var sfx:String in chanel[SFX])
+			{
+				stopSfx(sfx);
+			}
+			
+			for (var mus:String in chanel[MUS])
+			{
+				stopMus(mus);
+			}
+			
+			for (var voc:String in chanel[VOC])
+			{
+				stopVoc(voc);
+			}
+		}
+		
+		public function stopEnvs():void 
+		{
+			for (var env:String in chanel[ENV])
+			{
+				stopEnv(env);
+			}
+		}
+			
 		public function stopAll():void
 		{
 			trace('Sound stopAll');
@@ -176,7 +211,7 @@ package common.sound
 			}
 		}
 		
-		private function stopSfx(sound:String):void
+		public function stopSfx(sound:String):void
 		{
 			if (chanel[SFX][sound])
 			{
@@ -185,7 +220,7 @@ package common.sound
 			}
 		}
 		
-		private function stopEnv(sound:String):void
+		public function stopEnv(sound:String):void
 		{
 			if (chanel[ENV][sound])
 			{

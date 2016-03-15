@@ -30,6 +30,12 @@ package common
 		// Список машин
 		public static var cars:Array = [];
 		
+		// Включен ENV
+		public static var envOn:int = 1;
+
+		// Включены SFX
+		public static var sfxOn:int = 1;
+		
 		public static function createRoom(room:Room, name:String):void
 		{
 			//trace('Common createRoom');
@@ -89,7 +95,29 @@ package common
 			//trace('Common soundPlay' );
 			sound.stopAll();
 		}
+		
+		public static function soundOnEnv():void
+		{
+			envOn = 1;
+		}
 
+		public static function soundOffEnv():void
+		{
+			envOn = 0;
+			sound.stopEnvs();
+		}
+		
+		public static function soundOnSfx():void
+		{
+			sfxOn = 1;
+		}
+		
+		public static function soundOffSfx():void
+		{
+			sfxOn = 0;
+			sound.stopSfxs();
+		}
+		
 		// Lock
 		private static var lock:Lock = new Lock;
 
