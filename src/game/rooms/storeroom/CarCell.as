@@ -35,14 +35,15 @@ package game.rooms.storeroom
 			// Формат текста
 			var formatText:TextFormat = new TextFormat();
 			formatText.font = 'Arial';
-			formatText.size = 14;
+			formatText.size = 13;
+			formatText.bold = true;
 			
 			var carText:TextField = new TextField();
 			carText.text = description;
 			carText.setTextFormat(formatText);
 			carText.width = 150;
-			carText.height = 30;
-            carText.x = 15;
+			carText.height = 60;
+            carText.x = 5;
 			carText.y = -30;
 			carText.selectable = false;
 			addChild(carText);
@@ -55,11 +56,11 @@ package game.rooms.storeroom
 			formatText.size = 14;
 			
 			var carText:TextField = new TextField();
-			carText.text = price + " Голос";
+			carText.text = price + " Голосов";
 			carText.setTextFormat(formatText);
 			carText.width = 150;
 			carText.height = 30;
-            carText.x = 20;
+            carText.x = 10;
 			carText.y = 55;
 			carText.selectable = false;
 			addChild(carText);
