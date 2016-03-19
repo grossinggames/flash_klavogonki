@@ -5,6 +5,7 @@ package game.rooms.mainroom
 	 * @author baton
 	 */
 	import common.Common;
+	import common.car.Car;
 	import flash.display.Sprite;
 	import flash.display.*;	
 	import flash.events.MouseEvent;
@@ -65,7 +66,7 @@ package game.rooms.mainroom
 
 		// Добавить машину в заезд
 		public function addCar():int {
-			var car:Car = new Car();
+			var car:Car = Common.getCar();
 			car.x = (carList.length * 115) + 80;
 			this.addChild(car);
 			carList.push(car);

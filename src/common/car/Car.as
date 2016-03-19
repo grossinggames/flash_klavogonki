@@ -1,4 +1,4 @@
-package game.rooms.mainroom 
+package common.car 
 {
 	/**
 	 * ...
@@ -12,80 +12,85 @@ package game.rooms.mainroom
 	{
 		public var type:int;
 		
-		public function Car() 
+		public function Car(number:Number = 0) 
 		{
 			// Добавили машину 1
-			[Embed(source = "../../../../lib/images/car1.png")] 
+			[Embed(source = "../../../lib/images/car1.png")] 
 			var car1Class:Class;
 			var car1:Sprite = Common.createSpr( new car1Class() );
 			car1.alpha = 0;
 			addChild(car1);
 			
 			// Добавили машину 2
-			[Embed(source = "../../../../lib/images/car2.png")] 
+			[Embed(source = "../../../lib/images/car2.png")] 
 			var car2Class:Class;
 			var car2:Sprite = Common.createSpr( new car2Class() );
 			car2.alpha = 0;
 			addChild(car2);
 			
 			// Добавили машину 3
-			[Embed(source = "../../../../lib/images/car3.png")] 
+			[Embed(source = "../../../lib/images/car3.png")] 
 			var car3Class:Class;
 			var car3:Sprite = Common.createSpr( new car3Class() );
 			car3.alpha = 0;
 			addChild(car3);
 			
 			// Добавили машину 4
-			[Embed(source = "../../../../lib/images/car4.png")] 
+			[Embed(source = "../../../lib/images/car4.png")] 
 			var car4Class:Class;
 			var car4:Sprite = Common.createSpr( new car4Class() );
 			car4.alpha = 0;
 			addChild(car4);
 			
 			// Добавили машину 5
-			[Embed(source = "../../../../lib/images/car5.png")] 
+			[Embed(source = "../../../lib/images/car5.png")] 
 			var car5Class:Class;
 			var car5:Sprite = Common.createSpr( new car5Class() );
 			car5.alpha = 0;
 			addChild(car5);
 			
 			// Добавили машину 6
-			[Embed(source = "../../../../lib/images/car6.png")] 
+			[Embed(source = "../../../lib/images/car6.png")] 
 			var car6Class:Class;
 			var car6:Sprite = Common.createSpr( new car6Class() );
 			car6.alpha = 0;
 			addChild(car6);
 			
 			// Добавили машину 7
-			[Embed(source = "../../../../lib/images/car7.png")] 
+			[Embed(source = "../../../lib/images/car7.png")] 
 			var car7Class:Class;
 			var car7:Sprite = Common.createSpr( new car7Class() );
 			car7.alpha = 0;
 			addChild(car7);
 			
 			// Добавили машину 8
-			[Embed(source = "../../../../lib/images/car8.png")] 
+			[Embed(source = "../../../lib/images/car8.png")] 
 			var car8Class:Class;
 			var car8:Sprite = Common.createSpr( new car8Class() );
 			car8.alpha = 0;
 			addChild(car8);
 			
 			// Добавили машину 9
-			[Embed(source = "../../../../lib/images/car9.png")] 
+			[Embed(source = "../../../lib/images/car9.png")] 
 			var car9Class:Class;
 			var car9:Sprite = Common.createSpr( new car9Class() );
 			car9.alpha = 0;
 			addChild(car9);
 			
 			// Добавили машину 10
-			[Embed(source = "../../../../lib/images/car10.png")] 
+			[Embed(source = "../../../lib/images/car10.png")] 
 			var car10Class:Class;
 			var car10:Sprite = Common.createSpr( new car10Class() );
 			car10.alpha = 0;
 			addChild(car10);
-			
+
 			var showCar:int = randomInt(1, 10);
 			type = showCar;
+			
+			if (number) {
+				showCar = number;
+				type = showCar;
+			}
 			
 			switch (showCar) { 
 				case 1: 

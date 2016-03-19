@@ -14,6 +14,7 @@ package common
 	import common.room.ControllerRoom;
 	import common.sound.Sound;
 	import common.lock.Lock;
+	import common.car.Car;
 	import common.p2p.P2PCommon;
 	import flash.events.Event;
 
@@ -126,55 +127,12 @@ package common
 			//trace('Common Lock' );
 			lock.lockApp(value);
 		}
-		
-		// P2P
-		private static var p2p:P2PCommon = new P2PCommon;
 
-		public static function p2pConnect():void
+		public static function getCar(number:Number = 0):Car
 		{
-			//trace('Common p2pConnect' );
-			p2p.connect();
-		}
-
-		public static function p2pDisconnect(event:Event):void
-		{
-			//trace('Common p2pDisconnect' );
-			p2p.disconnect();
+			//trace('Common get car' );
+			return new Car(number);
 		}
 		
-		public static function p2pCancel(event:Event):void
-		{
-			//trace('Common p2pCancel' );
-			p2p.cancelGame();
-		}
-
-		public static function get p2pCanMove():Boolean
-		{
-			return p2p.canMove;
-		}
-		
-		public static function p2pSendPositionMessage(currentX:int, currentY:int):void
-		{
-			//trace('Common p2pSendPositionMessage' );
-			p2p.sendPositionMessage(currentX, currentY);
-		}
-
-		public static function p2pSendAllowWalkMessage(event:Event):void
-		{
-			//trace('Common p2pSendAllowWalkMessage' );
-			p2p.sendAllowWalkMessage();
-		}
-		
-		public static function get p2pUsers():Object
-		{
-			//trace('Common p2pUsers' );
-			return p2p.users;
-		}
-
-		public static function get carList():Object
-		{
-			//trace('Common carList' );
-			return cars;
-		}
 	}
 }

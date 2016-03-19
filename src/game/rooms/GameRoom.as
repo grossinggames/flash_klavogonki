@@ -149,49 +149,10 @@ package game.rooms
 		private function init(e:Event):void
 		{
 			trace('Class GameRoom init');
-
-			if (Common.p2pUsers['me'])
-			{
-				addChild(Common.p2pUsers['me']);
-			}
-			
-			if (Common.p2pUsers['neighbor'])
-			{
-				addChild(Common.p2pUsers['neighbor']);
-			}
 		}
 		
 		override public function keyDownHandler(event:KeyboardEvent):void
 		{
-			if (Common.p2pCanMove)
-			{
-				trace('Class GameRoom keyDownHandler');
-				
-				var step:int = 5;
-				
-				switch (event.keyCode)
-				{
-					case 37:
-						currentX-=step;
-						Common.p2pSendPositionMessage(currentX, currentY);
-						break;
-					
-					case 38:
-						currentY-=step;
-						Common.p2pSendPositionMessage(currentX, currentY);
-						break;
-					
-					case 39:
-						currentX+=step;
-						Common.p2pSendPositionMessage(currentX, currentY);
-						break;
-					
-					case 40:
-						currentY+=step;
-						Common.p2pSendPositionMessage(currentX, currentY);
-						break;
-				}
-			}
 		}
 		
 		private function onMouseClick(e:Event):void
