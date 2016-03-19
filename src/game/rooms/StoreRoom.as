@@ -47,6 +47,7 @@ package game.rooms
 			storeText.height = 30;
             storeText.x = 365;
 			storeText.y = 50;
+			storeText.selectable = false;
 			addChild(storeText);
 		}
 		
@@ -60,7 +61,7 @@ package game.rooms
 					cars[ i ][ j ] = new CarCell( Common.getCar(cars[ i ][ j ]) );
 					carHub.addChild(cars[ i ][ j ]);
 					cars[ i ][ j ].x = j * 150;
-					cars[ i ][ j ].y = i * 200;
+					cars[ i ][ j ].y = i * 220;
 				}
 			}
 		}

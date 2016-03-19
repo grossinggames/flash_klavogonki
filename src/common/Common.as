@@ -5,6 +5,7 @@ package common
 	 * @author baton
 	 */
 	
+	import common.query.Query;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
@@ -128,10 +129,28 @@ package common
 			lock.lockApp(value);
 		}
 
+		/* Получить автомобиль. Если параметр задан вернет указанный авто. Если параметр отстутствует - вернет рендомный авто */
 		public static function getCar(number:Number = 0):Car
 		{
 			//trace('Common get car' );
 			return new Car(number);
+		}
+		
+		// Запрос
+		private static var qr:Query = new Query;
+
+		public static function query(typeQuery:String, param:int):void
+		{
+			// trace('Common Query' );
+			
+			switch (typeQuery) { 
+				case "buyCar": 
+					qr.buyCar(param);
+					break; 
+				case "type": 
+					// Что то делаем
+					break;
+			}
 		}
 		
 	}

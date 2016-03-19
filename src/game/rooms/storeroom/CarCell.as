@@ -15,11 +15,16 @@ package game.rooms.storeroom
 	public class CarCell extends Sprite
 	{
 		private var type:Number = 0;
+		private var description:String = "Название машины по умолчанию";
+		private var price:int = 0;
 		
 		public function CarCell(car:Car) 
 		{
 			// Добавить машину в отображение
 			type = car.type;
+			description = car.description;
+			price = car.price;
+			
 			addChild(car);
 			addNameCar();
 			addPriceCar();
@@ -33,12 +38,13 @@ package game.rooms.storeroom
 			formatText.size = 14;
 			
 			var carText:TextField = new TextField();
-			carText.text = 'Машина номер ' + type;
+			carText.text = description;
 			carText.setTextFormat(formatText);
 			carText.width = 150;
 			carText.height = 30;
-            //carText.x = 365;
+            carText.x = 15;
 			carText.y = -30;
+			carText.selectable = false;
 			addChild(carText);
 		}
 		
@@ -49,12 +55,13 @@ package game.rooms.storeroom
 			formatText.size = 14;
 			
 			var carText:TextField = new TextField();
-			carText.text = 'Цена машины ' + type;
+			carText.text = price + " Голос";
 			carText.setTextFormat(formatText);
 			carText.width = 150;
 			carText.height = 30;
-            //carText.x = 365;
+            carText.x = 20;
 			carText.y = 55;
+			carText.selectable = false;
 			addChild(carText);
 		}
 
@@ -79,7 +86,7 @@ package game.rooms.storeroom
 				Mouse.cursor = MouseCursor.AUTO;
 			}
 			function onMouseDownBuyCar(event:MouseEvent):void {
-				trace('Купить машину под номером ' + type);
+				Common.query("buyCar", type);
 			}
 		}
 	}

@@ -20,9 +20,9 @@ package
 			Common.createRoom(new GameRoom, 'GameRoom');
 			Common.createRoom(new StoreRoom, 'StoreRoom');
 
-			//Common.switchRoom('MainRoom');
+			Common.switchRoom('MainRoom');
 			//Common.switchRoom('GameRoom');
-			Common.switchRoom('StoreRoom');
+			//Common.switchRoom('StoreRoom');
 		}
 	}
 }

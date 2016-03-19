@@ -21,7 +21,6 @@ package game.rooms
 	
 	public class MainRoom extends Room
 	{	
-		
 		// Массив игр
 		private var raceList:Array = [];
 		private var raceStepY:Number = 70;
@@ -440,6 +439,7 @@ package game.rooms
 			readyText.height = 30;
             readyText.x = 360;
 			readyText.y = 430;
+			readyText.selectable = false;
 			wait.addChild(readyText);
 
 			// Надпись ожидание
@@ -450,6 +450,7 @@ package game.rooms
 			waitText.height = 30;
             waitText.x = 339;
 			waitText.y = 270;
+			waitText.selectable = false;
 			wait.addChild(waitText);
 			
 			// Добавление изображения нового пользователя на карте
