@@ -1,163 +1,45 @@
 package game.rooms
 {
-	import flash.display.Bitmap;
-	import flash.events.Event;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-	import flash.events.MouseEvent;
 	import flash.display.Sprite;
-	import flash.events.KeyboardEvent;
+	import flash.events.Event;
 	import common.room.Room;
 	import common.Common;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-	import flash.ui.*;
+	import game.rooms.gameroom.Rudder;
+	
+	import common.text.TextGame;
 	
 	public class GameRoom extends Room
 	{	
-		private var character:Bitmap;
-		private var newFormat:TextFormat = new TextFormat();
-		private var currentX:int = 0;
-		private var currentY:int = 0;
-		
-		// Формат текста для надписи готовы
-		private var formatReadyText:TextFormat = new TextFormat();
+		private var _rudder:Rudder;
 		
 		public function GameRoom()
 		{
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
-
-			// Формат текста для меню
-			var formatText:TextFormat = new TextFormat();
-			formatText.font = 'Arial';
-			formatText.size = 18;
+			[Embed(source="../../../lib/images/control_panel.png")]
+			var panelClass:Class;
+			var panel:Sprite = Common.createSpr( new panelClass() );
+			panel.x = 0;
+			panel.y = 0;
+			addChild(panel);
 			
-			// Формат текста для надписи готовы
-			formatReadyText.font = 'Arial';
-			formatReadyText.size = 16;
-			formatReadyText.color = 0xFFFFFF;
-
-			/* Быстрый страт */
-			// Колесо
-			[Embed(source = "../../../lib/images/wheel.gif")] 
-			var wheelClass:Class;
-			var wheel:Sprite = Common.createSpr( new wheelClass() );
-			wheel.x = 10;
-			wheel.y = 10;
-			addChild(wheel);
-			wheel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
-			wheel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
-			wheel.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			
-			// Быстрый старт
-			var wheelText:TextField = new TextField();
-			wheelText.text = 'Быстрый старт';
-			wheelText.setTextFormat(formatText);
-			wheelText.width = 150;
-			wheelText.height = 30;
-            wheelText.x = 60;
-			wheelText.y = 220;
-			addChild(wheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			function onMouseOverWheelText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.BUTTON;
-			}
-			function onMouseOutWheelText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.AUTO;
-			}
-			function mouseDown(event:MouseEvent):void {
-			}
-
-			
-			/* Список игр */
-			/*
-			[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
-			var gamelistClass:Class;
-			var gamelist:Sprite = Common.createSpr( new gamelistClass() );
-			gamelist.x = 310;
-			gamelist.y = 10;
-			addChild(gamelist);
-			gamelist.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
-			gamelist.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameListText);
-			gamelist.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameListText);
-					
-			// Выбрать заезд
-			var gamelistText:TextField = new TextField();
-			gamelistText.text = 'Выбрать заезд';
-			gamelistText.setTextFormat(formatText);
-			gamelistText.width = 150;
-			gamelistText.height = 30;
-            gamelistText.x = 350;
-			gamelistText.y = 220;
-			addChild(gamelistText);
-			gamelistText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
-			gamelistText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameListText);
-			gamelistText.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameListText);
-			function onMouseOverGameListText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.BUTTON;
-			}
-			function onMouseOutGameListText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.AUTO;
-			}
-			function onMouseDownGameListText(event:MouseEvent):void
-			{
-				Common.switchRoom("MainRoom");
-			}
-			*/			
-			
-			/* Создать игру */
-			/*
-			[Embed(source = "../../../lib/images/icon-create.gif")] 
-			var gamecreateClass:Class;
-			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
-			gamecreate.x = 570;
-			gamecreate.y = 10;
-			addChild(gamecreate);
-			gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
-			gamecreate.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
-			
-			// Своя игра
-			var gamecreateText:TextField = new TextField();
-			gamecreateText.text = 'Своя игра';
-			gamecreateText.setTextFormat(formatText);
-			gamecreateText.width = 150;
-			gamecreateText.height = 30;
-            gamecreateText.x = 645;
-			gamecreateText.y = 220;
-			addChild(gamecreateText);
-			gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
-			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
-			*/
-			function onMouseOverGameCreateText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.BUTTON;
-			}
-			function onMouseOutGameCreateText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.AUTO;
-			}
-
+			_rudder = new Rudder();
+			addChild(_rudder);
 		}
 		
 		private function init(e:Event):void
 		{
-			trace('Class GameRoom init');
-		}
-		
-		override public function keyDownHandler(event:KeyboardEvent):void
-		{
-		}
-		
-		private function onMouseClick(e:Event):void
-		{
-			trace('Class GameRoom onMouseClick');
+			//Common.carList
+			//trace('Class GameRoom init');
+			// Заглушчный код
+			
+			var _tempArr: Array = new Array();
+			for (var i:int = 0; i < Math.round((Math.random() * 4) + 3); i++) {
+				_tempArr.push(Math.round((Math.random() * 9) + 1));
+			}
+			//_tempArr = [[1], [5]];
+			// После прочтения удалить
+			_rudder.startRace(Common.cars);
 		}
 	}
 }

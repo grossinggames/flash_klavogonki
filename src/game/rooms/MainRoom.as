@@ -325,7 +325,7 @@ package game.rooms
 			wait.addChild(bg);
 			
 			// Спрайт карты
-			[Embed(source = "../../../lib/images/map.jpg")] 
+			[Embed(source = "../../../lib/images/map.png")] 
 			var mapClass:Class;
 			var map:Sprite = Common.createSpr( new mapClass() );
 			map.x = 100;

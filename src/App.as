@@ -13,16 +13,16 @@ package
 	{
 		public function App() 
 		{
-			trace('App');
+			//trace('App');
 
 			addChild(Common.roomField);
 			Common.createRoom(new MainRoom, 'MainRoom');
 			Common.createRoom(new GameRoom, 'GameRoom');
-			Common.createRoom(new StoreRoom, 'StoreRoom');
 
-			// Common.switchRoom('MainRoom');
-			// Common.switchRoom('GameRoom');
-			 Common.switchRoom('StoreRoom');
+			Common.switchRoom('MainRoom');
+			//Common.switchRoom('GameRoom');
+			// Common.switchRoom('StoreRoom');
 		}
+
 	}
 }

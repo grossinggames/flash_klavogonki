@@ -47,6 +47,22 @@ package common.sound
 			[Embed(source = '../../../lib/sound/sfx_example2.mp3')]
 			var soundClass2:Class;
 			sounds[SFX]['sfx_example2'] = new soundClass2();
+			
+			[Embed(source="../../../lib/sound/sfx_error.mp3")]
+			var soundClass3:Class;
+			sounds[SFX]['sfx_error'] = new soundClass3();
+			
+			[Embed(source = "../../../lib/sound/sfx_current.mp3")]
+			var soundClass4:Class;
+			sounds[SFX]['sfx_current'] = new soundClass4();
+			
+			[Embed(source = "../../../lib/sound/sfx_bib.mp3")]
+			var soundClass5:Class;
+			sounds[SFX]['sfx_bib'] = new soundClass5();
+			
+			[Embed(source = "../../../lib/sound/sfx_start.mp3")]
+			var soundClass6:Class;
+			sounds[SFX]['sfx_start'] = new soundClass6();
 		}
 		
 		private function loadEnv():void

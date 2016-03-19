@@ -52,8 +52,8 @@ package {
 				progressBar.stage.removeChild(indicator);
 				removeChild(progressBar);
 				
-				trace('percentage = ' + percentage);
-				trace('load Main');
+				//trace('percentage = ' + percentage);
+				//trace('load Main');
 				
 				var mainClass:Class = getDefinitionByName("Main") as Class;
 				this.addChild(new mainClass as DisplayObject);
