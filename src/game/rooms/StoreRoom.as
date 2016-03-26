@@ -51,7 +51,6 @@ package game.rooms
 			var sliderClass:Class;
 			var slider:Sprite = Common.createSpr( new sliderClass() );
 			sliderHub.addChild(slider);
-			//slider.y = 587;
 			slider.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverSlider);
 			slider.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutSlider);
 			slider.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownSlider);
@@ -92,12 +91,12 @@ package game.rooms
 				var posY:Number = mouseY - sliderHub.y - 44;
 				if (posY < 0) {
 					posY = 0;
-				} else if (posY > 587) {
-					posY = 587;
+				} else if (posY > 500) {
+					posY = 500;
 				}
 				slider.y = posY;
 
-				var percent:Number = Math.floor(slider.y / 5.87);
+				var percent:Number = Math.floor(slider.y / 5);
 				
 				if (percent > 8) {
 					storeText.alpha = 0;
@@ -105,7 +104,7 @@ package game.rooms
 					storeText.alpha = 1;
 				}
 				
-				carHub.y = percent * (-11) + 200;
+				carHub.y = percent * (-12) + 200;
 			}
 		}
 		

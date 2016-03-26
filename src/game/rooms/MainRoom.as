@@ -201,7 +201,9 @@ package game.rooms
 					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameCreateText);
 					//raceList[raceIndex].y = raceStepY;
 					gameListHub.addChild( raceList[raceIndex] );
-					Common.soundPlay("sfx_current");
+					if (Common.currentRoom == "MainRoom") {
+					    Common.soundPlay("sfx_current");
+					}
 				}
 			}
 
@@ -247,9 +249,13 @@ package game.rooms
 							
 							if ( raceCountCar >= 5 || (randomInt(0, 100) < 10 ) ) {
 								removeRace(randomRace);
-								Common.soundPlay("sfx_error");
+								if (Common.currentRoom == "MainRoom") {
+									Common.soundPlay("sfx_error");
+								}
 							} else {
-								Common.soundPlay("sfx_current");
+								if (Common.currentRoom == "MainRoom") {
+									Common.soundPlay("sfx_current");
+								}
 							}
 						}
 					}
