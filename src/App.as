@@ -63,6 +63,7 @@ import flash.events.*;
 			//Для локальной работы закоментировать 
 			//flashVars = stage.loaderInfo.parameters as Object;
 			//Для локальной работы раскоментировать все поля
+			/*
 			flashVars['api_id'] = 4711425;
 			flashVars['viewer_id'] = 13508828;
 			flashVars['sid'] = "d4ef99ebf711049de67d9c5563e904cef96356e4ce9a5f609e7fb2e06f89148b90bc1c7efcbce8b7b42c5";
@@ -70,6 +71,7 @@ import flash.events.*;
 			VK = new APIConnection(flashVars);
 			VK.api('getProfiles', { uids: flashVars['viewer_id'] } );
 			Common.vkonte = VK;
+			*/
 		}
 		private function gavannaCompleteHandler(e:AppGavannaEvent):void {
 			Common.userSettings = e.result[0];

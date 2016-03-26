@@ -24,7 +24,7 @@ package game.rooms
 		// Массив игр
 		private var raceList:Array = [];
 		private var raceStepY:Number = 70;
-		private var raceTotal:Number = 7;	
+		private var raceTotal:Number = 5;	
 		private var loadingHub:Sprite;
 		private var soundButtons:SoundButtons;
 		
@@ -201,6 +201,7 @@ package game.rooms
 					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameCreateText);
 					//raceList[raceIndex].y = raceStepY;
 					gameListHub.addChild( raceList[raceIndex] );
+					Common.soundPlay("sfx_current");
 				}
 			}
 
@@ -244,8 +245,11 @@ package game.rooms
 						if (raceList[randomRace]) {
 							var raceCountCar:int = raceList[randomRace].addCar();
 							
-							if ( raceCountCar >= 6 || (randomInt(0, 100) < 10 ) ) {
+							if ( raceCountCar >= 5 || (randomInt(0, 100) < 10 ) ) {
 								removeRace(randomRace);
+								Common.soundPlay("sfx_error");
+							} else {
+								Common.soundPlay("sfx_current");
 							}
 						}
 					}
@@ -265,7 +269,7 @@ package game.rooms
 				// Только добавляем заезды
 				var isAddRace:Number = randomInt(1, 30);
 				
-				if ( (isAddRace > 9 && isAddRace < 11) || (raceList.length > 6) ) {
+				if ( (isAddRace > 9 && isAddRace < 11) || (raceList.length > 5) ) {
 					isAddRace = 0;
 				}
 				
@@ -403,11 +407,11 @@ package game.rooms
 			player5.off();
             wait.addChild(player5);
 			
-			var player6:WaitPlayer =  new WaitPlayer;
-			player6.x = 480;
-			player6.y = 400;
-			player6.off();
-            wait.addChild(player6);
+			//var player6:WaitPlayer =  new WaitPlayer;
+			//player6.x = 480;
+			//player6.y = 400;
+			//player6.off();
+            //wait.addChild(player6);
 
 			var findPlayerCurr:int = countCars;			
 			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
@@ -429,15 +433,15 @@ package game.rooms
 					case 5: 
 						player5.on();
 						break;
-					case 6: 
-						player6.on();
-						break;
+					//case 6: 
+					//	player6.on();
+					//	break;
 				}
 			}
 			
 			// Надпись готовы
 			var readyText:TextField = new TextField();
-			readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
+			readyText.text = 'Готовы: ' + findPlayerCurr + '/5';
 			readyText.setTextFormat(formatReadyText);
 			readyText.width = 150;
 			readyText.height = 30;
@@ -497,6 +501,7 @@ package game.rooms
 			wait.addChild(playerMap5);
 			
 			// Добавление изображения нового пользователя на карте
+			/*
 			var playerMap6:Sprite = Common.createSpr( new playerClass() );
 			playerMap6.scaleX = 0.5;
 			playerMap6.scaleY = 0.5;
@@ -504,9 +509,10 @@ package game.rooms
 			playerMap6.y = 265;
 			playerMap6.alpha = 0;
 			wait.addChild(playerMap6);
+			*/
 	
 			function addNewPlayerHandler():void {
-				if (findPlayerCurr < 6) {
+				if (findPlayerCurr < 5) {
 					Common.cars[findPlayerCurr] = randomInt(1, 10);
 				}
 				
@@ -540,30 +546,39 @@ package game.rooms
 						playerMap5.alpha = 1;
 						break; 
 					case 6: 
+						/*
 						player6.on();
 						playerMap6.x = randomInt(400, 560);
 						playerMap6.y = randomInt(315, 390);
 						playerMap6.alpha = 1;
 						addNewPlayeTimer.delay = 500;
 						break; 
-					case 7: 
+						*/
 						addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
 						addNewPlayeTimer.stop();
 						waitPlayersHide();
 						trace(Common.cars);
 						break; 
+					case 7: 
+						/*
+						addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
+						addNewPlayeTimer.stop();
+						waitPlayersHide();
+						trace(Common.cars);
+						break; 
+						*/
 					default : 
 						//trace("switch default"); 
 				}
 				
-				readyText.text = 'Готовы: ' + findPlayerCurr + '/6';
+				readyText.text = 'Готовы: ' + findPlayerCurr + '/5';
 				readyText.setTextFormat(formatReadyText);
 					
 				if ( (findPlayerCurr > 1) && randomInt(0, 8) < 3 ) {
 					addNewPlayeTimer.delay = 1000;
-					findPlayerCurr = 6;
+					findPlayerCurr = 5;
 				} else {
-					if (findPlayerCurr < 6) {
+					if (findPlayerCurr < 5) {
 						var delay:int = randomInt(500, 3000);
 						addNewPlayeTimer.delay = delay;
 					}
