@@ -37,8 +37,8 @@ package game.rooms
 		public function MainRoom()
 		{
 			soundButtons = new SoundButtons();
-			soundButtons.x = 300;
-			soundButtons.y = 50;
+			soundButtons.x = 550;
+			soundButtons.y = 10;
 			addChild(soundButtons);
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
@@ -123,8 +123,8 @@ package game.rooms
 			}
 			*/
 			
-			/* Создать игру */
-			/*
+			/* Гараж */
+			
 			[Embed(source = "../../../lib/images/icon-create.gif")] 
 			var gamecreateClass:Class;
 			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
@@ -133,10 +133,11 @@ package game.rooms
 			addChild(gamecreate);
 			gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
 			gamecreate.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
+			gamecreate.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameCreate);
 			
-			// Своя игра
+			// Гараж
 			var gamecreateText:TextField = new TextField();
-			gamecreateText.text = 'Своя игра';
+			gamecreateText.text = 'Гараж';
 			gamecreateText.setTextFormat(formatText);
 			gamecreateText.width = 150;
 			gamecreateText.height = 30;
@@ -144,8 +145,8 @@ package game.rooms
 			gamecreateText.y = 220;
 			addChild(gamecreateText);
 			gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
-			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
-			*/
+			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameCreateText);
+			gamecreateText.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameCreate);
 			function onMouseOverGameCreateText(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;
@@ -154,7 +155,10 @@ package game.rooms
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
-			
+			function onMouseDownGameCreate(event:MouseEvent):void
+			{
+				Common.switchRoom('StoreRoom');
+			}
 
 			/* Контейнер списока игр */
 			var gameListHub:Sprite = new Sprite;
