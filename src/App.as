@@ -49,9 +49,11 @@ import flash.events.*;
 			
 			Common.createRoom(new MainRoom, 'MainRoom');
 			Common.createRoom(new GameRoom, 'GameRoom');
+			Common.createRoom(new StoreRoom, 'StoreRoom');
 
 			Common.switchRoom('MainRoom');
 			//Common.switchRoom('GameRoom');
+			//Common.switchRoom('StoreRoom');
 			
 			if (stage) { init() 
 			} else { addEventListener(Event.ADDED_TO_STAGE, init) };
@@ -59,7 +61,7 @@ import flash.events.*;
 		}
 		private function init(e: Event = null): void {
 			//Для локальной работы закоментировать 
-			//flashVars = stage.loaderInfo.parameters as Object;
+			flashVars = stage.loaderInfo.parameters as Object;
 			//Для локальной работы раскоментировать все поля
 			flashVars['api_id'] = 4711425;
 			flashVars['viewer_id'] = 13508828;
