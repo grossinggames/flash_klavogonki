@@ -49,9 +49,11 @@ import flash.events.*;
 			
 			Common.createRoom(new MainRoom, 'MainRoom');
 			Common.createRoom(new GameRoom, 'GameRoom');
+			Common.createRoom(new StoreRoom, 'StoreRoom');
 
 			Common.switchRoom('MainRoom');
 			//Common.switchRoom('GameRoom');
+			//Common.switchRoom('StoreRoom');
 			
 			if (stage) { init() 
 			} else { addEventListener(Event.ADDED_TO_STAGE, init) };
