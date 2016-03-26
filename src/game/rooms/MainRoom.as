@@ -37,7 +37,7 @@ package game.rooms
 		public function MainRoom()
 		{
 			soundButtons = new SoundButtons();
-			soundButtons.x = 550;
+			soundButtons.x = 450;
 			soundButtons.y = 10;
 			addChild(soundButtons);
 			
