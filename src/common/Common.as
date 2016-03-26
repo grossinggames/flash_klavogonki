@@ -6,6 +6,7 @@ package common
 	 */
 	
 	import common.query.Query;
+	import common.vk.APIConnection;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
@@ -17,6 +18,7 @@ package common
 	import common.lock.Lock;
 	import common.car.Car;
 	import common.p2p.P2PCommon;
+	import common.gavanna.IronScreen;
 	import flash.events.Event;
 
 	public class Common extends Sprite
@@ -34,7 +36,7 @@ package common
 		
 		// Включен ENV
 		public static var envOn:int = 1;
-
+		
 		// Включены SFX
 		public static var sfxOn:int = 1;
 		
@@ -128,7 +130,28 @@ package common
 			//trace('Common Lock' );
 			lock.lockApp(value);
 		}
-
+		
+		// Скринчик
+		public static var screenProcessing:Boolean = true;
+		
+		// Настройки
+		public static var userSettings:Array = [1,0,0];
+		
+		// Машики с сервера
+		public static var userCar:Array = [1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0];
+		
+		// Для работы в вконтакте
+		public static var vkonte:APIConnection;
+		
+		public static function wallPost (params:Array):void {
+			params[3] = "photo-72764783_369512919";
+			vkonte.api('wall.post', { message: 'Я занял ' + params[0] +'-е место, со скоростью '+params[1] +' и допустил '+ params[2] +' ошибок. http://vk.com/app5351580', attachment: params[3] } );
+		}
+		public static function callFrend ():void{
+			vkonte.callMethod("showInviteBox");
+		}
+		
+		
 		/* Получить автомобиль. Если параметр задан вернет указанный авто. Если параметр отстутствует - вернет рендомный авто */
 		public static function getCar(number:Number = 0):Car
 		{

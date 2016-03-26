@@ -23,9 +23,12 @@ package game.rooms.gameroom
 		private var _xx					:int		= 240;
 		private var _yy					:int 		= 180;
 		
+		private var _raceResult			:Array;
+		
 		public function Finish(game:Rudder, raceResult:Array) 
-		{
+		{			
 			_game = game;
+			_raceResult = raceResult;
 			
 			[Embed(source = "../../../../lib/images/back.png")]
 			var _backClass:Class;
@@ -52,7 +55,7 @@ package game.rooms.gameroom
 			_share.alpha = 0;
 			_share.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
 			_share.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
-			_share.addEventListener(MouseEvent.CLICK, shareRace);
+			_share.addEventListener(MouseEvent.CLICK, endRace);
 			_share.tabEnabled = false;
 			addChild(_share);
 			
@@ -63,11 +66,11 @@ package game.rooms.gameroom
 			_cancel.alpha = 0;
 			_cancel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
 			_cancel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
-			_cancel.addEventListener(MouseEvent.CLICK, endRace);
+			_cancel.addEventListener(MouseEvent.CLICK, shareRace);
 			_cancel.tabEnabled = false;
 			addChild(_cancel);
 			
-			_textWin = new Textor(raceResult[0], 37, 0xFFFFFF, true, 0x00AEAE, false);
+			_textWin = new Textor("Вы заняли " + raceResult[0] +" место", 37, 0xFFFFFF, true, 0x00AEAE, false);
 			_textWin.x = _xx + 10;
 			_textWin.y = _yy + 40;
 			addChild(_textWin);
@@ -94,6 +97,7 @@ package game.rooms.gameroom
 		}
 		private function shareRace(e:MouseEvent):void {
 			//Здесь мы типа в контакт все отправляем;
+			Common.wallPost(_raceResult);
 			endRace(e);
 		}
 		

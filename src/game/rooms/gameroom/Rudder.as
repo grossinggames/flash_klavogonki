@@ -326,7 +326,7 @@ package game.rooms.gameroom
 			//_textInput.type = TextFieldType.DYNAMIC;
 			
 			var raceResult:Array = new Array();
-			raceResult[0] = "Вы заняли " + (_point).toString() +" место";; 
+			raceResult[0] = _point;
 			raceResult[1] = Math.round((_speedQuantity/_timerQuantity)*86);
 			raceResult[2] = _errorQuantity;
 			
