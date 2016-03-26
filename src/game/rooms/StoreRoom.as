@@ -9,6 +9,10 @@ package game.rooms
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import game.rooms.storeroom.*;
+	import flash.events.MouseEvent;
+	import flash.events.Event;
+	import flash.geom.Rectangle;
+	import flash.ui.*;
 	
 	public class StoreRoom extends Room
 	{	
@@ -24,6 +28,7 @@ package game.rooms
 		];
 		
 		private var carHub:Sprite = new Sprite;
+		private var storeText:TextField;
 		
 		// Формат текста для надписи
 		private var formatText:TextFormat = new TextFormat();
@@ -32,16 +37,86 @@ package game.rooms
 		{
 			createCars(); // Создать автомобили
 			addTextStore(); // Добавить текст "Магазин"
+			createSlider(); // Создать слайдер
         }
 
+		private function createSlider():void {
+			var sliderHub:Sprite = new Sprite;
+			sliderHub.x = 770;
+			sliderHub.y = 170;
+			addChild(sliderHub);
+			
+			// Добавили слайдер
+			[Embed(source = "../../../lib/images/slider.png")] 
+			var sliderClass:Class;
+			var slider:Sprite = Common.createSpr( new sliderClass() );
+			sliderHub.addChild(slider);
+			//slider.y = 587;
+			slider.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverSlider);
+			slider.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutSlider);
+			slider.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownSlider);
+			slider.addEventListener(MouseEvent.MOUSE_UP, onMouseUpSlider);
+
+			// Добавили back слайдера
+			[Embed(source = "../../../lib/images/back.png")] 
+			var backScrollClass:Class;
+			var backScroll:Sprite = Common.createSpr( new backScrollClass() );
+			backScroll.scaleX = 800;
+			backScroll.scaleY = 850;
+			backScroll.alpha = 0;
+			addChild(backScroll);
+			backScroll.mouseEnabled = false;
+			backScroll.addEventListener(MouseEvent.MOUSE_UP, onMouseUpSlider);
+			
+			function onMouseOverSlider(event:MouseEvent):void
+			{
+				//Mouse.cursor = MouseCursor.BUTTON;
+			}
+			function onMouseOutSlider(event:MouseEvent):void
+			{
+				//Mouse.cursor = MouseCursor.AUTO;
+			}
+			function onMouseDownSlider(event:MouseEvent):void 
+			{
+				//Mouse.cursor = MouseCursor.AUTO;
+				slider.addEventListener(Event.ENTER_FRAME, onEnterFrameSlider);
+				backScroll.mouseEnabled = true;
+			}
+			function onMouseUpSlider(e:Event):void
+			{
+				slider.removeEventListener(Event.ENTER_FRAME, onEnterFrameSlider);
+				backScroll.mouseEnabled = false;
+			}
+			function onEnterFrameSlider(e:Event):void
+			{
+				var posY:Number = mouseY - sliderHub.y - 44;
+				if (posY < 0) {
+					posY = 0;
+				} else if (posY > 587) {
+					posY = 587;
+				}
+				slider.y = posY;
+
+				var percent:Number = Math.floor(slider.y / 5.87);
+				
+				if (percent > 8) {
+					storeText.alpha = 0;
+				} else if (percent < 8) {
+					storeText.alpha = 1;
+				}
+				
+				carHub.y = percent * (-11) + 200;
+			}
+		}
+		
 		private function addTextStore():void {
 			// Формат текста для меню
 			formatText.font = 'Arial';
 			formatText.size = 18;
 			formatText.color = 0x0099FF;
 			
-			var storeText:TextField = new TextField();
-			storeText.text = 'Магазин';
+			storeText = new TextField();
+			storeText.text = 'Гараж';
 			storeText.setTextFormat(formatText);
 			storeText.width = 150;
 			storeText.height = 30;
