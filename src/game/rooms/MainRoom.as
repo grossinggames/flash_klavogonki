@@ -30,301 +30,349 @@ package game.rooms
 		
 		// Формат текста для надписи готовы
 		private var formatReadyText:TextFormat = new TextFormat();
+
+		private var formatText:TextFormat = new TextFormat();
 		
 		//  Таймер для добавления поиска нового клиента для заезда
 		private var addNewPlayeTimer:Timer = new Timer(2500);
 
 		public function MainRoom()
 		{
-			soundButtons = new SoundButtons();
-			soundButtons.x = 450;
-			soundButtons.y = 10;
-			addChild(soundButtons);
-			
-			addEventListener(Event.ADDED_TO_STAGE, init);
-
-			// Формат текста для меню
-			var formatText:TextFormat = new TextFormat();
-			formatText.font = 'Arial';
-			formatText.size = 18;
-			
-			// Формат текста для надписи готовы
-			formatReadyText.font = 'Arial';
-			formatReadyText.size = 16;
-			formatReadyText.color = 0xFFFFFF;
-
-			/* Быстрый страт */
-			// Колесо
-			[Embed(source = "../../../lib/images/wheel.gif")] 
-			var wheelClass:Class;
-			var wheel:Sprite = Common.createSpr( new wheelClass() );
-			wheel.x = 10;
-			wheel.y = 10;
-			addChild(wheel);
-			wheel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
-			wheel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
-			wheel.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			
-			// Быстрый старт
-			var wheelText:TextField = new TextField();
-			wheelText.text = 'Быстрый старт';
-			wheelText.setTextFormat(formatText);
-			wheelText.width = 150;
-			wheelText.height = 30;
-            wheelText.x = 60;
-			wheelText.y = 220;
-			addChild(wheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
-			wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			function onMouseOverWheelText(event:MouseEvent):void
+			// Добавить кнопки звуков
+			function addSoundButton():void
 			{
-				Mouse.cursor = MouseCursor.BUTTON;
+				soundButtons = new SoundButtons();
+				soundButtons.x = 450;
+				soundButtons.y = 10;
+				addChild(soundButtons);
 			}
-			function onMouseOutWheelText(event:MouseEvent):void
+		
+			// Установить формат
+			function setFormat():void
 			{
-				Mouse.cursor = MouseCursor.AUTO;
-			}
-			function mouseDown(event:MouseEvent):void {
-				/* Послать количество машин */
-				Common.cars = [1];
-                waitPlayers(Common.cars.length);
-			}
-
-			/* Список игр */
-			/*
-			[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
-			var gamelistClass:Class;
-			var gamelist:Sprite = Common.createSpr( new gamelistClass() );
-			gamelist.x = 310;
-			gamelist.y = 10;
-			addChild(gamelist);
-			gamelist.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
-			gamelist.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameListText);
-					
-			// Выбрать заезд
-			var gamelistText:TextField = new TextField();
-			gamelistText.text = 'Выбрать заезд';
-			gamelistText.setTextFormat(formatText);
-			gamelistText.width = 150;
-			gamelistText.height = 30;
-            gamelistText.x = 350;
-			gamelistText.y = 220;
-			addChild(gamelistText);
-			gamelistText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
-			gamelistText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameListText);
-			function onMouseOverGameListText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.BUTTON;
-			}
-			function onMouseOutGameListText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.AUTO;
-			}
-			*/
-			
-			/* Гараж */
-			
-			[Embed(source = "../../../lib/images/garage.png")] 
-			var gamecreateClass:Class;
-			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
-			gamecreate.x = 570;
-			gamecreate.y = 10;
-			addChild(gamecreate);
-			gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
-			gamecreate.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameCreateText);
-			gamecreate.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameCreate);
-			
-			// Гараж
-			var gamecreateText:TextField = new TextField();
-			gamecreateText.text = 'Гараж';
-			gamecreateText.setTextFormat(formatText);
-			gamecreateText.width = 150;
-			gamecreateText.height = 30;
-            gamecreateText.x = 645;
-			gamecreateText.y = 220;
-			addChild(gamecreateText);
-			gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
-			gamecreateText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameCreateText);
-			gamecreateText.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownGameCreate);
-			function onMouseOverGameCreateText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.BUTTON;
-			}
-			function onMouseOutGameCreateText(event:MouseEvent):void
-			{
-				Mouse.cursor = MouseCursor.AUTO;
-			}
-			function onMouseDownGameCreate(event:MouseEvent):void
-			{
-				Common.switchRoom('StoreRoom');
-			}
-
-			/* Контейнер списока игр */
-			var gameListHub:Sprite = new Sprite;
-			gameListHub.x = 30;
-			gameListHub.y = 250;
-			addChild(gameListHub);
-
-			function enterRace(event:MouseEvent):void {
-				for (var i:int = 0; i < raceList.length; i++) {
-					if (event.currentTarget == raceList[i]) {
-						/* Послать количество машин */
-						var countCarsInRace:int = raceList[i].carList.length;
-						Common.cars = [1];
-						
-						for (var j:int = 0; j < countCarsInRace; j++) {
-							Common.cars[j + 1] = raceList[i].carList[j].type;
-						}
-						
-                        waitPlayers(countCarsInRace + 1);
-						removeRace(i);
-						break;
-					}
-				}
-			}
-			
-			// Метод добавления заезда
-			// Первым делом нужно брать из кучи удаленных заездов что бы не создавать новые заезды а брать старые
-			function addRace():void {
-				//var isAddRace:int = randomInt(0, 1);
-				var isAddRace:int = 1;
+				// Формат текста для меню
+				formatText.font = 'Arial';
+				formatText.size = 18;
 				
-				if ( isAddRace && (raceList.length < raceTotal) ) {
-					var newRace:Race = new Race;
-					raceList.push(newRace);
-					
-					var raceIndex:Number = raceList.length - 1;
-					raceList[raceIndex].y = 0;
-					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_DOWN, enterRace);
-					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameCreateText);
-					raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGameCreateText);
-					//raceList[raceIndex].y = raceStepY;
-					gameListHub.addChild( raceList[raceIndex] );
-					if (Common.currentRoom == "MainRoom") {
-					    Common.soundPlay("sfx_current");
+				// Формат текста для надписи готовы
+				formatReadyText.font = 'Arial';
+				formatReadyText.size = 16;
+				formatReadyText.color = 0xFFFFFF;
+			}
+
+			// Добавить меню
+			function addMenu():void
+			{
+				/* Быстрый страт */
+				// Колесо
+				[Embed(source = "../../../lib/images/wheel.gif")] 
+				var wheelClass:Class;
+				var wheel:Sprite = Common.createSpr( new wheelClass() );
+				wheel.x = 10;
+				wheel.y = 10;
+				addChild(wheel);
+				wheel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
+				wheel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
+				wheel.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+				
+				// Быстрый старт
+				var wheelText:TextField = new TextField();
+				wheelText.text = 'Быстрый старт';
+				wheelText.setTextFormat(formatText);
+				wheelText.width = 150;
+				wheelText.height = 30;
+				wheelText.x = 60;
+				wheelText.y = 220;
+				addChild(wheelText);
+				wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
+				wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
+				wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+				function onMouseOverWheelText(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+				}
+				function onMouseOutWheelText(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.AUTO;
+				}
+				function mouseDown(event:MouseEvent):void 
+				{
+					/* Послать количество машин */
+					Common.cars = [1];
+					waitPlayers(Common.cars.length);
+				}
+
+				/* Список игр */
+				/*
+				[Embed(source = "../../../lib/images/icon-gamelist.gif")] 
+				var gamelistClass:Class;
+				var gamelist:Sprite = Common.createSpr( new gamelistClass() );
+				gamelist.x = 310;
+				gamelist.y = 10;
+				addChild(gamelist);
+				gamelist.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
+				gamelist.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameListText);
+						
+				// Выбрать заезд
+				var gamelistText:TextField = new TextField();
+				gamelistText.text = 'Выбрать заезд';
+				gamelistText.setTextFormat(formatText);
+				gamelistText.width = 150;
+				gamelistText.height = 30;
+				gamelistText.x = 350;
+				gamelistText.y = 220;
+				addChild(gamelistText);
+				gamelistText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGameListText);
+				gamelistText.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutGameListText);
+				function onMouseOverGameListText(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+				}
+				function onMouseOutGameListText(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.AUTO;
+				}
+				*/
+				
+				/* Гараж */
+				[Embed(source = "../../../lib/images/garage.png")] 
+				var gamecreateClass:Class;
+				var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
+				gamecreate.x = 570;
+				gamecreate.y = 10;
+				addChild(gamecreate);
+				gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+				gamecreate.addEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
+				gamecreate.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+				
+				// Гараж
+				var gamecreateText:TextField = new TextField();
+				gamecreateText.text = 'Гараж';
+				gamecreateText.setTextFormat(formatText);
+				gamecreateText.width = 150;
+				gamecreateText.height = 30;
+				gamecreateText.x = 645;
+				gamecreateText.y = 220;
+				addChild(gamecreateText);
+				gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+				gamecreateText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+				gamecreateText.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			}
+			
+			// Добавить заезды
+			function addGameList():void 
+			{
+				/* Контейнер списока игр */
+				var gameListHub:Sprite = new Sprite;
+				gameListHub.x = 30;
+				gameListHub.y = 250;
+				addChild(gameListHub);
+
+				function enterRace(event:MouseEvent):void 
+				{
+					for (var i:int = 0; i < raceList.length; i++) 
+					{
+						if (event.currentTarget == raceList[i]) 
+						{
+							/* Послать количество машин */
+							var countCarsInRace:int = raceList[i].carList.length;
+							Common.cars = [1];
+							
+							for (var j:int = 0; j < countCarsInRace; j++) 
+							{
+								Common.cars[j + 1] = raceList[i].carList[j].type;
+							}
+							
+							waitPlayers(countCarsInRace + 1);
+							removeRace(i);
+							break;
+						}
 					}
 				}
-			}
-
-
-			
-			// Метод удаления заезда
-			// Первым делом необходимо добавить занесение удаленных игр в общую кучу для того что бы потом брать из нее при создании нового заезда
-			function removeRace(numRace:Number):void {
-				if (raceList.length) {
-					// Рендомно выбираем заезд для удаления
-					//var raceIndex:Number = getRaceRandom();
+				
+				// Метод добавления заезда
+				// Первым делом нужно брать из кучи удаленных заездов что бы не создавать новые заезды а брать старые
+				function addRace():void 
+				{
+					//var isAddRace:int = randomInt(0, 1);
+					var isAddRace:int = 1;
 					
-					var raceIndex:Number = numRace;
-					gameListHub.removeChild( raceList[raceIndex] );
-					//trace('Remove index ', raceIndex);
-					raceList.splice(raceIndex, 1);
-				}
-			}
-			
-			// Получить случайный индекс в массиве
-			function getRaceRandom():Number {
-				var raceIndex:Number = 0;
-				var raceTotal:Number = raceList.length - 1;
-				raceIndex = randomInt(raceIndex, raceTotal);
-				return raceIndex;
-			}
-			
-			//  Таймер для добавления машины в заезд
-			var addCarTimer:Timer = new Timer(1000);
-            addCarTimer.addEventListener("timer", addCarTimerHandler);
-            addCarTimer.start();
-			
-			function addCarTimerHandler(event:TimerEvent):void {
-				if (raceList.length) {
-					var isAdd:int = randomInt(0, 1);
-					
-					if (isAdd) {
-						var randomRace:int = randomInt(0, (raceList.length - 1) );
-						//trace('randomRace = ', randomRace);
+					if ( isAddRace && (raceList.length < raceTotal) ) 
+					{
+						var newRace:Race = new Race;
+						raceList.push(newRace);
 						
-						if (raceList[randomRace]) {
-							var raceCountCar:int = raceList[randomRace].addCar();
+						var raceIndex:Number = raceList.length - 1;
+						raceList[raceIndex].y = 0;
+						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_DOWN, enterRace);
+						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+						//raceList[raceIndex].y = raceStepY;
+						gameListHub.addChild( raceList[raceIndex] );
+						if (Common.currentRoom == "MainRoom") {
+							Common.soundPlay("sfx_current");
+						}
+					}
+				}
+
+				// Метод удаления заезда
+				// Первым делом необходимо добавить занесение удаленных игр в общую кучу для того что бы потом брать из нее при создании нового заезда
+				function removeRace(numRace:Number):void 
+				{
+					if (raceList.length) 
+					{
+						// Рендомно выбираем заезд для удаления
+						//var raceIndex:Number = getRaceRandom();
+						
+						var raceIndex:Number = numRace;
+						gameListHub.removeChild( raceList[raceIndex] );
+						//trace('Remove index ', raceIndex);
+						raceList.splice(raceIndex, 1);
+					}
+				}
+				
+				// Получить случайный индекс в массиве
+				function getRaceRandom():Number 
+				{
+					var raceIndex:Number = 0;
+					var raceTotal:Number = raceList.length - 1;
+					raceIndex = randomInt(raceIndex, raceTotal);
+					return raceIndex;
+				}
+				
+				//  Таймер для добавления машины в заезд
+				var addCarTimer:Timer = new Timer(1000);
+				addCarTimer.addEventListener("timer", addCarTimerHandler);
+				addCarTimer.start();
+				
+				function addCarTimerHandler(event:TimerEvent):void 
+				{
+					if (raceList.length) {
+						var isAdd:int = randomInt(0, 1);
+						
+						if (isAdd) 
+						{
+							var randomRace:int = randomInt(0, (raceList.length - 1) );
+							//trace('randomRace = ', randomRace);
 							
-							if ( raceCountCar >= 5 || (randomInt(0, 100) < 10 ) ) {
-								removeRace(randomRace);
-								if (Common.currentRoom == "MainRoom") {
-									Common.soundPlay("sfx_error");
-								}
-							} else {
-								if (Common.currentRoom == "MainRoom") {
-									Common.soundPlay("sfx_current");
+							if (raceList[randomRace]) 
+							{
+								var raceCountCar:int = raceList[randomRace].addCar();
+								
+								if ( raceCountCar >= 5 || (randomInt(0, 100) < 10 ) ) 
+								{
+									removeRace(randomRace);
+									if (Common.currentRoom == "MainRoom") 
+									{
+										Common.soundPlay("sfx_error");
+									}
+								} 
+								else 
+								{
+									if (Common.currentRoom == "MainRoom") 
+									{
+										Common.soundPlay("sfx_current");
+									}
 								}
 							}
 						}
 					}
 				}
+				
+				// Таймер для добавления и удаления заезда
+				var raceTimer:Timer = new Timer(3000);
+				raceTimer.addEventListener("timer", raceTimerHandler);
+				raceTimer.start();
+				
+				// Обработчик на таймер
+				function raceTimerHandler(event:TimerEvent):void 
+				{
+					//trace("timerHandler");
+					//var isAddRace:Number = 1;
+					
+					// Только добавляем заезды
+					var isAddRace:Number = randomInt(1, 30);
+					
+					if ( (isAddRace > 9 && isAddRace < 11) || (raceList.length > 5) ) 
+					{
+						isAddRace = 0;
+					}
+					
+					// Если количество заездов меньше 4, принудительно создаем заезд
+					if (raceList.length < 4) 
+					{
+						isAddRace = 1;
+					}
+					
+					/*
+					if ( isAddRace && (raceList.length < raceTotal) ) 
+					{
+						addRace();
+						trace('Add');
+					}
+					*/
+					
+					
+					// Если добавляем
+					if ( isAddRace && (raceList.length < raceTotal) ) 
+					{
+						addRace();
+						//trace('Add');
+					} 
+					else if (raceList.length > 1 && isAddRace == 0) 
+					{
+						var randomRace:int = randomInt( 0, (raceList.length - 1) );
+						removeRace(randomRace);
+						//trace('Remove');
+					}
+					
+				}
+				
+				// Создаем заезды по умолчанию
+				var countCrateRace:int = randomInt(3, 15);
+				//trace('countCrateRace = ', countCrateRace);
+				if (countCrateRace) 
+				{
+					for (var raceIndex:int = 0; raceIndex < countCrateRace; raceIndex++) 
+					{
+						addRace();
+					}
+				}
 			}
-			
-			// Таймер для добавления и удаления заезда
-			var raceTimer:Timer = new Timer(3000);
-            raceTimer.addEventListener("timer", raceTimerHandler);
-            raceTimer.start();
-			
-			// Обработчик на таймер
-			function raceTimerHandler(event:TimerEvent):void {
-				//trace("timerHandler");
-				//var isAddRace:Number = 1;
-				
-				// Только добавляем заезды
-				var isAddRace:Number = randomInt(1, 30);
-				
-				if ( (isAddRace > 9 && isAddRace < 11) || (raceList.length > 5) ) {
-					isAddRace = 0;
-				}
-				
-				// Если количество заездов меньше 4, принудительно создаем заезд
-				if (raceList.length < 4) {
-					isAddRace = 1;
-				}
-				
-				/*
-				if ( isAddRace && (raceList.length < raceTotal) ) {
-					addRace();
-					trace('Add');
-				}
-				*/
-				
-				
-				// Если добавляем
-				if ( isAddRace && (raceList.length < raceTotal) ) {
-					addRace();
-					//trace('Add');
-				} else if (raceList.length > 1 && isAddRace == 0) {
-					var randomRace:int = randomInt( 0, (raceList.length - 1) );
-					removeRace(randomRace);
-   			        //trace('Remove');
-				}
-				
+
+			function onMouseOver(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
 			}
-			
-			// Создаем заезды по умолчанию
-			var countCrateRace:int = randomInt(3, 15);
-			//trace('countCrateRace = ', countCrateRace);
-			if (countCrateRace) {
-				for (var raceIndex:int = 0; raceIndex < countCrateRace; raceIndex++) {
-					addRace();
-				}
+			function onMouseOut(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.AUTO;
 			}
+			function onMouseDown(event:MouseEvent):void
+			{
+				Common.switchRoom('StoreRoom');
+			}
+
+			addEventListener(Event.ADDED_TO_STAGE, init);
+			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			
-			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			addSoundButton();
+			setFormat();
+			addMenu();
+			addGameList();
 		}
 
 		// Рендомное число типа int
-		private function randomInt(min:Number, max:Number):Number {
+		private function randomInt(min:Number, max:Number):Number 
+		{
 			var rand:Number = min + Math.random() * (max + 1 - min);
 			rand = Math.floor(rand);
 			return rand;
 		}
 		
 		// Анимация ожидания игроков
-        private function waitPlayers(countCars:Number):void {
+        private function waitPlayers(countCars:Number):void 
+		{
 			
 			// Контейнер ожидания
 			var wait:Sprite = new Sprite();
@@ -376,7 +424,8 @@ package game.rooms
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
-			function onCancelRace():void {
+			function onCancelRace():void 
+			{
 				addNewPlayeTimer.removeEventListener("timer", addNewPlayerHandler);
 				addNewPlayeTimer.stop();
 				removeChild(wait);
@@ -422,7 +471,8 @@ package game.rooms
 			var findPlayerCurr:int = countCars;			
 			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
 			
-			for (var i:int = 1; i <= findPlayerCurr; i++) {
+			for (var i:int = 1; i <= findPlayerCurr; i++) 
+			{
 				switch (i) { 
 					case 1: 
 						player1.on();
@@ -517,13 +567,16 @@ package game.rooms
 			wait.addChild(playerMap6);
 			*/
 	
-			function addNewPlayerHandler():void {
-				if (findPlayerCurr < 5) {
+			function addNewPlayerHandler():void 
+			{
+				if (findPlayerCurr < 5) 
+				{
 					Common.cars[findPlayerCurr] = randomInt(1, 10);
 				}
 				
                 findPlayerCurr++;
-				switch (findPlayerCurr) { 
+				switch (findPlayerCurr) 
+				{ 
 					case 1: 
 						player1.on();
 						break; 
@@ -580,10 +633,13 @@ package game.rooms
 				readyText.text = 'Готовы: ' + findPlayerCurr + '/5';
 				readyText.setTextFormat(formatReadyText);
 					
-				if ( (findPlayerCurr > 1) && randomInt(0, 8) < 3 ) {
+				if ( (findPlayerCurr > 1) && randomInt(0, 8) < 3 ) 
+				{
 					addNewPlayeTimer.delay = 1000;
 					findPlayerCurr = 5;
-				} else {
+				} 
+				else 
+				{
 					if (findPlayerCurr < 5) {
 						var delay:int = randomInt(500, 3000);
 						addNewPlayeTimer.delay = delay;
@@ -592,7 +648,8 @@ package game.rooms
 			}
 			
 			// Скрыть анимацию ожидания игроков
-			function waitPlayersHide():void {
+			function waitPlayersHide():void 
+			{
 				removeChild(wait);
 				Common.soundStopAll();
 				Common.switchRoom("GameRoom");
@@ -601,17 +658,21 @@ package game.rooms
 			addNewPlayeTimer.start();
         }
 		
-        public function enterFrameHandler(event:Event):void {
+        public function enterFrameHandler(event:Event):void 
+		{
 			// Расстановка заездов по строкам
-			for (var raceIndex:int = 0, raceTotal:int = raceList.length; raceIndex < raceTotal; raceIndex++) {
+			for (var raceIndex:int = 0, raceTotal:int = raceList.length; raceIndex < raceTotal; raceIndex++) 
+			{
                 var newPosY:Number = ( ( (raceTotal - raceIndex) * raceStepY) - raceList[raceIndex].y ) * 0.1;
 				raceList[raceIndex].y += newPosY;
 			}
 			
-			if (loadingHub) {
+			if (loadingHub) 
+			{
 				loadingHub.rotation += 15;
 				
-				if (loadingHub.rotation > 360) {
+				if (loadingHub.rotation > 360) 
+				{
 					loadingHub.rotation -= 360;
 				}
 			}
@@ -622,7 +683,8 @@ package game.rooms
 			//trace('Class MainRoom init');
 		}
 
-		override public function open():void {
+		override public function open():void 
+		{
 			//trace('Class MainRoom Open');
 			soundButtons.update();
 		}
