@@ -125,7 +125,7 @@ package game.rooms
 			
 			/* Гараж */
 			
-			[Embed(source = "../../../lib/images/icon-create.gif")] 
+			[Embed(source = "../../../lib/images/garage.png")] 
 			var gamecreateClass:Class;
 			var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
 			gamecreate.x = 570;

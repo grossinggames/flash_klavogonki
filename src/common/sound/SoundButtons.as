@@ -17,12 +17,12 @@ package common.sound
 		
 		public function SoundButtons()
 		{
-			[Embed(source = "../../../lib/images/player_off.png")] 
+			[Embed(source = "../../../lib/images/snd_off.png")] 
 			var buttonSfxOffClass:Class;
 			var buttonSfxOff:Sprite = Common.createSpr( new buttonSfxOffClass() );
 			addChild(buttonSfxOff);
 			
-			[Embed(source = "../../../lib/images/player_on.png")] 
+			[Embed(source = "../../../lib/images/snd_on.png")] 
 			var buttonSfxClass:Class;
 			buttonSfx = Common.createSpr( new buttonSfxClass() );
 			addChild(buttonSfx);
@@ -44,16 +44,16 @@ package common.sound
 			
 			
 			
-			[Embed(source = "../../../lib/images/player_off.png")] 
+			[Embed(source = "../../../lib/images/mus_off.png")] 
 			var buttonEnvOffClass:Class;
 			var buttonEnvOff:Sprite = Common.createSpr( new buttonEnvOffClass() );
-			buttonEnvOff.x = 30;
+			buttonEnvOff.x = 60;
 			addChild(buttonEnvOff);
 			
-			[Embed(source = "../../../lib/images/player_on.png")] 
+			[Embed(source = "../../../lib/images/mus_on.png")] 
 			var buttonEnvClass:Class;
 			buttonEnv = Common.createSpr( new buttonEnvClass() );
-			buttonEnv.x = 30;
+			buttonEnv.x = 60;
 			addChild(buttonEnv);
 			buttonEnv.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverButtonEnv);
 			buttonEnv.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutButtonEnv);
