@@ -51,6 +51,7 @@ package game.rooms.gameroom
 		private var _speedQuantity		:int 			= 0;
 		private var _errorQuantity		:int			= 0;
 		private var _point				:int 			= 0;
+		private var _userSpeedSaver		:int 			= 0;
 		private var _winStatus			:String;
 		private var _errorSet			:Boolean 		= false;
 		
@@ -174,7 +175,7 @@ package game.rooms.gameroom
 			var user:Boolean = true;
 			
 			for (var j:int = 0; j < players.length; j++) {
-				var carAnimate:CarAnimate = new CarAnimate(this,user,players[j], _endNum,j);
+				var carAnimate:CarAnimate = new CarAnimate(this,user,players[j], _endNum,j,_userSpeedSaver);
 				carAnimate.x = 0;
 				carAnimate.y = 380 + (j * 80);
 				addChild(carAnimate);
@@ -279,18 +280,19 @@ package game.rooms.gameroom
 					_countdownText.x = 400;
 					_countdownText.y = 250;
 					_countdownQuantity++;
-					Common.soundPlay("sfx_start");
+					Common.soundPlay("sfx_bib");
+					//Common.soundPlay("sfx_start");
 				} else {
-					_countdownText.scaleX += 0.015; 
-					_countdownText.scaleY += 0.015;
+					_countdownText.scaleX += 0.01; 
+					_countdownText.scaleY += 0.01;
 				}
 			} else if (_countdownQuantity == 3) {
 				if (_countdownText.scaleY >= 1 ) {
 					_countdownQuantity++;
 				} else {
 					_countdownText.x -= 1.5;
-					_countdownText.scaleX += 0.015; 
-					_countdownText.scaleY += 0.015;
+					_countdownText.scaleX += 0.01; 
+					_countdownText.scaleY += 0.01;
 				}
 			} else if (_countdownQuantity == 4) {
 				if (_countdownText.alpha <= 0 ) {
@@ -414,6 +416,7 @@ package game.rooms.gameroom
 			if (_downPerSec > 0) {
 				_timerQuantity++;
 				_speedQuantity += _downPerSec;
+				_userSpeedSaver = (_speedQuantity / _timerQuantity) * 60;
 				_downPerSec = (_speedQuantity / _timerQuantity) * 60;
 				_textSpeed.text = _downPerSec.toString();
 				_downPerSec = 0;

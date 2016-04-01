@@ -35,7 +35,8 @@ package game.rooms.gameroom
 		private var _botEvent			:String;  //  start_leave - Покинул игру при старте |leave - покинул игру| mass_error - повышенное колличество ошибок| null_error - без ошибок| boost_speed - увеличенная скорость| decrease_speed - уменьшенная скорость| null_speed - нулевая скорость| 
 		private var _botEventArr		:Array 			=[["null"],["one_error"],["leave"],["mass_error"],["null_error"],["boost_speed"],["decrease_speed"],["null_speed"]]
 		
-		public function CarAnimate(_game:Rudder, _user:Boolean, _carNum:int, _lengthRace:int, _indexCar:int) 
+		
+		public function CarAnimate(_game:Rudder, _user:Boolean, _carNum:int, _lengthRace:int, _indexCar:int, _userSpeed:int) 
 		{
 			this._game = _game;
 			this._user = _user;
@@ -52,8 +53,18 @@ package game.rooms.gameroom
 				userText.y = -10;
 				addChild(userText);
 			} else {
-				_speedBot = Math.round(Math.random() * 10)+10;
-				_errorBot = Math.round(Math.random() * 70);
+				if (_userSpeed == 0) {				
+					_speedBot = Math.round(Math.random() * 10)+15;
+				} else if (_userSpeed > 0 && _userSpeed < 250) {
+					_speedBot = Math.round(Math.random() * 5)+20;
+				} else if (_userSpeed > 249 && _userSpeed < 400) {
+					_speedBot = Math.round(Math.random() * 10)+15;
+				} else if (_userSpeed > 399 && _userSpeed < 600) {
+					_speedBot = Math.round(Math.random() * 15)+10;
+				} else if (_userSpeed > 599 && _userSpeed < 1000) {
+					_speedBot = Math.round(Math.random() * 20)+5;
+				}
+				//_errorBot = Math.round(Math.random() * 70);
 				_countdownBot = 0;
 				
 				_speedLabel = new Textor("Скорость", 15, 0x000000, true, 0x00FFFF, false);
@@ -158,7 +169,7 @@ package game.rooms.gameroom
 					if (_race == 0) {
 						setSpeed("000");
 					} else {	
-						setSpeed( (((26 - _speedBot) * 25) + Math.round(Math.random() * 25)).toString() );
+						setSpeed( (((26 - _speedBot) * 35) + Math.round(Math.random() * 25)).toString() );
 					}
 				}
 			}
