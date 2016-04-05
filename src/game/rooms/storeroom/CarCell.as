@@ -86,8 +86,10 @@ package game.rooms.storeroom
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
-			function onMouseDownBuyCar(event:MouseEvent):void {
-				Common.query("buyCar", type);
+			// Купить автомобиль
+			function onMouseDownBuyCar(event:MouseEvent):void 
+			{
+				trace('Купить автомобиль: ' + type);
 			}
 		}
 	}
