@@ -15,13 +15,11 @@
 		private var _serverAlarm :int = 0;
 		private var _userData  	 :Array = [[1919191919],[1,1,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]];
 		public  var serverProcessing : Boolean = false;
-		private var _idd:String;//="631567890";
-		
-		
+		private var _idd:String= "123456789";
 		
 		public function Gavanas()
 		{
-			findUserData();
+			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -30,6 +28,7 @@
 			if (flashVars.api_id) {
 				_idd=(flashVars['viewer_id']);
 			}
+			findUserData();
 		}  
 		public function findUserData():void
 		{
@@ -114,6 +113,7 @@
 			_userData[1]=_param[1].split(";",3);
 			_userData[2]=_param[2].split(";",40);
 		 }
+		 trace(_userData);
 		 Common.screenProcessing = false;
 		 serverProcessing = false;
 	 }
