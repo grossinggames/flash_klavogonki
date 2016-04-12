@@ -8,15 +8,17 @@ package game.rooms.storeroom
 	import flash.text.TextFormat;
 	import flash.events.MouseEvent;
 	
+	//import common.events.AppGavannaEvent;
 	/**
 	 * ...
-	 * @author baton
+	 * @author baton; Gospodin.Sorokin
 	 */
 	public class CarCell extends Sprite
 	{
 		private var type:Number = 0;
 		private var description:String = "Название машины по умолчанию";
 		private var price:int = 0;
+		
 		
 		public function CarCell(car:Car) 
 		{
@@ -90,7 +92,14 @@ package game.rooms.storeroom
 			function onMouseDownBuyCar(event:MouseEvent):void 
 			{
 				trace('Купить автомобиль: ' + type);
+				//Common.server.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
+				//Common.server.Please("SetCar", type);
+				
 			}
+			
+			//function gavannaCompleteHandler(e:AppGavannaEvent):void {
+			//	
+			//}
 		}
 	}
 

@@ -2,9 +2,10 @@ package common
 {
 	/**
 	 * ...
-	 * @author baton
+	 * @author baton; Gospodin.Sorokin
 	 */
 	
+	import common.gavanna.AppGavanna;
 	import common.vk.APIConnection;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -141,6 +142,8 @@ package common
 		
 		// Для работы в вконтакте
 		public static var vkonte:APIConnection;
+		
+		public static var server:AppGavanna;
 		
 		public static function wallPost (params:Array):void {
 			params[3] = "photo-72764783_369512919";

@@ -2,7 +2,7 @@ package
 {
 	/**
 	 * ...
-	 * @author baton
+	 * @author baton; Gospodin.Sorokin
 	 */
 	
 	import common.gavanna.Gavanas;
@@ -45,7 +45,9 @@ import flash.events.*;
 			appGavanna = new AppGavanna();
             appGavanna.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
 			appGavanna.Please("Start");
-            this.addChild(appGavanna);
+            //this.addChild(appGavanna);
+			
+			Common.server = appGavanna;
 			
 			Common.createRoom(new MainRoom, 'MainRoom');
 			Common.createRoom(new GameRoom, 'GameRoom');

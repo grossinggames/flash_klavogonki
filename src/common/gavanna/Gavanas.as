@@ -8,7 +8,7 @@
 	import common.Common;
 	/**
 	 * ...
-	 * @author Gospodin.Sorokin
+	 * @author Gospodin.Sorokin; dimon
 	 */
 	public class Gavanas extends Sprite
 	{

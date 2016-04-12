@@ -91,7 +91,7 @@ package common.gavanna
 			} else {
 				this.visible = true;
 				++_err;
-				if (_err > 500) {
+				if (_err > 200) {
 					Common.screenProcessing = false;
 				}
 			}

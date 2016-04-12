@@ -2,7 +2,7 @@ package common.car
 {
 	/**
 	 * ...
-	 * @author baton
+	 * @author baton; Gospodin.Sorokin
 	 */
 	import flash.display.Sprite;
 	import flash.display.*;	
@@ -28,7 +28,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('    Беларус 922');
-			prices.push(14);
+			prices.push(5);
 
 			// Добавили машину 2
 			[Embed(source = "../../../lib/images/car2.png")] 
@@ -38,7 +38,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('   Caterpillar 247B');
-			prices.push(14);
+			prices.push(10);
 
 			// Добавили машину 3
 			[Embed(source = "../../../lib/images/car3.png")] 
@@ -48,7 +48,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Chevrolet EN-V');
-			prices.push(14);
+			prices.push(5);
 			
 			// Добавили машину 4
 			[Embed(source = "../../../lib/images/car4.png")] 
@@ -58,7 +58,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Volkswagen \n Beetle');
-			prices.push(14);
+			prices.push(5);
 			
 			// Добавили машину 5
 			[Embed(source = "../../../lib/images/car5.png")] 
@@ -68,7 +68,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Duesenberg \n Speedster');
-			prices.push(14);
+			prices.push(15);
 			
 			// Добавили машину 6
 			[Embed(source = "../../../lib/images/car6.png")] 
@@ -78,7 +78,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('   Ferrari 250 \n Testa Rossa');
-			prices.push(14);
+			prices.push(8);
 			
 			// Добавили машину 7
 			[Embed(source = "../../../lib/images/car7.png")] 
@@ -88,7 +88,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Трамвай');
-			prices.push(14);
+			prices.push(10);
 			
 			// Добавили машину 8
 			[Embed(source = "../../../lib/images/car8.png")] 
@@ -98,7 +98,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('ВАЗ 2104');
-			prices.push(14);
+			prices.push(4);
 			
 			// Добавили машину 9
 			[Embed(source = "../../../lib/images/car9.png")] 
@@ -108,7 +108,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('УАЗ 3151');
-			prices.push(14);
+			prices.push(6);
 			
 			// Добавили машину 10
 			[Embed(source = "../../../lib/images/car10.png")] 
@@ -118,7 +118,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Fiat Strada');
-			prices.push(14);
+			prices.push(3);
 			
 			// Добавили машину 11
 			[Embed(source = "../../../lib/images/car11.png")] 
@@ -128,7 +128,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Peugeot Boxer');
-			prices.push(14);
+			prices.push(5);
 
 			// Добавили машину 12
 			[Embed(source = "../../../lib/images/car12.png")] 
@@ -138,7 +138,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Hummer H3');
-			prices.push(14);
+			prices.push(10);
 
 			// Добавили машину 13
 			[Embed(source = "../../../lib/images/car13.png")] 
@@ -148,7 +148,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('LM Rally Fighter');
-			prices.push(14);
+			prices.push(25);
 			
 			// Добавили машину 14
 			[Embed(source = "../../../lib/images/car14.png")] 
@@ -158,7 +158,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Daewoo Matiz');
-			prices.push(14);
+			prices.push(1);
 			
 			// Добавили машину 15
 			[Embed(source = "../../../lib/images/car15.png")] 
@@ -168,7 +168,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Ford Focus Mk2');
-			prices.push(14);
+			prices.push(4);
 			
 			// Добавили машину 16
 			[Embed(source = "../../../lib/images/car16.png")] 
@@ -178,7 +178,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Renault Megane');
-			prices.push(14);
+			prices.push(8);
 			
 			// Добавили машину 17
 			[Embed(source = "../../../lib/images/car17.png")] 
@@ -188,7 +188,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Toyota Land Cruiser');
-			prices.push(14);
+			prices.push(9);
 			
 			// Добавили машину 18
 			[Embed(source = "../../../lib/images/car18.png")] 
@@ -198,7 +198,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Smart Fortwo');
-			prices.push(14);
+			prices.push(2);
 			
 			// Добавили машину 19
 			[Embed(source = "../../../lib/images/car19.png")] 
@@ -208,7 +208,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Nissan Round Box');
-			prices.push(14);
+			prices.push(3);
 			
 			// Добавили машину 20
 			[Embed(source = "../../../lib/images/car20.png")] 
@@ -218,7 +218,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Chevrolet Orlando');
-			prices.push(14);
+			prices.push(7);
 
 			// Добавили машину 21
 			[Embed(source = "../../../lib/images/car21.png")] 
@@ -228,7 +228,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Volkswagen \n Passat B3');
-			prices.push(14);
+			prices.push(3);
 
 			// Добавили машину 22
 			[Embed(source = "../../../lib/images/car22.png")] 
@@ -238,7 +238,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Mitsubishi Lancer X');
-			prices.push(14);
+			prices.push(6);
 
 			// Добавили машину 23
 			[Embed(source = "../../../lib/images/car23.png")] 
@@ -248,7 +248,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('BMW X6');
-			prices.push(14);
+			prices.push(10);
 			
 			// Добавили машину 24
 			[Embed(source = "../../../lib/images/car24.png")] 
@@ -258,7 +258,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Subaru Tourer');
-			prices.push(14);
+			prices.push(10);
 			
 			// Добавили машину 25
 			[Embed(source = "../../../lib/images/car25.png")] 
@@ -268,7 +268,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Citroen Hypnos');
-			prices.push(14);
+			prices.push(13);
 			
 			// Добавили машину 26
 			[Embed(source = "../../../lib/images/car26.png")] 
@@ -288,7 +288,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Audi TT');
-			prices.push(14);
+			prices.push(7);
 			
 			// Добавили машину 28
 			[Embed(source = "../../../lib/images/car28.png")] 
@@ -298,7 +298,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Lamborghini \n Murcielago');
-			prices.push(14);
+			prices.push(15);
 			
 			// Добавили машину 29
 			[Embed(source = "../../../lib/images/car29.png")] 
@@ -308,7 +308,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Dodge Viper');
-			prices.push(14);
+			prices.push(17);
 			
 			// Добавили машину 30
 			[Embed(source = "../../../lib/images/car30.png")] 
@@ -318,7 +318,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Болид F1');
-			prices.push(14);
+			prices.push(30);
 
 			// Добавили машину 31
 			[Embed(source = "../../../lib/images/car31.png")] 
@@ -328,7 +328,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Bugatti Veyron');
-			prices.push(14);
+			prices.push(35);
 
 			// Добавили машину 32
 			[Embed(source = "../../../lib/images/car32.png")] 
@@ -338,7 +338,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Ferrari Zobin');
-			prices.push(14);
+			prices.push(40);
 
 			// Добавили машину 33
 			[Embed(source = "../../../lib/images/car33.png")] 
@@ -348,7 +348,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Ferrari FX Concept');
-			prices.push(14);
+			prices.push(50);
 			
 			// Добавили машину 34
 			[Embed(source = "../../../lib/images/car34.png")] 
@@ -358,7 +358,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Бэтмобиль');
-			prices.push(14);
+			prices.push(100);
 			
 			// Добавили машину 35
 			[Embed(source = "../../../lib/images/car35.png")] 
@@ -368,7 +368,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Danny Chang \n Concept');
-			prices.push(14);
+			prices.push(60);
 			
 			// Добавили машину 36
 			[Embed(source = "../../../lib/images/car36.png")] 
@@ -378,7 +378,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Aeroglisser');
-			prices.push(14);
+			prices.push(80);
 			
 			// Добавили машину 37
 			[Embed(source = "../../../lib/images/car37.png")] 
@@ -388,7 +388,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('SS-1');
-			prices.push(14);
+			prices.push(100);
 			
 			// Добавили машину 38
 			[Embed(source = "../../../lib/images/car38.png")] 
@@ -398,7 +398,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('НЛО');
-			prices.push(14);
+			prices.push(150);
 			
 			// Добавили машину 39
 			[Embed(source = "../../../lib/images/car39.png")] 
@@ -408,7 +408,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('Инсекатор');
-			prices.push(14);
+			prices.push(250);
 			
 			// Добавили машину 40
 			[Embed(source = "../../../lib/images/car40.png")] 
@@ -418,7 +418,7 @@ package common.car
 			addChild(car);
 			cars.push(car);
 			descriptions.push('SS-X');
-			prices.push(14);
+			prices.push(200);
 			
 			var showCar:int = randomInt(1, 40);
 			type = showCar;
