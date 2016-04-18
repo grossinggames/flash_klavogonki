@@ -27,7 +27,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('    Беларус 922');
+			descriptions.push(' Беларус 922');
 			prices.push(5);
 
 			// Добавили машину 2
@@ -37,7 +37,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('   Caterpillar 247B');
+			descriptions.push('Caterpillar 247B');
 			prices.push(10);
 
 			// Добавили машину 3
@@ -87,7 +87,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('Трамвай');
+			descriptions.push('    Трамвай');
 			prices.push(10);
 			
 			// Добавили машину 8
@@ -97,7 +97,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('ВАЗ 2104');
+			descriptions.push('   ВАЗ 2104');
 			prices.push(4);
 			
 			// Добавили машину 9
@@ -107,7 +107,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('УАЗ 3151');
+			descriptions.push('   УАЗ 3151');
 			prices.push(6);
 			
 			// Добавили машину 10
@@ -117,7 +117,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('Fiat Strada');
+			descriptions.push('  Fiat Strada');
 			prices.push(3);
 			
 			// Добавили машину 11
@@ -247,7 +247,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('BMW X6');
+			descriptions.push('    BMW X6');
 			prices.push(10);
 			
 			// Добавили машину 24
@@ -287,7 +287,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('Audi TT');
+			descriptions.push('    Audi TT');
 			prices.push(7);
 			
 			// Добавили машину 28
@@ -317,7 +317,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('Болид F1');
+			descriptions.push('  Болид F1');
 			prices.push(30);
 
 			// Добавили машину 31
@@ -357,7 +357,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('Бэтмобиль');
+			descriptions.push('  Бэтмобиль');
 			prices.push(100);
 			
 			// Добавили машину 35
@@ -387,7 +387,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('SS-1');
+			descriptions.push('       SS-1');
 			prices.push(100);
 			
 			// Добавили машину 38
@@ -397,7 +397,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('НЛО');
+			descriptions.push('       НЛО');
 			prices.push(150);
 			
 			// Добавили машину 39
@@ -407,7 +407,7 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('Инсекатор');
+			descriptions.push('   Инсекатор');
 			prices.push(250);
 			
 			// Добавили машину 40
@@ -417,12 +417,21 @@ package common.car
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('SS-X');
+			descriptions.push('     SS-X');
 			prices.push(200);
+
+			// Добавили машину 41
+			[Embed(source = "../../../lib/images/car41.png")] 
+			var car41Class:Class;
+			car = Common.createSpr( new car41Class() );
+			car.alpha = 0;
+			addChild(car);
+			cars.push(car);
+			descriptions.push('       ЗАЗ');
+			prices.push(0);
 			
-			var showCar:int = randomInt(1, 40);
+			var showCar:int = randomInt(1, 41);
 			type = showCar;
-			
 			
 			if (number) {
 				showCar = number;

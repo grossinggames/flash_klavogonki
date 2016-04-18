@@ -24,11 +24,13 @@ package game.rooms
 			[21, 22, 23, 24, 25],
 			[26, 27, 28, 29, 30],
 			[31, 32, 33, 34, 35],
-			[36, 37, 38, 39, 40]
+			[36, 37, 38, 39, 40],
+			[41],
 		];
 		
 		private var carHub:Sprite = new Sprite;
 		private var storeText:TextField;
+		private var exitText:TextField;
 		
 		// Формат текста для надписи
 		private var formatText:TextFormat = new TextFormat();
@@ -98,13 +100,19 @@ package game.rooms
 
 				var percent:Number = Math.floor(slider.y / 5);
 				
-				if (percent > 8) {
+				if (percent > 5) {
 					storeText.alpha = 0;
-				} else if (percent < 8) {
+					exitText.alpha = 0;
+					exitText.mouseEnabled = false;
+				} else if (percent < 5) {
 					storeText.alpha = 1;
+					exitText.alpha = 1;
+					exitText.mouseEnabled = true;
 				}
 				
-				carHub.y = percent * (-12) + 200;
+				// Чувствительность скрола
+				var step:Number = -14;
+				carHub.y = percent * step  + 200;
 			}
 		}
 		
@@ -114,6 +122,7 @@ package game.rooms
 			formatText.size = 18;
 			formatText.color = 0x0099FF;
 			
+			// Надпись Гараж
 			storeText = new TextField();
 			storeText.text = 'Гараж';
 			storeText.setTextFormat(formatText);
@@ -123,6 +132,32 @@ package game.rooms
 			storeText.y = 50;
 			storeText.selectable = false;
 			addChild(storeText);
+
+			// Надпись Выход
+			exitText = new TextField();
+			exitText.text = 'Выход';
+			exitText.setTextFormat(formatText);
+			exitText.width = 150;
+			exitText.height = 30;
+            exitText.x = 665;
+			exitText.y = 50;
+			exitText.selectable = false;
+			addChild(exitText);
+			exitText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverExitText);
+			exitText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutExitText);
+			exitText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownExitText);
+			function onMouseOverExitText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
+			}
+			function onMouseOutExitText(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.AUTO;
+			}
+			function mouseDownExitText(event:MouseEvent):void 
+			{
+				Common.switchRoom('MainRoom');
+			}
 		}
 		
 		private function createCars():void {
@@ -130,12 +165,14 @@ package game.rooms
 			carHub.x = 50;
 			carHub.y = 200;
 			
-			for (var i:Number = 0; i < 8; i++) { 
+			for (var i:Number = 0; i < 9; i++) { 
 				for (var j:Number = 0; j < 5; j++) {
-					cars[ i ][ j ] = new CarCell( Common.getCar(cars[ i ][ j ]) );
-					carHub.addChild(cars[ i ][ j ]);
-					cars[ i ][ j ].x = j * 150;
-					cars[ i ][ j ].y = i * 220;
+					if (cars[ i ][ j ]) {
+						cars[ i ][ j ] = new CarCell( Common.getCar(cars[ i ][ j ]) );
+						carHub.addChild(cars[ i ][ j ]);
+						cars[ i ][ j ].x = j * 150;
+						cars[ i ][ j ].y = i * 220;
+					}
 				}
 			}
 		}

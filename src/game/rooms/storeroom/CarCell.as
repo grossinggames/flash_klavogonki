@@ -19,7 +19,6 @@ package game.rooms.storeroom
 		private var description:String = "Название машины по умолчанию";
 		private var price:int = 0;
 		
-		
 		public function CarCell(car:Car) 
 		{
 			// Добавить машину в отображение
@@ -59,6 +58,9 @@ package game.rooms.storeroom
 			
 			var carText:TextField = new TextField();
 			carText.text = price + " Голосов";
+			if (price < 1) {
+				carText.text = "  Бесплатно";
+			}
 			carText.setTextFormat(formatText);
 			carText.width = 150;
 			carText.height = 30;
@@ -88,13 +90,18 @@ package game.rooms.storeroom
 			{
 				Mouse.cursor = MouseCursor.AUTO;
 			}
+			
 			// Купить автомобиль
 			function onMouseDownBuyCar(event:MouseEvent):void 
 			{
-				trace('Купить автомобиль: ' + type);
+				if (price > 0) {
+					trace('Купить автомобиль: ' + type);
+				} else {
+					trace('Выбрать автомобиль: ' + type);
+				}
+				
 				//Common.server.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
 				//Common.server.Please("SetCar", type);
-				
 			}
 			
 			//function gavannaCompleteHandler(e:AppGavannaEvent):void {
