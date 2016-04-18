@@ -373,7 +373,6 @@ package game.rooms
 		// Анимация ожидания игроков
         private function waitPlayers(countCars:Number):void 
 		{
-			
 			// Контейнер ожидания
 			var wait:Sprite = new Sprite();
 			addChild(wait);
@@ -433,31 +432,31 @@ package game.rooms
 			
 			// Спрайт на ожидание игроков
 			var player1:WaitPlayer =  new WaitPlayer;
-			player1.x = 305;
+			player1.x = 325;
 			player1.y = 400;
 			player1.on();
             wait.addChild(player1);
 			
 			var player2:WaitPlayer =  new WaitPlayer;
-			player2.x = 340;
+			player2.x = 360;
 			player2.y = 400;
 			player2.off();
             wait.addChild(player2);
 			
 			var player3:WaitPlayer =  new WaitPlayer;
-			player3.x = 375;
+			player3.x = 395;
 			player3.y = 400;
 			player3.off();
             wait.addChild(player3);
 			
 			var player4:WaitPlayer =  new WaitPlayer;
-			player4.x = 410;
+			player4.x = 430;
 			player4.y = 400;
 			player4.off();
             wait.addChild(player4);
 			
 			var player5:WaitPlayer =  new WaitPlayer;
-			player5.x = 445;
+			player5.x = 465;
 			player5.y = 400;
 			player5.off();
             wait.addChild(player5);
@@ -470,7 +469,7 @@ package game.rooms
 
 			var findPlayerCurr:int = countCars;			
 			addNewPlayeTimer.addEventListener("timer", addNewPlayerHandler);
-			
+
 			for (var i:int = 1; i <= findPlayerCurr; i++) 
 			{
 				switch (i) { 
@@ -566,7 +565,46 @@ package game.rooms
 			playerMap6.alpha = 0;
 			wait.addChild(playerMap6);
 			*/
-	
+			
+			function addPeople():void 
+			{
+				for (var i:int = 1; i <= findPlayerCurr; i++) 
+				{
+					switch (i) { 
+						case 2: 
+							if (!playerMap2.alpha) {
+								playerMap2.x = randomInt(400, 560);
+								playerMap2.y = randomInt(315, 390);
+								playerMap2.alpha = 1;
+							}
+							break;
+						case 3: 
+							if (!playerMap3.alpha) {
+								playerMap3.x = randomInt(400, 560);
+								playerMap3.y = randomInt(315, 390);
+								playerMap3.alpha = 1;
+							}
+							break;
+						case 4: 
+							if (!playerMap4.alpha) {
+								playerMap4.x = randomInt(400, 560);
+								playerMap4.y = randomInt(315, 390);
+								playerMap4.alpha = 1;
+							}
+							break;
+						case 5: 
+							if (!playerMap5.alpha) {
+								playerMap5.x = randomInt(400, 560);
+								playerMap5.y = randomInt(315, 390);
+								playerMap5.alpha = 1;
+							}
+							break;
+					}
+				}
+			}
+
+			addPeople();
+			
 			function addNewPlayerHandler():void 
 			{
 				if (findPlayerCurr < 5) 
