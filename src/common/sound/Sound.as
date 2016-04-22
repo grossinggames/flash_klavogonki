@@ -101,7 +101,7 @@ package common.sound
 		//play
 		public function play(sound:String):void
 		{
-			trace('Sound play');
+			//trace('Sound play');
 			
 			if ( sound.search(SFX + "_") + 1 ) 
 			{

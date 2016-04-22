@@ -65,7 +65,7 @@ package game.rooms
 			{
 				/* Быстрый страт */
 				// Колесо
-				[Embed(source = "../../../lib/images/wheel.gif")] 
+				[Embed(source = "../../../lib/images/wheel.png")] 
 				var wheelClass:Class;
 				var wheel:Sprite = Common.createSpr( new wheelClass() );
 				wheel.x = 10;
@@ -83,7 +83,7 @@ package game.rooms
 				wheelText.height = 30;
 				wheelText.x = 60;
 				wheelText.y = 220;
-				addChild(wheelText);
+				//addChild(wheelText);
 				wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
 				wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
 				wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
@@ -138,7 +138,7 @@ package game.rooms
 				[Embed(source = "../../../lib/images/garage.png")] 
 				var gamecreateClass:Class;
 				var gamecreate:Sprite = Common.createSpr( new gamecreateClass() );
-				gamecreate.x = 570;
+				gamecreate.x = 470;
 				gamecreate.y = 10;
 				addChild(gamecreate);
 				gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
@@ -153,10 +153,22 @@ package game.rooms
 				gamecreateText.height = 30;
 				gamecreateText.x = 645;
 				gamecreateText.y = 220;
-				addChild(gamecreateText);
+				//addChild(gamecreateText);
 				gamecreateText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 				gamecreateText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
 				gamecreateText.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+				
+				/* Друзья */
+				[Embed(source = "../../../lib/images/friend.png")] 
+				var friendClass:Class;
+				var friend:Sprite = Common.createSpr( new friendClass() );
+				friend.x = 240;
+				friend.y = 10;
+				addChild(friend);
+				
+				friend.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+				friend.addEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
+				
 			}
 			
 			// Добавить заезды

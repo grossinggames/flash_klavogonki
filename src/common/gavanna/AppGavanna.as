@@ -41,6 +41,12 @@ package common.gavanna
 				case "GetCar":
 					_resultServer = getUserCar();
 					break;
+				case "SetSetting":
+					//setUserSetting(_argument);
+					break;
+				case "SetCar":
+					//setUserCar(_argument[0]);
+					break;
 				default:
 					trace("Out of range");
 					break;
@@ -73,10 +79,17 @@ package common.gavanna
 					findUserData();
 					break;
 				case "SetSetting":
-					setUserSetting(_argument[0]);
+					trace(_argument);
+					setUserSetting(_argument);
 					break;
 				case "SetCar":
 					setUserCar(_argument[0]);
+					break;
+				case "GetSetting":
+					//_resultServer = getUserSetting();
+					break;
+				case "GetCar":
+					//_resultServer = getUserCar();
 					break;
 				default:
 					trace("Out of range");

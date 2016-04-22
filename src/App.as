@@ -11,7 +11,7 @@ package
 	import common.Common;
 	import common.gavanna.IronScreen;
 	import game.rooms.*;
-import flash.events.*;
+	import flash.events.*;
 	
 	import common.gavanna.AppGavanna;
 	import common.events.AppGavannaEvent;
@@ -53,7 +53,7 @@ import flash.events.*;
 			Common.createRoom(new GameRoom, 'GameRoom');
 			Common.createRoom(new StoreRoom, 'StoreRoom');
 
-			Common.switchRoom('MainRoom');
+			
 			//Common.switchRoom('GameRoom');
 			//Common.switchRoom('StoreRoom');
 			
@@ -64,19 +64,23 @@ import flash.events.*;
 		private function init(e: Event = null): void {
 			//flashVars = stage.loaderInfo.parameters as Object;
 			////Для локальной работы раскоментировать все поля
-			/*
-			flashVars['api_id'] = 4711425;
-			flashVars['viewer_id'] = 13508828;
-			flashVars['sid'] = "d4ef99ebf711049de67d9c5563e904cef96356e4ce9a5f609e7fb2e06f89148b90bc1c7efcbce8b7b42c5";
-			flashVars['secret'] = "8aa15b9580";
-			VK = new APIConnection(flashVars);
-			VK.api('getProfiles', { uids: flashVars['viewer_id'] } );
-			Common.vkonte = VK;
-			*/
+			
+			//flashVars['api_id'] = 4711425;
+			//flashVars['viewer_id'] = 13508828;
+			//flashVars['sid'] = "d4ef99ebf711049de67d9c5563e904cef96356e4ce9a5f609e7fb2e06f89148b90bc1c7efcbce8b7b42c5";
+			//flashVars['secret'] = "8aa15b9580";
+			//VK = new APIConnection(flashVars);
+			//VK.api('getProfiles', { uids: flashVars['viewer_id'] } );
+			//Common.vkonte = VK;
+			
 		}
 		private function gavannaCompleteHandler(e:AppGavannaEvent):void {
-			Common.userSettings = e.result[0];
-			Common.userCar = e.result[1];
+			appGavanna.removeEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
+			Common.envOn = e.result[0][0];
+			Common.sfxOn = e.result[0][1];
+			Common.carCur = e.result[0][2];
+			Common.cars = e.result[1];
+			Common.switchRoom('MainRoom');
 		}
 	}
 }

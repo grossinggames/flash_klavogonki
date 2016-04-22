@@ -34,6 +34,9 @@ package common
 		// Список машин
 		public static var cars:Array = [];
 		
+		// Текущая машина
+		public static var carCur:int = 0;
+		
 		// Включен ENV
 		public static var envOn:int = 1;
 		
@@ -103,23 +106,28 @@ package common
 		public static function soundOnEnv():void
 		{
 			envOn = 1;
+			server.Please("SetSetting",[envOn, sfxOn, carCur] );
 		}
 
 		public static function soundOffEnv():void
 		{
 			envOn = 0;
 			sound.stopEnvs();
+			server.Please("SetSetting",[envOn, sfxOn, carCur] );
 		}
 		
 		public static function soundOnSfx():void
 		{
 			sfxOn = 1;
+			var temp:Array = [envOn, sfxOn, carCur];
+			server.Please("SetSetting",[envOn, sfxOn, carCur] );
 		}
 		
 		public static function soundOffSfx():void
 		{
 			sfxOn = 0;
 			sound.stopSfxs();
+			server.Please("SetSetting",[envOn, sfxOn, carCur] );
 		}
 		
 		// Lock
@@ -134,19 +142,13 @@ package common
 		// Скринчик
 		public static var screenProcessing:Boolean = true;
 		
-		// Настройки
-		public static var userSettings:Array = [1,0,0];
-		
-		// Машики с сервера
-		public static var userCar:Array = [1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0];
-		
 		// Для работы в вконтакте
 		public static var vkonte:APIConnection;
 		
 		public static var server:AppGavanna;
 		
 		public static function wallPost (params:Array):void {
-			params[3] = "photo-72764783_369512919";
+			params[3] = "photo343790711_410848800";
 			vkonte.api('wall.post', { message: 'Я занял ' + params[0] +'-е место, со скоростью '+params[1] +' и допустил '+ params[2] +' ошибок. http://vk.com/app5351580', attachment: params[3] } );
 		}
 		public static function callFrend ():void{

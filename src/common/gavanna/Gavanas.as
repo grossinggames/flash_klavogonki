@@ -13,7 +13,7 @@
 	public class Gavanas extends Sprite
 	{
 		private var _serverAlarm :int = 0;
-		private var _userData  	 :Array = [[1919191919],[1,1,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]];
+		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]];
 		public  var serverProcessing : Boolean = false;
 		private var _idd:String= "123456789";
 		
@@ -50,7 +50,7 @@
 		public function setUserSetting(data:Array):void // Записываем данные игрока
 		{
 			this._userData[1] = data;
-			Common.screenProcessing = true;
+			//Common.screenProcessing = true;
 			serverProcessing = true;
 			goPhp("setup");
 		}
@@ -109,7 +109,8 @@
 		}
 		else{
 			_param = _queryStr.split("+",43); 
-			_userData[0]=_param[0];
+			_idd = _param[0];
+			_userData[0] = _param[0];
 			_userData[1]=_param[1].split(";",3);
 			_userData[2]=_param[2].split(";",40);
 		 }

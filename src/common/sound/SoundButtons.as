@@ -70,6 +70,8 @@ package common.sound
 			function mouseDownButtonEnv(event:MouseEvent):void {
 				clickEnv();
 			}
+			
+			//update();
 		}
 		
 		public function clickEnv():void {
@@ -105,13 +107,13 @@ package common.sound
 		
 		public function update():void {
 			
-			if (Common.sfxOn) {
+			if (Common.sfxOn == 1) {
 				buttonSfx.alpha = 1;
 			} else {
 				buttonSfx.alpha = 0;
 			}
 			
-			if (Common.envOn) {
+			if (Common.envOn == 1) {
 				buttonEnv.alpha = 1;
 				playEnv();
 			} else {
