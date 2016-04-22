@@ -26,7 +26,7 @@
 		public function init(e: Event = null): void {	
 			var flashVars: Object = stage.loaderInfo.parameters as Object;
 			if (flashVars.api_id) {
-				_idd=(flashVars['viewer_id']);
+				Common.idd=(flashVars['viewer_id']);
 			}
 			findUserData();
 		}  
@@ -76,21 +76,21 @@
 				switch (_sc) { 
 					case "fndusr": 
 						phpVars.sysgo = _sc;
-						phpVars.uid = _idd;			
+						phpVars.uid =Common.idd;			
 						phpLoader.load(phpFileRequest);
 						phpLoader.addEventListener(Event.COMPLETE, Resload);
 				
 					break; 
 					case "setup": 
 						phpVars.sysgo = _sc;
-						phpVars.uid = _idd;	
+						phpVars.uid =Common.idd;	
 						phpVars.stp =_userData[1].join(";");
 						phpLoader.load(phpFileRequest);	
 						phpLoader.addEventListener(Event.COMPLETE, Resload);
 					break; 	
 					case "carset": 
 						phpVars.sysgo = _sc;
-						phpVars.uid = _idd;	
+						phpVars.uid =Common.idd;	
 						phpVars.car =_userData[2].join(";");
 						phpLoader.load(phpFileRequest);	
 						phpLoader.addEventListener(Event.COMPLETE, Resload);
@@ -101,6 +101,7 @@
 	  public function Resload (event:Event):void {
 		var _queryStr:String = "" + event.target.data;
 		var _param:Array; 
+		var _per:int;
 		if (_queryStr=="err") {
 			trace("Ахтунг! Ашыбка сервераааа!!!");// 
 		}
@@ -111,10 +112,13 @@
 			_param = _queryStr.split("+",43); 
 			_idd = _param[0];
 			_userData[0] = _param[0];
-			_userData[1]=_param[1].split(";",3);
-			_userData[2]=_param[2].split(";",40);
+			_userData[1]=_param[1].split(",",3);
+			_userData[2] = _param[2].split(",", 40);
+			Common.envOn = _userData[1][0];
+			Common.sfxOn = _userData[1][1];
 		 }
-		 trace(_userData);
+		 trace(_userData[1][1]);
+		 
 		 Common.screenProcessing = false;
 		 serverProcessing = false;
 	 }

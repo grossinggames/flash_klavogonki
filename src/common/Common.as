@@ -28,6 +28,8 @@ package common
 			//trace('Common');
 		}
 		
+		public static var idd:String="12345";
+		
 		// controllerRoom
 		private static var controllerRoom:ControllerRoom = new ControllerRoom;
 		
@@ -38,10 +40,10 @@ package common
 		public static var carCur:int = 0;
 		
 		// Включен ENV
-		public static var envOn:int = 1;
+		public static var envOn:int;// = 1;
 		
 		// Включены SFX
-		public static var sfxOn:int = 1;
+		public static var sfxOn:int;// = 1;
 		
 		public static function createRoom(room:Room, name:String):void
 		{

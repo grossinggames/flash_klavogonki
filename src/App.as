@@ -57,11 +57,15 @@ package
 			//Common.switchRoom('GameRoom');
 			//Common.switchRoom('StoreRoom');
 			
-			if (stage) { init() 
-			} else { addEventListener(Event.ADDED_TO_STAGE, init) };
+		//	if (stage) { init() 
+		//	} else { addEventListener(Event.ADDED_TO_STAGE, init) };
 			
 		}
-		private function init(e: Event = null): void {
+		//private function init(e: Event = null): void {
+		//	var flashVars: Object = stage.loaderInfo.parameters as Object;
+		//	if (flashVars.api_id) {
+			//	Common.idd=(flashVars['viewer_id']);
+		//	}
 			//flashVars = stage.loaderInfo.parameters as Object;
 			////Для локальной работы раскоментировать все поля
 			
@@ -73,11 +77,11 @@ package
 			//VK.api('getProfiles', { uids: flashVars['viewer_id'] } );
 			//Common.vkonte = VK;
 			
-		}
+		//}
 		private function gavannaCompleteHandler(e:AppGavannaEvent):void {
 			appGavanna.removeEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
-			Common.envOn = e.result[0][0];
-			Common.sfxOn = e.result[0][1];
+			//Common.envOn = e.result[0][0];
+		    //Common.sfxOn = e.result[0][1];
 			Common.carCur = e.result[0][2];
 			Common.cars = e.result[1];
 			Common.switchRoom('MainRoom');
