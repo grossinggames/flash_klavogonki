@@ -436,7 +436,22 @@ package common.car
 			if (number) {
 				showCar = number;
 				type = showCar;
+			} 
+			else 
+			{
+				if (prices[type - 1] > 20)
+				{
+					showCar = randomInt(1, 41);
+					type = showCar;
+				}
+				if (prices[type - 1] > 20)
+				{
+					showCar = randomInt(1, 41);
+					type = showCar;
+				}
 			}
+			
+			//trace('Prices  ' + prices[type - 1]);
 			
 			cars[type - 1].alpha = 1
 			description = descriptions[type - 1];
