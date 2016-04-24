@@ -42,7 +42,7 @@ package game.rooms
 			function addSoundButton():void
 			{
 				soundButtons = new SoundButtons();
-				soundButtons.x = 715;
+				soundButtons.x = 700;
 				soundButtons.y = 10;
 				addChild(soundButtons);
 			}
@@ -98,7 +98,7 @@ package game.rooms
 				function mouseDown(event:MouseEvent):void 
 				{
 					/* Послать количество машин */
-					Common.cars = [1];
+					Common.cars = [Common.carCur];
 					waitPlayers(Common.cars.length);
 				}
 
@@ -188,7 +188,7 @@ package game.rooms
 						{
 							/* Послать количество машин */
 							var countCarsInRace:int = raceList[i].carList.length;
-							Common.cars = [1];
+							Common.cars = [Common.carCur];
 							
 							for (var j:int = 0; j < countCarsInRace; j++) 
 							{

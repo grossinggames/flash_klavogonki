@@ -180,6 +180,18 @@ package game.rooms
 		override public function open():void {
 			trace('Class StoreRoom Open');
 			trace( 'Common.cars() ' + Common.cars );
+			
+			for (var i:Number = 0; i < 9; i++) { 
+				for (var j:Number = 0; j < 5; j++) {
+					if (cars[ i ][ j ]) {
+						//trace(cars[ i ][ j ].type + ":" + Common.cars[ cars[ i ][ j ].type - 1 ]);
+						if (Common.cars[ cars[ i ][ j ].type - 1 ])
+						{
+							cars[ i ][ j ].setSelect();
+						}
+					}
+				}
+			}
 		}
 	}
 }

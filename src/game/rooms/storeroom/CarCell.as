@@ -15,10 +15,12 @@ package game.rooms.storeroom
 	 */
 	public class CarCell extends Sprite
 	{
-		private var type:Number = 0;
+		public var type:Number = 0;
 		private var description:String = "Название машины по умолчанию";
 		private var price:int = 0;
-		
+		private var selectCar:Sprite;
+		private var buyCar:Sprite;
+
 		public function CarCell(car:Car) 
 		{
 			// Добавить машину в отображение
@@ -73,31 +75,46 @@ package game.rooms.storeroom
 
 		private function addBuyCar():void {
 			/* Купить */
-			// Если цена 0 то ставить кнопку "выбрать" иначе ставить "купить"
+			[Embed(source = "../../../../lib/images/select.png")] 
+			var selectCarClass:Class;
+			selectCar = Common.createSpr( new selectCarClass() );
+			selectCar.x = 20;
+			selectCar.y = 90;
+			selectCar.mouseEnabled = false;
+			selectCar.alpha = 0;
+			addChild(selectCar);
+			selectCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
+			selectCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
+			selectCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+
+			[Embed(source = "../../../../lib/images/buy.png")] 
+			var buyCarClass:Class;
+			buyCar = Common.createSpr( new buyCarClass() );
+			buyCar.x = 20;
+			buyCar.y = 90;
+			buyCar.mouseEnabled = false;
+			buyCar.alpha = 0;
+			addChild(buyCar);
+			buyCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
+			buyCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
+			buyCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+			
+			// Если цена 0 то ставить кнопку "выбрать" иначе ставить "купить"			
 			if (price < 1) 
 			{
-				[Embed(source = "../../../../lib/images/select.png")] 
-				var selectCarClass:Class;
-				var selectCar:Sprite = Common.createSpr( new selectCarClass() );
-				selectCar.x = 20;
-				selectCar.y = 90;
-				addChild(selectCar);
-				selectCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
-				selectCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
-				selectCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
-
+				selectCar.mouseEnabled = true;
+				selectCar.alpha = 1;
+				
+				buyCar.mouseEnabled = false;
+				buyCar.alpha = 0;
 			}
 			else 
 			{
-				[Embed(source = "../../../../lib/images/buy.png")] 
-				var buyCarClass:Class;
-				var buyCar:Sprite = Common.createSpr( new buyCarClass() );
-				buyCar.x = 20;
-				buyCar.y = 90;
-				addChild(buyCar);
-				buyCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
-				buyCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
-				buyCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+				buyCar.mouseEnabled = true;
+				buyCar.alpha = 1;
+				
+				selectCar.mouseEnabled = false;
+				selectCar.alpha = 0;
 			}
 
 			
@@ -113,10 +130,11 @@ package game.rooms.storeroom
 			// Купить автомобиль
 			function onMouseDownBuyCar(event:MouseEvent):void 
 			{
-				if (price > 0) {
+				if ( (price > 0) && (buyCar.alpha == 1) ) {
 					trace('Купить автомобиль: ' + type);
 				} else {
 					trace('Выбрать автомобиль: ' + type);
+					Common.carCur = type;
 				}
 				
 				//Common.server.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
@@ -126,6 +144,15 @@ package game.rooms.storeroom
 			//function gavannaCompleteHandler(e:AppGavannaEvent):void {
 			//	
 			//}
+		}
+		
+		// Уствновить кнопку выбрать и скрыть купить
+		public function setSelect():void {
+			selectCar.mouseEnabled = true;
+			selectCar.alpha = 1;
+			
+			buyCar.mouseEnabled = false;
+			buyCar.alpha = 0;
 		}
 	}
 

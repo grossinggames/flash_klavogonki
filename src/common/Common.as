@@ -34,7 +34,7 @@ package common
 		private static var controllerRoom:ControllerRoom = new ControllerRoom;
 		
 		// Список машин
-		public static var cars:Array = [];
+		public static var cars:Array = [1];
 		
 		// Текущая машина
 		public static var carCur:int = 0;
