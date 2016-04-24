@@ -20,7 +20,8 @@ package game.rooms.storeroom
 		private var price:int = 0;
 		private var selectCar:Sprite;
 		private var buyCar:Sprite;
-
+		private var carText:TextField = new TextField();
+		
 		public function CarCell(car:Car) 
 		{
 			// Добавить машину в отображение
@@ -41,15 +42,15 @@ package game.rooms.storeroom
 			formatText.size = 13;
 			formatText.bold = true;
 			
-			var carText:TextField = new TextField();
-			carText.text = description;
-			carText.setTextFormat(formatText);
-			carText.width = 150;
-			carText.height = 60;
-            carText.x = 5;
-			carText.y = -30;
-			carText.selectable = false;
-			addChild(carText);
+			var carText2:TextField = new TextField();
+			carText2.text = description;
+			carText2.setTextFormat(formatText);
+			carText2.width = 150;
+			carText2.height = 60;
+            carText2.x = 5;
+			carText2.y = -30;
+			carText2.selectable = false;
+			addChild(carText2);
 		}
 		
 		private function addPriceCar():void {
@@ -58,11 +59,11 @@ package game.rooms.storeroom
 			formatText.font = 'Arial';
 			formatText.size = 14;
 			
-			var carText:TextField = new TextField();
 			carText.text = price + " Голосов";
 			if (price < 1) 
 			{
-				carText.text = "  Бесплатно";
+				//carText.text = "  Бесплатно";
+				carText.text = "";
 			}
 			carText.setTextFormat(formatText);
 			carText.width = 150;
@@ -104,6 +105,7 @@ package game.rooms.storeroom
 			{
 				selectCar.mouseEnabled = true;
 				selectCar.alpha = 1;
+				carText.text = "";
 				
 				buyCar.mouseEnabled = false;
 				buyCar.alpha = 0;
@@ -150,6 +152,7 @@ package game.rooms.storeroom
 		public function setSelect():void {
 			selectCar.mouseEnabled = true;
 			selectCar.alpha = 1;
+			carText.text = "";
 			
 			buyCar.mouseEnabled = false;
 			buyCar.alpha = 0;
