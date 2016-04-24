@@ -44,7 +44,7 @@ package game.rooms
 
 		private function createSlider():void {
 			var sliderHub:Sprite = new Sprite;
-			sliderHub.x = 770;
+			sliderHub.x = 780;
 			sliderHub.y = 170;
 			addChild(sliderHub);
 			

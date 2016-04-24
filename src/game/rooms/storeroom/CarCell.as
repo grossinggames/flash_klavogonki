@@ -58,7 +58,8 @@ package game.rooms.storeroom
 			
 			var carText:TextField = new TextField();
 			carText.text = price + " Голосов";
-			if (price < 1) {
+			if (price < 1) 
+			{
 				carText.text = "  Бесплатно";
 			}
 			carText.setTextFormat(formatText);
@@ -72,15 +73,33 @@ package game.rooms.storeroom
 
 		private function addBuyCar():void {
 			/* Купить */
-			[Embed(source = "../../../../lib/images/buy.png")] 
-			var buyCarClass:Class;
-			var buyCar:Sprite = Common.createSpr( new buyCarClass() );
-			buyCar.x = 20;
-			buyCar.y = 90;
-			addChild(buyCar);
-			buyCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
-			buyCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
-			buyCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+			// Если цена 0 то ставить кнопку "выбрать" иначе ставить "купить"
+			if (price < 1) 
+			{
+				[Embed(source = "../../../../lib/images/select.png")] 
+				var selectCarClass:Class;
+				var selectCar:Sprite = Common.createSpr( new selectCarClass() );
+				selectCar.x = 20;
+				selectCar.y = 90;
+				addChild(selectCar);
+				selectCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
+				selectCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
+				selectCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+
+			}
+			else 
+			{
+				[Embed(source = "../../../../lib/images/buy.png")] 
+				var buyCarClass:Class;
+				var buyCar:Sprite = Common.createSpr( new buyCarClass() );
+				buyCar.x = 20;
+				buyCar.y = 90;
+				addChild(buyCar);
+				buyCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
+				buyCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
+				buyCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+			}
+
 			
 			function onMouseOverBuyCar(event:MouseEvent):void
 			{
