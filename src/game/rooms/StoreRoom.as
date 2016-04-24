@@ -179,6 +179,7 @@ package game.rooms
 		
 		override public function open():void {
 			trace('Class StoreRoom Open');
+			trace( 'Common.cars() ' + Common.cars );
 		}
 	}
 }

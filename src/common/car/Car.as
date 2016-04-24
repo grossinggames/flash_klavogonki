@@ -23,13 +23,13 @@ package common.car
 			// Добавили машину 1
 			[Embed(source = "../../../lib/images/car1.png")] 
 			var car1Class:Class;
-			var car:Sprite = Common.createSpr( new car1Class() );
+			car = Common.createSpr( new car1Class() );
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push(' Беларус 922');
-			prices.push(5);
-
+			descriptions.push('       ЗАЗ');
+			prices.push(0);
+			
 			// Добавили машину 2
 			[Embed(source = "../../../lib/images/car2.png")] 
 			var car2Class:Class;
@@ -423,13 +423,13 @@ package common.car
 			// Добавили машину 41
 			[Embed(source = "../../../lib/images/car41.png")] 
 			var car41Class:Class;
-			car = Common.createSpr( new car41Class() );
+			var car:Sprite = Common.createSpr( new car41Class() );
 			car.alpha = 0;
 			addChild(car);
 			cars.push(car);
-			descriptions.push('       ЗАЗ');
-			prices.push(0);
-			
+			descriptions.push(' Беларус 922');
+			prices.push(5);
+
 			var showCar:int = randomInt(1, 41);
 			type = showCar;
 			
