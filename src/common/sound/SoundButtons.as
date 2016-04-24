@@ -47,13 +47,13 @@ package common.sound
 			[Embed(source = "../../../lib/images/mus_off.png")] 
 			var buttonEnvOffClass:Class;
 			var buttonEnvOff:Sprite = Common.createSpr( new buttonEnvOffClass() );
-			buttonEnvOff.x = 60;
+			buttonEnvOff.y = 80;
 			addChild(buttonEnvOff);
 			
 			[Embed(source = "../../../lib/images/mus_on.png")] 
 			var buttonEnvClass:Class;
 			buttonEnv = Common.createSpr( new buttonEnvClass() );
-			buttonEnv.x = 60;
+			buttonEnv.y = 80;
 			addChild(buttonEnv);
 			buttonEnv.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverButtonEnv);
 			buttonEnv.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutButtonEnv);

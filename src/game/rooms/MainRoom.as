@@ -42,7 +42,7 @@ package game.rooms
 			function addSoundButton():void
 			{
 				soundButtons = new SoundButtons();
-				soundButtons.x = 450;
+				soundButtons.x = 715;
 				soundButtons.y = 10;
 				addChild(soundButtons);
 			}
