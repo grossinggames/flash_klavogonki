@@ -37,11 +37,20 @@ package game.rooms
 		
 		public function StoreRoom()
 		{
-			createCars(); // Создать автомобили
+			createCars(); // Создать автомобили			
+			createLayer(); // Добавить слой под меню
 			addTextStore(); // Добавить текст "Магазин"
 			createSlider(); // Создать слайдер
         }
 
+		private function createLayer():void {
+			var spr:Sprite = new Sprite();
+			spr.graphics.beginFill(0xFFFFFF);
+			spr.graphics.drawRect(0,0,800,150);
+			spr.graphics.endFill();
+			addChild(spr);
+		}
+		
 		private function createSlider():void {
 			var sliderHub:Sprite = new Sprite;
 			sliderHub.x = 780;
@@ -99,7 +108,7 @@ package game.rooms
 				slider.y = posY;
 
 				var percent:Number = Math.floor(slider.y / 5);
-				
+				/*
 				if (percent > 5) {
 					storeText.alpha = 0;
 					exitText.alpha = 0;
@@ -109,7 +118,7 @@ package game.rooms
 					exitText.alpha = 1;
 					exitText.mouseEnabled = true;
 				}
-				
+				*/
 				// Чувствительность скрола
 				var step:Number = -14;
 				carHub.y = percent * step  + 200;
