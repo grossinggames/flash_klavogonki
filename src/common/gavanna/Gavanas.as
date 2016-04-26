@@ -13,7 +13,7 @@
 	public class Gavanas extends Sprite
 	{
 		private var _serverAlarm :int = 0;
-		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]];
+		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0]];
 		public  var serverProcessing : Boolean = false;
 		private var _idd:String= "123456789";
 		

@@ -32,6 +32,9 @@ package common
 		
 		// controllerRoom
 		private static var controllerRoom:ControllerRoom = new ControllerRoom;
+
+		// Список купленных авто
+		public static var buyCars:Array = [1];
 		
 		// Список машин
 		public static var cars:Array = [1];

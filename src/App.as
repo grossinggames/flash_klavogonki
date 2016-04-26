@@ -83,7 +83,7 @@ package
 			//Common.envOn = e.result[0][0];
 		    //Common.sfxOn = e.result[0][1];
 			Common.carCur = e.result[0][2];
-			Common.cars = e.result[1];
+			Common.buyCars = e.result[1];
 			Common.switchRoom('MainRoom');
 		}
 	}
