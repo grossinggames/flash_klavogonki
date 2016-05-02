@@ -69,7 +69,7 @@
 		
 		public function goPhp(_sc:String):void {
 				var phpVars:URLVariables = new URLVariables();		
-				var phpFileRequest:URLRequest = new URLRequest("http://busokaped.myjino.ru/php/req.php");
+				var phpFileRequest:URLRequest = new URLRequest("http://keybrdrace.myjino.ru/php/req.php");
 				var phpLoader:URLLoader = new URLLoader();
 				phpFileRequest.method = URLRequestMethod.POST;
 				phpFileRequest.data = phpVars;
