@@ -40,7 +40,7 @@ package common
 		public static var cars:Array = [1];
 		
 		// Текущая машина
-		public static var carCur:int = 0;
+		public static var carCur:int = 1;
 		
 		// Включен ENV
 		public static var envOn:int;// = 1;

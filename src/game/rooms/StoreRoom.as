@@ -30,7 +30,9 @@ package game.rooms
 		
 		private var carHub:Sprite = new Sprite;
 		private var storeText:TextField;
+		private var curCarText:TextField;
 		private var exitText:TextField;
+		private var allCars:Array = [];
 		
 		// Формат текста для надписи
 		private var formatText:TextFormat = new TextFormat();
@@ -39,10 +41,33 @@ package game.rooms
 		{
 			createCars(); // Создать автомобили			
 			createLayer(); // Добавить слой под меню
-			addTextStore(); // Добавить текст "Магазин"
 			createSlider(); // Создать слайдер
+			createArrayCars(); // Создать и положить машины в массив
+			setCurrentCar(); // Установить текущий автомобиль
+			addTextStore(); // Добавить тексты Магазина
         }
 
+		
+		// Создать и положить машины в массив
+		private function createArrayCars():void {
+			for (var i:Number = 1; i < 42; i++) { 
+				allCars.push( Common.getCar(i) );
+				allCars[i - 1].alpha = 0;
+				allCars[i - 1].x = 80;
+				allCars[i - 1].y = 35;
+				addChild(allCars[i - 1]);
+			}
+		}
+		
+		// Установить текущий автомобиль для наглядности
+		public function setCurrentCar():void {
+			for (var i:Number = 1; i < 42; i++) { 
+				allCars[i - 1].alpha = 0;
+			}
+			trace('Common.carCur ' + Common.carCur);
+			allCars[ Common.carCur - 1 ].alpha = 1;
+		}
+		
 		private function createLayer():void {
 			var spr:Sprite = new Sprite();
 			spr.graphics.beginFill(0xFFFFFF);
@@ -141,6 +166,17 @@ package game.rooms
 			storeText.y = 50;
 			storeText.selectable = false;
 			addChild(storeText);
+			
+			// Надпись Гараж
+			curCarText = new TextField();
+			curCarText.text = 'Ваш автомобиль';
+			curCarText.setTextFormat(formatText);
+			curCarText.width = 150;
+			curCarText.height = 30;
+            curCarText.x = 70;
+			curCarText.y = 100;
+			curCarText.selectable = false;
+			addChild(curCarText );
 
 			// Надпись Выход
 			exitText = new TextField();
@@ -177,7 +213,7 @@ package game.rooms
 			for (var i:Number = 0; i < 9; i++) { 
 				for (var j:Number = 0; j < 5; j++) {
 					if (cars[ i ][ j ]) {
-						cars[ i ][ j ] = new CarCell( Common.getCar(cars[ i ][ j ]) );
+						cars[ i ][ j ] = new CarCell( Common.getCar(cars[ i ][ j ]), this );
 						carHub.addChild(cars[ i ][ j ]);
 						cars[ i ][ j ].x = j * 150;
 						cars[ i ][ j ].y = i * 220;
@@ -189,6 +225,8 @@ package game.rooms
 		override public function open():void {
 			trace('Class StoreRoom Open');
 			trace( 'Common.buyCars() ' + Common.buyCars );
+			
+			setCurrentCar();
 			
 			for (var i:Number = 0; i < 9; i++) { 
 				for (var j:Number = 0; j < 5; j++) {

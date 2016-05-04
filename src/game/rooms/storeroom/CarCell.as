@@ -7,6 +7,7 @@ package game.rooms.storeroom
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.events.MouseEvent;
+	import game.rooms.StoreRoom;
 	
 	//import common.events.AppGavannaEvent;
 	/**
@@ -21,9 +22,13 @@ package game.rooms.storeroom
 		private var selectCar:Sprite;
 		private var buyCar:Sprite;
 		private var carText:TextField = new TextField();
+		private var room:StoreRoom;
 		
-		public function CarCell(car:Car) 
+		public function CarCell(car:Car, scene:StoreRoom) 
 		{
+			room = scene;
+			trace(room);
+			
 			// Добавить машину в отображение
 			type = car.type;
 			description = car.description;
@@ -137,8 +142,9 @@ package game.rooms.storeroom
 				} else {
 					trace('Выбрать автомобиль: ' + type);
 					Common.carCur = type;
+					room.setCurrentCar(); // Обновить авто в магазине
 				}
-				
+
 				//Common.server.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
 				//Common.server.Please("SetCar", type);
 			}
