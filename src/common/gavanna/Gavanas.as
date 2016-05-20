@@ -21,7 +21,7 @@
 		private var _viewer_id:String;
 		private var _sid:String;
 		private var _secret:String;
-
+		private var flashVars:Object;
 		
 		public function Gavanas()
 		{
@@ -30,7 +30,7 @@
     }	
 
 		public function init(e: Event = null): void {	
-			var flashVars:Object = stage.loaderInfo.parameters as Object;
+			flashVars = stage.loaderInfo.parameters as Object;
 				if (flashVars.api_id) {
 					_api_id = flashVars['api_id'];
 					_viewer_id = flashVars['viewer_id'];
@@ -43,8 +43,7 @@
 			
 		}  
 		public function buyCar(carNumber:Number):void { 
-			var flVars:Object = stage.loaderInfo.parameters as Object;
-			var VK:APIConnection = new APIConnection(flVars);
+			var VK:APIConnection = new APIConnection(flashVars);
 				//serverProcessing = true;	
 //добавляем три слушателя событии
 					VK.addEventListener('onOrderSuccess', onSuccess); //если все прошло удачно
