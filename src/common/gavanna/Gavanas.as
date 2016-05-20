@@ -1,5 +1,6 @@
 ﻿package common.gavanna 
 {
+	import common.sound.SoundButtons;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.*;
@@ -13,23 +14,66 @@
 	public class Gavanas extends Sprite
 	{
 		private var _serverAlarm :int = 0;
-		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0]];
+		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]];
 		public  var serverProcessing : Boolean = false;
 		private var _idd:String= "123456789";
+		private var _api_id:Number;
+		private var _viewer_id:String;
+		private var _sid:String;
+		private var _secret:String;
+
 		
 		public function Gavanas()
 		{
-			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
-		}
+    }	
+
 		public function init(e: Event = null): void {	
-			var flashVars: Object = stage.loaderInfo.parameters as Object;
-			if (flashVars.api_id) {
-				Common.idd=(flashVars['viewer_id']);
-			}
-			findUserData();
+			var flashVars:Object = stage.loaderInfo.parameters as Object;
+				if (flashVars.api_id) {
+					_api_id = flashVars['api_id'];
+					_viewer_id = flashVars['viewer_id'];
+					_sid = flashVars['sid'];
+					_secret = flashVars['secret'];
+					Common.idd = _viewer_id;
+					
+				}
+				findUserData();
+			
 		}  
+		public function buyCar(carNumber:Number):void { 
+			var flVars:Object = stage.loaderInfo.parameters as Object;
+			var VK:APIConnection = new APIConnection(flVars);
+				//serverProcessing = true;	
+//добавляем три слушателя событии
+					VK.addEventListener('onOrderSuccess', onSuccess); //если все прошло удачно
+					VK.addEventListener('onOrderCancel', onCanc); //если пользователь отменил передачу
+					VK.addEventListener('onOrderFail', onError); //если произошла ошибка
+					VK.callMethod('showOrderBox', { type:'item', item:carNumber } );//вызов окна перевода голосов ;type:'item' - окно покупки товара(возможно также окно вызова офферов или окно пополнения голосов),item:'item1'- номер товара
+					
+					
+					function onSuccess(data: Object):void
+					{
+						trace("Голоса переведены");
+						
+					}
+//при отмене      
+					function onCanc(data: Object):void
+					{
+						trace("Вы отменили перевод");
+					}
+//при ошибке
+					function onError(data: Object):void
+					{
+						trace(data.error_msg);
+					}	
+				//
+						
+				//serverProcessing = false;		
+						
+					}
+		
 		public function findUserData():void
 		{
 			Common.screenProcessing = true;
@@ -49,12 +93,14 @@
 		}
 		public function setUserSetting(data:Array):void // Записываем данные игрока
 		{
+			//buyCar(4); 
 			this._userData[1] = data;
 			//Common.screenProcessing = true;
 			serverProcessing = true;
-			goPhp("setup");
+			
+			//goPhp("setup");
 		}
-		public function setUserCar(car:int):void // Записываем купленнуюмашинку
+		public function setUserCar(car:int):void // Записываем купленную машинку
 		{
 			this._userData[2][car - 1] = 1; 
 			Common.screenProcessing = true;
@@ -116,11 +162,12 @@
 			_userData[2] = _param[2].split(",", 40);
 			Common.envOn = _userData[1][0];
 			Common.sfxOn = _userData[1][1];
+			
 		 }
 		 trace(_userData[1][1]);
-		 
 		 Common.screenProcessing = false;
 		 serverProcessing = false;
+		
 	 }
 	 
 	} 

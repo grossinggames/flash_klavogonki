@@ -139,6 +139,7 @@ package game.rooms.storeroom
 			{
 				if ( (price > 0) && (buyCar.alpha == 1) ) {
 					trace('Купить автомобиль: ' + type);
+					Common.server.buyCar(type);
 				} else {
 					trace('Выбрать автомобиль: ' + type);
 					Common.carCur = type;
