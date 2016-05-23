@@ -8,7 +8,8 @@ package game.rooms.storeroom
 	import flash.text.TextFormat;
 	import flash.events.MouseEvent;
 	import game.rooms.StoreRoom;
-	
+	import common.gavanna.Shop;
+	import common.gavanna.Gavanas;
 	//import common.events.AppGavannaEvent;
 	/**
 	 * ...
@@ -23,7 +24,7 @@ package game.rooms.storeroom
 		private var buyCar:Sprite;
 		private var carText:TextField = new TextField();
 		private var room:StoreRoom;
-		
+		private var shop:Shop;
 		public function CarCell(car:Car, scene:StoreRoom) 
 		{
 			room = scene;
@@ -106,6 +107,7 @@ package game.rooms.storeroom
 			buyCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
 			
 			// Если цена 0 то ставить кнопку "выбрать" иначе ставить "купить"			
+			//trace('price = ' + price);
 			if (price < 1) 
 			{
 				selectCar.mouseEnabled = true;
@@ -138,8 +140,11 @@ package game.rooms.storeroom
 			function onMouseDownBuyCar(event:MouseEvent):void 
 			{
 				if ( (price > 0) && (buyCar.alpha == 1) ) {
+					//var shop:Shop = new Shop();
+					
 					trace('Купить автомобиль: ' + type);
-					Common.server.buyCar(type);
+					
+					Common.server.Please("buyCar",[type] );//buyACar(type);
 				} else {
 					trace('Выбрать автомобиль: ' + type);
 					Common.carCur = type;

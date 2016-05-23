@@ -1,24 +1,26 @@
 package common.gavanna 
 {
-	//import flash.display.Sprite;
+	import flash.display.Sprite;
+	import common.gavanna.Gavanas;
 	import common.events.AppGavannaEvent;
     import flash.events.TimerEvent;
     import flash.utils.Timer;
-
+	
     /**
 	 * ...
 	 * @author Gospodin.Sorokin
 	 */
-    public class AppGavanna extends Gavanas
+    public class AppGavanna extends Sprite
     {
         private var systemTimer:Timer;
 		private var _id:String;
 		private var _argument:Array;
 		private var _resultServer :Array = [""];
+		private var _gavanas:Gavanas;
 		
-        public function AppGavanna()
+        public function AppGavanna(_gavanas:Gavanas)
         {
-            super();
+            this._gavanas = _gavanas;
 			
             systemTimer = new Timer(1000);
             systemTimer.addEventListener(TimerEvent.TIMER, tickHandler);
@@ -32,14 +34,14 @@ package common.gavanna
 			switch(_id)
 			{
 				case "Start":
-					_resultServer[0] = getUserSetting();
-					_resultServer[1] = getUserCar();
+					_resultServer[0] = _gavanas.getUserSetting();
+					_resultServer[1] = _gavanas.getUserCar();
 					break;
 				case "GetSetting":
-					_resultServer = getUserSetting();
+					_resultServer = _gavanas.getUserSetting();
 					break;
 				case "GetCar":
-					_resultServer = getUserCar();
+					_resultServer = _gavanas.getUserCar();
 					break;
 				case "SetSetting":
 					//setUserSetting(_argument);
@@ -58,7 +60,7 @@ package common.gavanna
         
         private function tickHandler(event:TimerEvent):void
         {
-            if (serverProcessing == false) {
+            if (_gavanas.serverProcessing == false) {
 				sendColmplete();
 			}
         }
@@ -70,20 +72,20 @@ package common.gavanna
 		
 		public function Please(_id:String, ... _argument):void
 		{
-			
 			systemTimer.start();
 			
 			switch(_id)
 			{
+				case "Start":
+					break;
 				case "StartUser":
-					findUserData();
+					_gavanas.findUserData();
 					break;
 				case "SetSetting":
-					trace(_argument);
-					setUserSetting(_argument);
+					_gavanas.setUserSetting(_argument);
 					break;
 				case "SetCar":
-					setUserCar(_argument[0]);
+					_gavanas.setUserCar(_argument[0]);
 					break;
 				case "GetSetting":
 					//_resultServer = getUserSetting();
@@ -91,8 +93,11 @@ package common.gavanna
 				case "GetCar":
 					//_resultServer = getUserCar();
 					break;
+				case "buyCar":
+					_gavanas.buyACar(Number(_argument));
+					//_resultServer = getUserCar();
+					break;
 				default:
-					trace("Out of range");
 					break;
 			}
 			

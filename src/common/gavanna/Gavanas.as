@@ -14,7 +14,7 @@
 	public class Gavanas extends Sprite
 	{
 		private var _serverAlarm :int = 0;
-		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]];
+		private var _userData  	 :Array = [[1919191919],[0,0,1],[1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
 		public  var serverProcessing : Boolean = false;
 		private var _idd:String= "123456789";
 		private var _api_id:Number;
@@ -22,7 +22,7 @@
 		private var _sid:String;
 		private var _secret:String;
 		private var flashVars:Object;
-		
+		private var VK:APIConnection;
 		public function Gavanas()
 		{
 			if (stage) init();
@@ -30,7 +30,7 @@
     }	
 
 		public function init(e: Event = null): void {	
-			flashVars = stage.loaderInfo.parameters as Object;
+			var flashVars:Object = stage.loaderInfo.parameters as Object;
 				if (flashVars.api_id) {
 					_api_id = flashVars['api_id'];
 					_viewer_id = flashVars['viewer_id'];
@@ -42,19 +42,20 @@
 				findUserData();
 			
 		}  
-		public function buyCar(carNumber:Number):void { 
-			var VK:APIConnection = new APIConnection(flashVars);
-				//serverProcessing = true;	
+		public function buyACar(carNumber:Number):void { 
+			trace(carNumber);	
+			flashVars = stage.loaderInfo.parameters as Object;
+			VK = new APIConnection(flashVars);
+		
 //добавляем три слушателя событии
-					VK.addEventListener('onOrderSuccess', onSuccess); //если все прошло удачно
-					VK.addEventListener('onOrderCancel', onCanc); //если пользователь отменил передачу
-					VK.addEventListener('onOrderFail', onError); //если произошла ошибка
-					VK.callMethod('showOrderBox', { type:'item', item:carNumber } );//вызов окна перевода голосов ;type:'item' - окно покупки товара(возможно также окно вызова офферов или окно пополнения голосов),item:'item1'- номер товара
-					
+				VK.addEventListener('onOrderSuccess', onSuccess); //если все прошло удачно
+				VK.addEventListener('onOrderCancel', onCanc); //если пользователь отменил передачу
+				VK.addEventListener('onOrderFail', onError); //если произошла ошибка
+				VK.callMethod('showOrderBox', { type:'item', item:carNumber} );//вызов окна перевода голосов 
 					
 					function onSuccess(data: Object):void
 					{
-						trace("Голоса переведены");
+						trace("Голоса перечислены");
 						
 					}
 //при отмене      
@@ -91,13 +92,11 @@
 			return _userData[2];
 		}
 		public function setUserSetting(data:Array):void // Записываем данные игрока
-		{
-			//buyCar(4); 
+		{ 
 			this._userData[1] = data;
-			//Common.screenProcessing = true;
+			Common.screenProcessing = true;
 			serverProcessing = true;
-			
-			//goPhp("setup");
+			goPhp("setup");
 		}
 		public function setUserCar(car:int):void // Записываем купленную машинку
 		{
@@ -113,61 +112,56 @@
 		}
 		
 		public function goPhp(_sc:String):void {
-				var phpVars:URLVariables = new URLVariables();		
-				var phpFileRequest:URLRequest = new URLRequest("http://keybrdrace.myjino.ru/php/req.php");
-				var phpLoader:URLLoader = new URLLoader();
-				phpFileRequest.method = URLRequestMethod.POST;
-				phpFileRequest.data = phpVars;
-				switch (_sc) { 
-					case "fndusr": 
-						phpVars.sysgo = _sc;
-						phpVars.uid =Common.idd;			
-						phpLoader.load(phpFileRequest);
-						phpLoader.addEventListener(Event.COMPLETE, Resload);
-				
-					break; 
-					case "setup": 
-						phpVars.sysgo = _sc;
-						phpVars.uid =Common.idd;	
-						phpVars.stp =_userData[1].join(";");
-						phpLoader.load(phpFileRequest);	
-						phpLoader.addEventListener(Event.COMPLETE, Resload);
-					break; 	
-					case "carset": 
-						phpVars.sysgo = _sc;
-						phpVars.uid =Common.idd;	
-						phpVars.car =_userData[2].join(";");
-						phpLoader.load(phpFileRequest);	
-						phpLoader.addEventListener(Event.COMPLETE, Resload);
-					break; 	
-				}
+			var phpVars:URLVariables = new URLVariables();		
+			var phpFileRequest:URLRequest = new URLRequest("http://keybrdrace.myjino.ru/php/req.php");
+			var phpLoader:URLLoader = new URLLoader();
+			phpFileRequest.method = URLRequestMethod.POST;
+			phpFileRequest.data = phpVars;
+			switch (_sc) { 
+				case "fndusr": 
+					phpVars.sysgo = _sc;
+					phpVars.uid =Common.idd;			
+					phpLoader.load(phpFileRequest);
+					phpLoader.addEventListener(Event.COMPLETE, Resload);
+				break; 
+				case "setup": 
+					phpVars.sysgo = _sc;
+					phpVars.uid =Common.idd;	
+					phpVars.stp =_userData[1].join(";");
+					phpLoader.load(phpFileRequest);	
+					phpLoader.addEventListener(Event.COMPLETE, Resload);
+				break; 	
+				case "carset": 
+					phpVars.sysgo = _sc;
+					phpVars.uid =Common.idd;	
+					phpVars.car =_userData[2].join(";");
+					phpLoader.load(phpFileRequest);	
+					phpLoader.addEventListener(Event.COMPLETE, Resload);
+				break; 	
+			}
 		}
 	 
-	  public function Resload (event:Event):void {
-		var _queryStr:String = "" + event.target.data;
-		var _param:Array; 
-		var _per:int;
-		if (_queryStr=="err") {
-			trace("Ахтунг! Ашыбка сервераааа!!!");// 
-		}
-		if (_queryStr=="noup") {
-			trace("ашыбка, или запись совпадает");// 
-		}
-		else{
-			_param = _queryStr.split("+",43); 
-			_idd = _param[0];
-			_userData[0] = _param[0];
-			_userData[1]=_param[1].split(",",3);
-			_userData[2] = _param[2].split(",", 40);
-			Common.envOn = _userData[1][0];
-			Common.sfxOn = _userData[1][1];
+		public function Resload (event:Event):void {
+			var _queryStr:String = "" + event.target.data;
+			var _param:Array; 
+			var _per:int;
+			if (_queryStr=="err") {
+				trace("Ахтунг! Ашыбка сервераааа!!!");
+			}
+			if (_queryStr=="noup") {
+				trace("ашыбка, или запись совпадает"); 
+			}
+			else{
+				_param = _queryStr.split("+",44); 
+				_idd = _param[0];
+				_userData[0] = _param[0];
+				_userData[1]=_param[1].split(",",3);
+				_userData[2] = _param[2].split(",", 41)
+			}
+			Common.screenProcessing = false;
+			serverProcessing = false;
 			
-		 }
-		 trace(_userData[1][1]);
-		 Common.screenProcessing = false;
-		 serverProcessing = false;
-		
-	 }
+		}
 	 
 	} 
 }

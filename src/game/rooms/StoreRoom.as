@@ -231,8 +231,8 @@ package game.rooms
 			for (var i:Number = 0; i < 9; i++) { 
 				for (var j:Number = 0; j < 5; j++) {
 					if (cars[ i ][ j ]) {
-						//trace(cars[ i ][ j ].type + ":" + Common.buyCars[ cars[ i ][ j ].type - 1 ]);
-						if (Common.buyCars[ cars[ i ][ j ].type - 1 ])
+						trace(cars[ i ][ j ].type + ":" + Common.buyCars[ cars[ i ][ j ].type - 1 ]);
+						if (!Common.buyCars[ cars[ i ][ j ].type - 1 ])
 						{
 							cars[ i ][ j ].setSelect();
 						}
