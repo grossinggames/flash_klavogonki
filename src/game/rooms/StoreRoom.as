@@ -43,7 +43,7 @@ package game.rooms
 			createLayer(); // Добавить слой под меню
 			createSlider(); // Создать слайдер
 			createArrayCars(); // Создать и положить машины в массив
-			setCurrentCar(); // Установить текущий автомобиль
+			//setCurrentCar(); // Установить текущий автомобиль
 			addTextStore(); // Добавить тексты Магазина
         }
 
@@ -225,14 +225,19 @@ package game.rooms
 		override public function open():void {
 			trace('Class StoreRoom Open');
 			trace( 'Common.buyCars() ' + Common.buyCars );
+
+			//Common.carCur = 1;
+			//Common.buyCars = [1,0,0,0,0,0,1,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,1, 0];
+			
+			trace(' Common.buyCars = '  + Common.buyCars);
 			
 			setCurrentCar();
 			
 			for (var i:Number = 0; i < 9; i++) { 
 				for (var j:Number = 0; j < 5; j++) {
 					if (cars[ i ][ j ]) {
-						trace(cars[ i ][ j ].type + ":" + Common.buyCars[ cars[ i ][ j ].type - 1 ]);
-						if (!Common.buyCars[ cars[ i ][ j ].type - 1 ])
+						//trace(cars[ i ][ j ].type + ":" + Common.buyCars[ cars[ i ][ j ].type - 1 ]);
+						if (Common.buyCars[ cars[ i ][ j ].type - 1 ])
 						{
 							cars[ i ][ j ].setSelect();
 						}
