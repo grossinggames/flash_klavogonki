@@ -53,9 +53,9 @@ package
 		    Common.sfxOn = e.result[0][1];
 			Common.carCur = e.result[0][2];
 			Common.buyCars = e.result[1];
-			trace('Common.carCur = ' + Common.carCur);
-			//Common.carCur = 1;
-			//Common.buyCars = [1,1,1,1,1,1,1,0,0,0 ,0,0,0,0,0,0,0,0,0,0 ,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0];
+			//trace('Common.carCur = ' + Common.carCur);
+			trace('Common.buyCars  = ' + Common.buyCars );
+			
 			
 			Common.createRoom(new MainRoom, 'MainRoom');
 			Common.createRoom(new GameRoom, 'GameRoom');

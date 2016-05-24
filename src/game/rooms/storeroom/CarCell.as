@@ -28,7 +28,7 @@ package game.rooms.storeroom
 		public function CarCell(car:Car, scene:StoreRoom) 
 		{
 			room = scene;
-			trace(room);
+			//trace(room);
 			
 			// Добавить машину в отображение
 			type = car.type;
