@@ -6,6 +6,7 @@ package common
 	 */
 	
 	import common.gavanna.AppGavanna;
+	import common.net.WallPost;
 	import common.vk.APIConnection;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -20,7 +21,7 @@ package common
 	import common.p2p.P2PCommon;
 	import common.gavanna.IronScreen;
 	import flash.events.Event;
-
+	import common.console.Console;
 	public class Common extends Sprite
 	{
 		public function Common()
@@ -28,7 +29,7 @@ package common
 			//trace('Common');
 		}
 		
-		public static var idd:String="12345";
+		public static var idd:String = "12345";
 		
 		// controllerRoom
 		private static var controllerRoom:ControllerRoom = new ControllerRoom;
@@ -150,6 +151,8 @@ package common
 		// Для работы в вконтакте
 		public static var vkonte:APIConnection;
 		
+		public static var falshVars:Object;
+		
 		public static var server:AppGavanna;
 		
 		public static function wallPost (params:Array):void {
@@ -159,13 +162,21 @@ package common
 		public static function callFrend ():void{
 			vkonte.callMethod("showInviteBox");
 		}
-		
-		
+		public static var console:Console ;
+		public static function t(s:String):void {
+			console.tr(s);
+		}
+		public static var wallpost:WallPost ;
+		public static function wp(s:String, a:Array):void {
+			wallpost.post(s,a);
+		}
 		/* Получить автомобиль. Если параметр задан вернет указанный авто. Если параметр отстутствует - вернет рендомный авто */
 		public static function getCar(number:Number = 0):Car
 		{
 			//trace('Common get car' );
 			return new Car(number);
 		}
+		
+		
 	}
 }

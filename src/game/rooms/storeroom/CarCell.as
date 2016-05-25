@@ -10,7 +10,7 @@ package game.rooms.storeroom
 	import game.rooms.StoreRoom;
 	import common.gavanna.Shop;
 	import common.gavanna.Gavanas;
-	//import common.events.AppGavannaEvent;
+	import common.events.AppGavannaEvent;
 	/**
 	 * ...
 	 * @author baton; Gospodin.Sorokin
@@ -28,7 +28,6 @@ package game.rooms.storeroom
 		public function CarCell(car:Car, scene:StoreRoom) 
 		{
 			room = scene;
-			//trace(room);
 			
 			// Добавить машину в отображение
 			type = car.type;
@@ -93,7 +92,6 @@ package game.rooms.storeroom
 			selectCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
 			selectCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
 			selectCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
-
 			[Embed(source = "../../../../lib/images/buy.png")] 
 			var buyCarClass:Class;
 			buyCar = Common.createSpr( new buyCarClass() );
@@ -143,11 +141,13 @@ package game.rooms.storeroom
 					//var shop:Shop = new Shop();
 					
 					trace('Купить автомобиль: ' + type);
-					
+					Common.server.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
 					Common.server.Please("buyCar",[type] );//buyACar(type);
 				} else {
 					trace('Выбрать автомобиль: ' + type);
 					Common.carCur = type;
+					Common.server.Please("SetSetting",[Common.envOn, Common.sfxOn, Common.carCur]);
+					
 					room.setCurrentCar(); // Обновить авто в магазине
 				}
 
@@ -155,9 +155,12 @@ package game.rooms.storeroom
 				//Common.server.Please("SetCar", type);
 			}
 			
-			//function gavannaCompleteHandler(e:AppGavannaEvent):void {
-			//	
-			//}
+			function gavannaCompleteHandler(e:AppGavannaEvent):void {
+				Common.server.removeEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
+				if (Common.buyCars[type-1] == 1){
+					setSelect();
+				}
+			}
 		}
 		
 		// Уствновить кнопку выбрать и скрыть купить

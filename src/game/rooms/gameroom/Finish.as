@@ -6,6 +6,10 @@ package game.rooms.gameroom
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.*;
+	import flash.net.*;
+	
+	import common.net.WallPost;
+	//import ru.inspirit.image.encoder.JPGEncoder;
 	/**
 	 * ...
 	 * @author ... Gospodin.Sorokin
@@ -24,9 +28,10 @@ package game.rooms.gameroom
 		private var _yy					:int 		= 180;
 		
 		private var _raceResult			:Array;
+
 		
 		public function Finish(game:Rudder, raceResult:Array) 
-		{			
+		{
 			_game = game;
 			_raceResult = raceResult;
 			
@@ -97,7 +102,9 @@ package game.rooms.gameroom
 		}
 		private function shareRace(e:MouseEvent):void {
 			//Здесь мы типа в контакт все отправляем;
-			Common.wallPost(_raceResult);
+			//Common.wallPost(_raceResult);
+			//addChild(new WallPost());
+			Common.wp("EndRace",_raceResult);
 			endRace(e);
 		}
 		
@@ -107,7 +114,5 @@ package game.rooms.gameroom
 		private function onMouseOutGameCreateText(event:MouseEvent):void {
 			Mouse.cursor = MouseCursor.AUTO;
 		}
-		
 	}
-
 }

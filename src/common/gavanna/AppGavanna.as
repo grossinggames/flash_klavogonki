@@ -5,7 +5,7 @@ package common.gavanna
 	import common.events.AppGavannaEvent;
     import flash.events.TimerEvent;
     import flash.utils.Timer;
-	
+	import common.Common;
     /**
 	 * ...
 	 * @author Gospodin.Sorokin
@@ -56,6 +56,7 @@ package common.gavanna
             event.result = _resultServer;
             this.dispatchEvent(event);
 			systemTimer.stop();
+			Common.screenProcessing = false;
         }
         
         private function tickHandler(event:TimerEvent):void
@@ -72,20 +73,21 @@ package common.gavanna
 		
 		public function Please(_id:String, ... _argument):void
 		{
+			Common.screenProcessing = true;
 			systemTimer.start();
 			
 			switch(_id)
 			{
 				case "Start":
-					break;
-				case "StartUser":
 					_gavanas.findUserData();
 					break;
 				case "SetSetting":
+					Common.screenProcessing = false;
 					_gavanas.setUserSetting(_argument);
 					break;
 				case "SetCar":
-					_gavanas.setUserCar(_argument[0]);
+					Common.screenProcessing = false;
+					_gavanas.setUserCar(int[_argument]);
 					break;
 				case "GetSetting":
 					//_resultServer = getUserSetting();

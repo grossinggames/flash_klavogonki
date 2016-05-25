@@ -23,30 +23,21 @@
 		private var _secret:String;
 		private var flashVars:Object;
 		private var VK:APIConnection;
+		
 		public function Gavanas()
 		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
-    }	
-
-		public function init(e: Event = null): void {	
-			var flashVars:Object = stage.loaderInfo.parameters as Object;
-				if (flashVars.api_id) {
-					_api_id = flashVars['api_id'];
-					_viewer_id = flashVars['viewer_id'];
-					_sid = flashVars['sid'];
-					_secret = flashVars['secret'];
-					Common.idd = _viewer_id;
-					
-				}
-				findUserData();
-			
-		}  
-		public function buyACar(carNumber:Number):void { 
-			trace(carNumber);	
-			flashVars = stage.loaderInfo.parameters as Object;
-			VK = new APIConnection(flashVars);
-		
+			//if (Common.falshVars.api_id) {
+				flashVars = Common.falshVars;
+				_api_id = flashVars['api_id'];
+				_viewer_id = flashVars['viewer_id'];
+				_sid = flashVars['sid'];
+				_secret = flashVars['secret'];
+			//}
+		} 
+		public function buyACar(carNumber:Number):void {
+			//Common.screenProcessing = true;
+			serverProcessing = true;
+			VK = Common.vkonte;
 //добавляем три слушателя событии
 				VK.addEventListener('onOrderSuccess', onSuccess); //если все прошло удачно
 				VK.addEventListener('onOrderCancel', onCanc); //если пользователь отменил передачу
@@ -55,17 +46,24 @@
 					
 					function onSuccess(data: Object):void
 					{
+						Common.buyCars[carNumber - 1] = 1;
+						//Common.screenProcessing = false;
+						serverProcessing = false;
 						trace("Голоса перечислены");
 						
 					}
 //при отмене      
 					function onCanc(data: Object):void
 					{
+						//Common.screenProcessing = false;
+						serverProcessing = false;
 						trace("Вы отменили перевод");
 					}
 //при ошибке
 					function onError(data: Object):void
 					{
+						//Common.screenProcessing = false;
+						serverProcessing = false;
 						trace(data.error_msg);
 					}	
 				//
@@ -76,11 +74,11 @@
 		
 		public function findUserData():void
 		{
-			Common.screenProcessing = true;
+			//Common.screenProcessing = true;
 			serverProcessing = true;
 			//Типа ищем
 			goPhp("fndusr");
-			//Common.screenProcessing = false; //в Resload
+			////Common.screenProcessing = false; //в Resload
 			//serverProcessing = false;
 		}
 		public function getUserSetting():Array // Возвращаем настройки
@@ -94,14 +92,14 @@
 		public function setUserSetting(data:Array):void // Записываем данные игрока
 		{ 
 			this._userData[1] = data;
-			Common.screenProcessing = true;
+			//Common.screenProcessing = true;
 			serverProcessing = true;
 			goPhp("setup");
 		}
 		public function setUserCar(car:int):void // Записываем купленную машинку
 		{
 			this._userData[2][car - 1] = 1; 
-			Common.screenProcessing = true;
+			//Common.screenProcessing = true;
 			serverProcessing = true;
 			goPhp("carset");
 		}
@@ -155,10 +153,10 @@
 				_param = _queryStr.split("+",44); 
 				_idd = _param[0];
 				_userData[0] = _param[0];
-				_userData[1]=_param[1].split(",",3);
+				_userData[1] = _param[1].split(",",3);
 				_userData[2] = _param[2].split(",", 41)
 			}
-			Common.screenProcessing = false;
+			//Common.screenProcessing = false;
 			serverProcessing = false;
 			
 		}

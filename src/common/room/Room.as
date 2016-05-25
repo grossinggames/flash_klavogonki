@@ -3,7 +3,7 @@ package common.room
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-
+	
 	public class Room extends Sprite
 	{	
 		public function Room()

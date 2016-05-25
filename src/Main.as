@@ -15,7 +15,6 @@ package
 		public function Main()
 		{
 			//trace('Class Main');
-	
 			var app:App = new App();
 			addChild(app);
 		}
