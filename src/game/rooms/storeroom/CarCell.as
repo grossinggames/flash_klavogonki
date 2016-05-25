@@ -21,10 +21,12 @@ package game.rooms.storeroom
 		private var description:String = "Название машины по умолчанию";
 		private var price:int = 0;
 		private var selectCar:Sprite;
+		private var selectOffCar:Sprite;
 		private var buyCar:Sprite;
 		private var carText:TextField = new TextField();
 		private var room:StoreRoom;
 		private var shop:Shop;
+		
 		public function CarCell(car:Car, scene:StoreRoom) 
 		{
 			room = scene;
@@ -92,6 +94,16 @@ package game.rooms.storeroom
 			selectCar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverBuyCar);
 			selectCar.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutBuyCar);
 			selectCar.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownBuyCar);
+			
+			[Embed(source = "../../../../lib/images/select_off.png")] 
+			var selectOffCarClass:Class;
+			selectOffCar = Common.createSpr( new selectOffCarClass() );
+			selectOffCar.x = 20;
+			selectOffCar.y = 90;
+			selectOffCar.mouseEnabled = false;
+			selectOffCar.alpha = 0;
+			addChild(selectOffCar);
+			
 			[Embed(source = "../../../../lib/images/buy.png")] 
 			var buyCarClass:Class;
 			buyCar = Common.createSpr( new buyCarClass() );
@@ -137,6 +149,7 @@ package game.rooms.storeroom
 			// Купить автомобиль
 			function onMouseDownBuyCar(event:MouseEvent):void 
 			{
+
 				if ( (price > 0) && (buyCar.alpha == 1) ) {
 					//var shop:Shop = new Shop();
 					
@@ -150,7 +163,18 @@ package game.rooms.storeroom
 					
 					room.setCurrentCar(); // Обновить авто в магазине
 				}
-
+				
+				for (var i:Number = 0; i < 9; i++) { 
+					for (var j:Number = 0; j < 5; j++) {
+						if (room.cars[ i ][ j ]) {
+							if (Common.buyCars[ room.cars[ i ][ j ].type - 1 ] == 1)
+							{
+								room.cars[ i ][ j ].setSelect();
+							}
+						}
+					}
+				}
+				
 				//Common.server.addEventListener(AppGavannaEvent.COMPLETE, gavannaCompleteHandler);
 				//Common.server.Please("SetCar", type);
 			}
@@ -169,8 +193,26 @@ package game.rooms.storeroom
 			selectCar.alpha = 1;
 			carText.text = "";
 			
+			selectOffCar.alpha = 0;
+			
 			buyCar.mouseEnabled = false;
 			buyCar.alpha = 0;
+			
+			if (Common.carCur == type) {
+				setSelectOff();
+			}
+		}
+		
+		// Уствновить кнопку выбрать затухшей
+		private function setSelectOff():void {
+			selectCar.mouseEnabled = false;
+			selectCar.alpha = 0;
+			carText.text = "";
+			
+			buyCar.mouseEnabled = false;
+			buyCar.alpha = 0;
+			
+			selectOffCar.alpha = 1;
 		}
 	}
 

@@ -16,7 +16,7 @@ package game.rooms
 	
 	public class StoreRoom extends Room
 	{	
-		private var cars:Array = [
+		public var cars:Array = [
 			[1,  2,  3,  4,  5 ],
 			[6,  7,  8,  9,  10],
 			[11, 12, 13, 14, 15],
@@ -50,21 +50,20 @@ package game.rooms
 		
 		// Создать и положить машины в массив
 		private function createArrayCars():void {
-			for (var i:Number = 1; i < 42; i++) { 
-				allCars.push( Common.getCar(i) );
-				allCars[i - 1].alpha = 0;
-				allCars[i - 1].x = 80;
-				allCars[i - 1].y = 35;
-				addChild(allCars[i - 1]);
+			for (var i:Number = 0; i < 41; i++) { 
+				allCars.push( Common.getCar(i+1) );
+				allCars[i].alpha = 0;
+				allCars[i].x = 80;
+				allCars[i].y = 35;
+				addChild(allCars[i]);
 			}
 		}
 		
-		// Установить текущий автомобиль для наглядности
+		// Установить текущий автомобиль
 		public function setCurrentCar():void {
-			for (var i:Number = 1; i < 42; i++) { 
-				allCars[i - 1].alpha = 0;
+			for (var i:Number = 0; i < 41; i++) { 
+				allCars[i].alpha = 0;
 			}
-			trace('Common.carCur ' + Common.carCur);
 			allCars[ Common.carCur - 1 ].alpha = 1;
 		}
 		
