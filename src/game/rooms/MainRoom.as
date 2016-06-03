@@ -74,6 +74,7 @@ package game.rooms
 				wheel.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
 				wheel.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutWheelText);
 				wheel.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+				wheel.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 				
 				// Быстрый старт
 				var wheelText:TextField = new TextField();
@@ -87,13 +88,21 @@ package game.rooms
 				wheelText.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverWheelText);
 				wheelText.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutWheelText);
 				wheelText.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+				
+				function mouseMove(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+					Common.showPopup(event, 'Автоматический \r \n поиск игры');
+				}
 				function onMouseOverWheelText(event:MouseEvent):void
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
+					Common.showPopup(event, 'Автоматический \r \n поиск игры');
 				}
 				function onMouseOutWheelText(event:MouseEvent):void
 				{
 					Mouse.cursor = MouseCursor.AUTO;
+					Common.hidePopup();
 				}
 				function mouseDown(event:MouseEvent):void 
 				{
@@ -144,6 +153,7 @@ package game.rooms
 				gamecreate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 				gamecreate.addEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
 				gamecreate.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+				gamecreate.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 				
 				// Гараж
 				var gamecreateText:TextField = new TextField();
@@ -165,9 +175,31 @@ package game.rooms
 				friend.x = 240;
 				friend.y = 10;
 				addChild(friend);
+			
+				friend.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverFriend);
+				friend.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutFriend);
+				friend.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownFriend);
+				friend.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveFriend);
 				
-				friend.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-				friend.addEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
+				function onMouseMoveFriend(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+					Common.showPopup(event, 'Рейтинг игроков \r \n');
+				}
+				function onMouseOverFriend(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+					Common.showPopup(event, 'Рейтинг игроков \r \n');
+				}
+				function onMouseOutFriend(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.AUTO;
+					Common.hidePopup();
+				}
+				function onMouseDownFriend(event:MouseEvent):void
+				{
+					//Common.switchRoom('StoreRoom');
+				}
 				
 			}
 			
@@ -217,14 +249,31 @@ package game.rooms
 						var raceIndex:Number = raceList.length - 1;
 						raceList[raceIndex].y = 0;
 						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_DOWN, enterRace);
-						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OVER, onMouseOverRace);
+						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_OUT, onMouseOutRace);
+						raceList[raceIndex].addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveRace);
 						//raceList[raceIndex].y = raceStepY;
 						gameListHub.addChild( raceList[raceIndex] );
 						if (Common.currentRoom == "MainRoom") {
 							Common.soundPlay("sfx_current");
 						}
 					}
+				}
+				
+				function onMouseMoveRace(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+					Common.showPopup(event, 'Войти в текущий  \r \n заезд');
+				}
+				function onMouseOverRace(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+					Common.showPopup(event, 'Войти в текущий  \r \n заезд');
+				}
+				function onMouseOutRace(event:MouseEvent):void
+				{
+					Mouse.cursor = MouseCursor.AUTO;
+					Common.hidePopup();
 				}
 
 				// Метод удаления заезда
@@ -352,13 +401,21 @@ package game.rooms
 				}
 			}
 
+
+			function onMouseMove(event:MouseEvent):void
+			{
+				Mouse.cursor = MouseCursor.BUTTON;
+				Common.showPopup(event, 'Перейти в гараж');
+			}
 			function onMouseOver(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;
+				Common.showPopup(event, 'Перейти в гараж');
 			}
 			function onMouseOut(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.AUTO;
+				Common.hidePopup();
 			}
 			function onMouseDown(event:MouseEvent):void
 			{
@@ -737,6 +794,7 @@ package game.rooms
 		{
 			//trace('Class MainRoom Open');
 			soundButtons.update();
+			addChild(Common.popUpHub);
 		}
 	}
 }
