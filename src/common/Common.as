@@ -61,6 +61,7 @@ package common
 		popUp.graphics.beginFill(0xEAEAEA, 0.8); 
 		popUp.graphics..drawRoundRect(0, 0, 120, 80, 10);
 		private static var popUpText:TextField = new TextField();
+		popUpText.mouseEnabled = false;
 		popUpText.width = 120;
 		popUpText.height = 80;
 		popUpText.x = 10;
@@ -200,7 +201,7 @@ package common
 		/* Показать попап */
 		public static function showPopup(event:MouseEvent, text:String):void
 		{
-			trace('Common showPopup' );
+			//trace('Common showPopup' );
 		
 			popUpHub.alpha = 1;
 			popUpText.text = text;
@@ -211,7 +212,7 @@ package common
 		/* Скрыть попап */
 		public static function hidePopup():void
 		{
-			trace('Common hidePopup' );
+			//trace('Common hidePopup' );
 			popUpHub.alpha = 0;
 		}
 		
