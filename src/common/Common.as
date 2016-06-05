@@ -24,8 +24,10 @@ package common
 	import flash.events.Event;
 	import common.console.Console;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.events.MouseEvent;
-	
+
+
 	public class Common extends Sprite
 	{
 		public function Common()
@@ -58,7 +60,7 @@ package common
 		popUpHub.mouseEnabled = false;
 		popUpHub.alpha = 0;
 		private static var popUp:Shape = new Shape();
-		popUp.graphics.beginFill(0xEAEAEA, 0.8); 
+		popUp.graphics.beginFill(0xEAEAEA, 0.9); 
 		popUp.graphics..drawRoundRect(0, 0, 120, 80, 10);
 		private static var popUpText:TextField = new TextField();
 		popUpText.mouseEnabled = false;
@@ -68,7 +70,12 @@ package common
 		popUpText.y = 10;
 		popUpHub.addChild(popUp);
 		popUpHub.addChild(popUpText);
-		
+	
+		// Формат текста
+		private static var formatText:TextFormat = new TextFormat();
+		formatText.font = 'Arial';
+		formatText.size = 12;
+		formatText.bold = true;
 		
 		public static function createRoom(room:Room, name:String):void
 		{
@@ -202,11 +209,14 @@ package common
 		public static function showPopup(event:MouseEvent, text:String):void
 		{
 			//trace('Common showPopup' );
-		
 			popUpHub.alpha = 1;
 			popUpText.text = text;
 			popUpHub.x = event.stageX + 30;
 			popUpHub.y = event.stageY;
+			
+			if (popUpHub.x > 600) popUpHub.x = 600;
+			
+			popUpText.setTextFormat(formatText);
 		}
 		
 		/* Скрыть попап */

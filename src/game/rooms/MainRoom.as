@@ -45,6 +45,26 @@ package game.rooms
 				soundButtons.x = 700;
 				soundButtons.y = 10;
 				addChild(soundButtons);
+				
+				soundButtons.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverSound);
+				soundButtons.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutSound);
+				soundButtons.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveSound);
+				
+				
+				function onMouseOverSound(event:MouseEvent):void
+				{
+					Common.showPopup(event, 'Управление \r \n звуками');
+				}
+				
+				function onMouseOutSound(event:MouseEvent):void
+				{
+					Common.hidePopup();
+				}
+				
+				function onMouseMoveSound(event:MouseEvent):void
+				{
+					Common.showPopup(event, 'Управление \r \n звуками');
+				}
 			}
 		
 			// Установить формат
@@ -92,12 +112,12 @@ package game.rooms
 				function mouseMove(event:MouseEvent):void
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
-					Common.showPopup(event, 'Автоматический \r \n поиск игры');
+					Common.showPopup(event, 'Автоматический \r \n поиск заезда');
 				}
 				function onMouseOverWheelText(event:MouseEvent):void
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
-					Common.showPopup(event, 'Автоматический \r \n поиск игры');
+					Common.showPopup(event, 'Автоматический \r \n поиск заезда');
 				}
 				function onMouseOutWheelText(event:MouseEvent):void
 				{
@@ -263,12 +283,12 @@ package game.rooms
 				function onMouseMoveRace(event:MouseEvent):void
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
-					Common.showPopup(event, 'Войти в текущий  \r \n заезд');
+					Common.showPopup(event, 'Вход в заезд');
 				}
 				function onMouseOverRace(event:MouseEvent):void
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
-					Common.showPopup(event, 'Войти в текущий  \r \n заезд');
+					Common.showPopup(event, 'Вход в заезд');
 				}
 				function onMouseOutRace(event:MouseEvent):void
 				{
@@ -405,12 +425,12 @@ package game.rooms
 			function onMouseMove(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;
-				Common.showPopup(event, 'Перейти в гараж');
+				Common.showPopup(event, 'Переход в гараж');
 			}
 			function onMouseOver(event:MouseEvent):void
 			{
 				Mouse.cursor = MouseCursor.BUTTON;
-				Common.showPopup(event, 'Перейти в гараж');
+				Common.showPopup(event, 'Переход в гараж');
 			}
 			function onMouseOut(event:MouseEvent):void
 			{
